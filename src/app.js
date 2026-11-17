@@ -3,7 +3,7 @@ import { reconcileQueue, takeNext, shuffle } from './queue.js';
 import * as T from './timer.js';
 import { store } from './storage.js';
 import { sounds, vibrate, unlockAudio, keepAwake } from './device.js';
-import { mascot, trotter } from './mascot.js';
+import { mascot, trotter, playScene } from './mascot.js';
 
 // ---- Config ---------------------------------------------------------------
 // ?speed=60 runs every timer 60x faster, for testing a whole session quickly.
@@ -253,6 +253,7 @@ function render() {
   $top.innerHTML = `<span class="logo" role="img" aria-label="Blurto">Blurt${mascot('logo')}</span>
     ${inSession ? '<button class="link-btn" data-action="quit">Quit</button>' : ''}`;
   $app.innerHTML = VIEWS[phase]();
+  playScene($app.querySelector('.side-scene'));
   justRevealed = false;
   if (TIMED.has(phase)) {
     updateTimer();

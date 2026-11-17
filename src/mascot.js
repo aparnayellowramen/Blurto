@@ -100,6 +100,37 @@ const SPEED = `<g class="s-speed" fill="none" stroke="#8C9AE8" stroke-width="3" 
     <path d="M14 92 L46 92"/><path d="M24 104 L58 104"/><path d="M10 116 L40 116"/>
   </g>`;
 
+// Scene order and how long each stays on screen (ms).
+const SCENES = [['study', 2600], ['party', 2600], ['fly', 2600], ['trot', 5200]];
+
+/** Runs the landing-scene loop until the SVG leaves the page. */
+export function playScene(svg) {
+  if (!svg) return;
+  const scene = (name) => svg.querySelector(`.sc-${name}`);
+  let reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { /* ignore */ }
+  if (reduce) { scene('party').classList.add('on'); return; }
+  const later = (fn, ms) => setTimeout(() => { if (svg.isConnected) fn(); }, ms);
+  let i = 0;
+  const next = () => {
+    const [name, ms] = SCENES[i];
+    const el = scene(name);
+    const prev = svg.querySelector('.sc.on');
+    if (prev && prev !== el) {
+      prev.classList.replace('on', 'off'); // keeps moving while it fades out
+      later(() => prev.classList.remove('off'), 700);
+    }
+    el.classList.add('on');
+    if (name === 'trot') {
+      later(() => el.classList.add('sketch'), ms * 0.48);
+      later(() => el.classList.remove('sketch'), ms * 0.48 + 900);
+    }
+    i = (i + 1) % SCENES.length;
+    later(next, ms);
+  };
+  next();
+}
+
 export function trotter() {
   return `<svg class="side-scene" viewBox="0 0 240 200" aria-hidden="true" focusable="false">
   <g class="sc sc-study">
