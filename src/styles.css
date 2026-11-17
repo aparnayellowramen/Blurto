@@ -480,8 +480,9 @@ html.intro-out .screen > :nth-child(n + 4) { transition-duration: calc(var(--scr
 @keyframes talk { from { transform: scale(.9); } to { transform: scale(1.4); } }
 @keyframes hop { from { transform: translateY(0); } to { transform: translateY(-8px); } }
 
-/* ---- Short phones (e.g. 375 × 667): keep every speaking prompt in view ---- */
-@media (max-height: 740px) {
+/* ---- Short phones (e.g. 375 × 667): keep every speaking prompt in view ----
+   Phones only: a short desktop window keeps the two-column sizes. */
+@media (max-height: 740px) and (max-width: 899px) {
   .top { min-height: 48px; padding-top: calc(6px + env(safe-area-inset-top)); }
   .screen { gap: 12px; padding-top: 4px; }
   .stage.timer-stage { width: min(68vw, 29vh, 300px); }
