@@ -133,20 +133,112 @@ function topicCard(L, { reveal = false, framework = false } = {}) {
   </div>`;
 }
 
+// ---- Shared page pieces -------------------------------------------------------
+// Every page uses the same soft layout: words and controls on the left, a
+// "stage" on the right (monster on its glass platform, or the timer) inside
+// dashed orbit rings, and a glass bar under the stage. Phones stack them,
+// stage first.
+
+const BEATS = ['LEARN', 'RESEARCH', 'EXPLAIN', 'BLURT'];
+const ORBIT = { cx: 200, cy: 214, rx: 186, ry: 150 };
+
+function orbitWords(words) {
+  const { cx, cy, rx, ry } = ORBIT;
+  const angles = words.length >= 4 ? [-140, -62, 162, 18] : [-140, -50, 162];
+  return words.slice(0, 4).map((w, i) => {
+    const a = (angles[i] * Math.PI) / 180;
+    const x = (cx + rx * Math.cos(a)).toFixed(1);
+    const y = (cy + ry * Math.sin(a)).toFixed(1);
+    let tilt = (Math.atan2(ry * Math.cos(a), -rx * Math.sin(a)) * 180) / Math.PI;
+    if (tilt > 90) tilt -= 180; if (tilt < -90) tilt += 180;
+    const text = esc(String(w).toUpperCase());
+    return `<text x="${x}" y="${y}" transform="rotate(${tilt.toFixed(1)} ${x} ${y})" text-anchor="middle" dominant-baseline="middle"${text.length > 11 ? ' class="long"' : ''}>${text}</text>`;
+  }).join('');
+}
+
+// Dashed orbit rings, with words on them and two dots slowly circling.
+function orbits(words = BEATS) {
+  const { cx, cy, rx, ry } = ORBIT;
+  const ring = `M${cx - rx} ${cy} a${rx} ${ry} 0 1 0 ${rx * 2} 0 a${rx} ${ry} 0 1 0 ${-rx * 2} 0`;
+  return `<svg class="orbits" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" class="orbit"/>
+    <ellipse cx="${cx}" cy="${cy + 6}" rx="${rx - 34}" ry="${ry - 30}" class="orbit faint"/>
+    <g class="orbit-words">${orbitWords(words)}</g>
+    <circle r="6" class="orbit-dot"><animateMotion dur="26s" repeatCount="indefinite" path="${ring}"/></circle>
+    <circle r="4" class="orbit-dot pink"><animateMotion dur="26s" begin="-13s" repeatCount="indefinite" path="${ring}"/></circle>
+  </svg>`;
+}
+
+const BEADS = '<span class="bead bead-star" aria-hidden="true">★</span><span class="bead bead-heart" aria-hidden="true">♥</span>';
+
+/** The right-hand stage. `inner` is the monster or the timer. */
+function stage(inner, { words, card = '', cls = '' } = {}) {
+  return `<div class="stage ${cls}">${orbits(words)}${inner}${card}${BEADS}</div>`;
+}
+
+function statCard(label, value, { bar = null, id = '' } = {}) {
+  return `<div class="stat-card glass" aria-hidden="true">
+    <span class="stat-label">${esc(label)}</span>
+    <strong${id ? ` id="${id}"` : ''}>${esc(value)}</strong>
+    ${bar == null ? '' : `<span class="stat-bar"><i style="width:${Math.round(bar * 100)}%"></i></span>`}
+  </div>`;
+}
+
+const topicsLeftCard = () => statCard('Topics left', topicsLeft().toLocaleString(), { bar: topicsLeft() / Math.max(1, allIds.length) });
+
+/** A glass bar of [icon, value, label] items. */
+function statsBar(items) {
+  return `<ul class="stats glass" style="--cols:${items.length}">
+    ${items.map(([icon, value, label]) => `<li>${ICON[icon]}<span><strong>${esc(value)}</strong> ${esc(label)}</span></li>`).join('')}
+  </ul>`;
+}
+
+/** Who has drawn a topic so far (multi-learner sessions). */
+function learnersBar() {
+  if (session.count === 1) {
+    return statsBar([['heart', topicsLeft().toLocaleString(), 'topics left'], ['star', FRAMEWORKS.length, 'frameworks'], ['planet', `${minutes(LEARN_MS)} min`, 'to learn']]);
+  }
+  return `<ul class="stats glass learners" style="--cols:${session.count}">
+    ${session.learners.map((L, i) => {
+      const now = i === session.drawIndex && session.phase === 'draw';
+      const state = L.topicId != null ? (now ? 'drawn' : 'ready') : now ? 'drawing' : 'waiting';
+      return `<li class="${now ? 'now' : ''} ${L.topicId != null ? 'done' : ''}">
+        <span class="avatar av-${i}" aria-hidden="true">${mascot('idle', 'flat')}</span>
+        <span><strong>Learner ${i + 1}</strong> ${state}</span>
+      </li>`;
+    }).join('')}
+  </ul>`;
+}
+
+function chip(text, badge = false) {
+  return `<span class="chip${badge ? ' badge' : ''}">${esc(text)}</span>`;
+}
+
+const ICON = {
+  heart: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.2 4c2 0 3.6 1.1 4.8 2.7C13.2 5.1 14.8 4 16.8 4c3.6 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z" fill="#F27BB6"/></svg>',
+  star: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 16.7l-5.6 3.1 1.3-6.2L3 9.3l6.3-.7z" fill="#F6A04D" stroke="#F6A04D" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  planet: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="#A98BEA"/><ellipse cx="12" cy="12" rx="10.5" ry="3.6" fill="none" stroke="#7E5FD6" stroke-width="1.6" transform="rotate(-20 12 12)"/></svg>',
+};
+
+const ARROW = '<span aria-hidden="true">→</span>';
+
+// ---- Pages --------------------------------------------------------------------
 function viewSetup() {
   const left = topicsLeft();
   if (left === 0) {
-    return `<section class="screen center">
-      ${mascot('cheer', 'big')}
-      <h1 tabindex="-1" data-focus>You've used every topic</h1>
-      <p class="lede">All ${allIds.length.toLocaleString()} topics have come up on this device. That's a lot of blurting.</p>
-      <p class="hint">New topics show up here when the topic list grows. You can also start over, and topics you've seen can come up again.</p>
-      <div class="actions"><button class="btn" data-action="reset-topics">Start over with all topics</button></div>
+    return `<section class="screen soft">
+      <div class="soft-copy">
+        <h1 tabindex="-1" data-focus class="puffy">You've used<br>every topic</h1>
+        <p class="soft-lede">All ${allIds.length.toLocaleString()} topics have come up on this device. That's a <em>lot</em> of blurting.</p>
+        <p class="hint">New topics show up here when the topic list grows. You can also start over, and topics you've seen can come up again.</p>
+        <div class="actions soft-actions"><button class="btn pill" data-action="reset-topics">Start over with all topics</button></div>
+      </div>
+      ${stage(mascot('cheer', 'hero'))}
+      ${statsBar([['heart', allIds.length.toLocaleString(), 'topics explored'], ['star', 0, 'left'], ['planet', FRAMEWORKS.length, 'frameworks']])}
     </section>`;
   }
   const saved = Number(store.get(KEY.count)) || 1;
   const selected = Math.min(Math.max(1, saved), 4, left);
-  const total = allIds.length;
   const categories = new Set([...topics.values()].map((t) => t.category)).size;
   return `<section class="screen soft">
     <div class="soft-copy">
@@ -167,61 +259,21 @@ function viewSetup() {
         <p class="hint" id="duration">${durationHint(selected)}</p>
       </fieldset>
       <div class="soft-actions">
-        <button class="btn pill" data-action="start">Start session <span aria-hidden="true">→</span></button>
+        <button class="btn pill" data-action="start">Start session ${ARROW}</button>
         <button class="btn round" data-action="replay-intro" aria-label="Play the intro again">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
         </button>
       </div>
     </div>
-    <div class="stage" aria-hidden="true">
-      ${orbits()}
-      ${mascot('hero', 'hero')}
-      <div class="stat-card glass">
-        <span class="stat-label">Topics left</span>
-        <strong>${left.toLocaleString()}</strong>
-        <span class="stat-bar"><i style="width:${Math.round((left / total) * 100)}%"></i></span>
-      </div>
-      <span class="bead bead-star">★</span>
-      <span class="bead bead-heart">♥</span>
-    </div>
-    <ul class="stats glass">
-      <li>${ICON.heart}<span><strong>${total.toLocaleString()}</strong> topics</span></li>
-      <li>${ICON.star}<span><strong>${categories}</strong> categories</span></li>
-      <li>${ICON.planet}<span><strong>${FRAMEWORKS.length}</strong> frameworks</span></li>
-    </ul>
+    ${stage(mascot('hero', 'hero'), { card: topicsLeftCard() })}
+    ${statsBar([['heart', allIds.length.toLocaleString(), 'topics'], ['star', categories, 'categories'], ['planet', FRAMEWORKS.length, 'frameworks']])}
   </section>`;
 }
 
-// Little monsters, one per learner, in the reference's pink / lilac / orange / mint.
+// Little monsters, one per learner, in pink / lilac / orange / mint.
 function avatars(n) {
   return Array.from({ length: n }, (_, i) => `<span class="avatar av-${i}">${mascot('idle', 'flat')}</span>`).join('');
 }
-
-// Dashed orbit rings around the stage, with the session's four beats on them.
-function orbits() {
-  const cx = 200; const cy = 214; const rx = 186; const ry = 150;
-  const label = (deg, text) => {
-    const a = (deg * Math.PI) / 180;
-    const x = cx + rx * Math.cos(a); const y = cy + ry * Math.sin(a);
-    let tilt = (Math.atan2(ry * Math.cos(a), -rx * Math.sin(a)) * 180) / Math.PI;
-    if (tilt > 90) tilt -= 180; if (tilt < -90) tilt += 180;
-    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" transform="rotate(${tilt.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" text-anchor="middle" dominant-baseline="middle">${text}</text>`;
-  };
-  const ring = `M${cx - rx} ${cy} a${rx} ${ry} 0 1 0 ${rx * 2} 0 a${rx} ${ry} 0 1 0 ${-rx * 2} 0`;
-  return `<svg class="orbits" viewBox="0 0 400 400">
-    <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" class="orbit"/>
-    <ellipse cx="${cx}" cy="${cy + 6}" rx="${rx - 34}" ry="${ry - 30}" class="orbit faint"/>
-    <g class="orbit-words">${label(-140, 'LEARN')}${label(-62, 'RESEARCH')}${label(162, 'EXPLAIN')}${label(18, 'BLURT')}</g>
-    <circle r="6" class="orbit-dot"><animateMotion dur="26s" repeatCount="indefinite" path="${ring}"/></circle>
-    <circle r="4" class="orbit-dot pink"><animateMotion dur="26s" begin="-13s" repeatCount="indefinite" path="${ring}"/></circle>
-  </svg>`;
-}
-
-const ICON = {
-  heart: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.2 4c2 0 3.6 1.1 4.8 2.7C13.2 5.1 14.8 4 16.8 4c3.6 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z" fill="#F27BB6"/></svg>',
-  star: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 16.7l-5.6 3.1 1.3-6.2L3 9.3l6.3-.7z" fill="#F6A04D" stroke="#F6A04D" stroke-width="1.5" stroke-linejoin="round"/></svg>',
-  planet: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="#A98BEA"/><ellipse cx="12" cy="12" rx="10.5" ry="3.6" fill="none" stroke="#7E5FD6" stroke-width="1.6" transform="rotate(-20 12 12)"/></svg>',
-};
 
 function durationHint(n) {
   const total = minutes(LEARN_MS) + n * minutes(SPEAK_MS);
@@ -238,34 +290,41 @@ function viewDraw() {
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       ${i > 0 ? `Learner ${i}` : 'Back'}
     </button>`;
+  const top = `<div class="soft-top">${back}${chip(eyebrow)}</div>`;
   if (L.topicId == null) {
-    return `<section class="screen center">
-      ${back}
-      <p class="eyebrow">${eyebrow}</p>
-      <h1 tabindex="-1" data-focus>${session.count === 1 ? 'Draw your topic' : `Learner ${i + 1}, draw your topic`}</h1>
-      ${mascot('curious', 'big')}
-      <p class="lede">One tap, one topic. No skips, and no repeats.</p>
-      <div class="actions"><button class="btn" data-action="generate">Generate topic</button></div>
+    return `<section class="screen soft">
+      <div class="soft-copy">
+        ${top}
+        <h1 tabindex="-1" data-focus class="puffy">${session.count === 1 ? 'Draw your<br>topic' : `Learner ${i + 1},<br>draw your topic`}</h1>
+        <p class="soft-lede">One tap, one topic. <em>No skips</em>, and no repeats.</p>
+        <div class="actions soft-actions"><button class="btn pill" data-action="generate">Generate topic ${ARROW}</button></div>
+      </div>
+      ${stage(mascot('curious', 'hero'), { card: topicsLeftCard() })}
+      ${learnersBar()}
     </section>`;
   }
   const last = i === session.count - 1;
-  return `<section class="screen">
-    ${back}
-    <p class="eyebrow">${eyebrow}</p>
-    <h1 tabindex="-1" data-focus class="sr-only">Your topic: ${esc(topicOf(L).name)}</h1>
-    ${topicCard(L, { reveal: justRevealed })}
-    <fieldset class="fw-list">
-      <legend>Pick a framework</legend>
-      ${FRAMEWORKS.map((f) => `<div class="fw">
-        <input type="radio" name="fw" id="fw-${f.id}" value="${f.id}"${f.id === L.framework ? ' checked' : ''}>
-        <label for="fw-${f.id}">
-          <span class="fw-name">${esc(f.name)}</span>
-          <span class="fw-steps">${f.steps.map(esc).join(' → ')}</span>
-          <span class="fw-best">Best for: ${esc(f.bestFor)}</span>
-        </label>
-      </div>`).join('')}
-    </fieldset>
-    <div class="actions"><button class="btn" data-action="confirm">${last ? `Start learning · ${minutes(LEARN_MS)}:00` : `Next: Learner ${i + 2}`}</button></div>
+  const fw = getFramework(L.framework);
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      ${top}
+      <h1 tabindex="-1" data-focus class="sr-only">Your topic: ${esc(topicOf(L).name)}</h1>
+      ${topicCard(L, { reveal: justRevealed })}
+      <fieldset class="fw-list">
+        <legend>Pick a framework</legend>
+        ${FRAMEWORKS.map((f) => `<div class="fw">
+          <input type="radio" name="fw" id="fw-${f.id}" value="${f.id}"${f.id === L.framework ? ' checked' : ''}>
+          <label for="fw-${f.id}">
+            <span class="fw-name">${esc(f.name)}</span>
+            <span class="fw-steps">${f.steps.map(esc).join(' → ')}</span>
+            <span class="fw-best">Best for: ${esc(f.bestFor)}</span>
+          </label>
+        </div>`).join('')}
+      </fieldset>
+      <div class="actions soft-actions"><button class="btn pill" data-action="confirm">${last ? `Start learning · ${minutes(LEARN_MS)}:00` : `Next: Learner ${i + 2}`} ${ARROW}</button></div>
+    </div>
+    ${stage(mascot('cheer', 'hero'), { words: fw.steps, cls: 'compact', card: statCard('Framework', fw.name, { id: 'fw-card' }) })}
+    ${learnersBar()}
   </section>`;
 }
 
@@ -274,39 +333,48 @@ function stepsList(fw, cls = 'steps') {
 }
 
 function viewLearn() {
-  return `<section class="screen">
-    <div class="phase-head"><span class="badge">Learn</span>${mascot('curious', 'small')}</div>
-    <h1 tabindex="-1" data-focus>${session.count === 1 ? 'Research your topic' : 'Everyone, research your topic'}</h1>
-    ${timerBlock()}
-    <ul class="cards">
-      ${session.learners.map((L) => {
-        const t = topicOf(L);
-        const fw = getFramework(L.framework);
-        return `<li class="card">
-          <p class="card-who">${esc(who(L.slot))} · ${esc(fw.name)}</p>
-          <p class="card-topic">${esc(t.name)}</p>
-          <p class="card-cat">${esc(t.category)}</p>
-          ${stepsList(fw)}
-        </li>`;
-      }).join('')}
-    </ul>
-    <div class="actions">
-      <button class="btn secondary" data-action="toggle-pause" id="pause-btn">Pause</button>
-      <button class="btn secondary" data-action="end-early">End early</button>
+  const solo = session.count === 1;
+  const fw = getFramework(session.learners[0].framework);
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      <div class="soft-top">${chip('Learn', true)}${chip(`${minutes(LEARN_MS)} minutes`)}</div>
+      <h1 tabindex="-1" data-focus class="puffy sm">${solo ? 'Research<br>your topic' : 'Everyone,<br>research your topic'}</h1>
+      <ul class="cards">
+        ${session.learners.map((L) => {
+          const t = topicOf(L);
+          const f = getFramework(L.framework);
+          return `<li class="card">
+            <p class="card-who">${esc(who(L.slot))} · ${esc(f.name)}</p>
+            <p class="card-topic">${esc(t.name)}</p>
+            <p class="card-cat">${esc(t.category)}</p>
+            ${stepsList(f)}
+          </li>`;
+        }).join('')}
+      </ul>
+      <div class="actions soft-actions">
+        <button class="btn secondary" data-action="toggle-pause" id="pause-btn">Pause</button>
+        <button class="btn secondary" data-action="end-early">End early</button>
+      </div>
     </div>
+    ${stage(`${timerBlock()}${mascot('curious', 'peek')}`, { words: solo ? fw.steps : BEATS, cls: 'timer-stage' })}
+    ${statsBar([['heart', session.count, solo ? 'learner' : 'learners'], ['star', `${minutes(LEARN_MS)} min`, 'to learn'], ['planet', `${minutes(SPEAK_MS)} min`, solo ? 'to speak' : 'each to speak']])}
   </section>`;
 }
 
 function viewHandoff() {
   const slot = session.order[session.turn];
   const L = session.learners[slot];
-  return `<section class="screen center">
-    <p class="eyebrow">${session.count === 1 ? 'Get ready' : `Speaker ${session.turn + 1} of ${session.count}`}</p>
-    <h1 tabindex="-1" data-focus>${session.count === 1 ? "You're up" : `Learner ${slot + 1}, you're up`}</h1>
-    ${session.count > 1 ? `<p class="lede">Pass the phone to Learner ${slot + 1}.</p>` : ''}
-    ${topicCard(L, { framework: true })}
-    <p class="ready">Starting in <span class="count-big" id="time">10</span></p>
-    <div class="actions"><button class="btn" data-action="start-now">Start speaking now</button></div>
+  const fw = getFramework(L.framework);
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      <div class="soft-top">${chip(session.count === 1 ? 'Get ready' : `Speaker ${session.turn + 1} of ${session.count}`, true)}</div>
+      <h1 tabindex="-1" data-focus class="puffy">${session.count === 1 ? "You're up" : `Learner ${slot + 1},<br>you're up`}</h1>
+      ${session.count > 1 ? `<p class="soft-lede">Pass the phone to <em>Learner ${slot + 1}</em>.</p>` : ''}
+      ${topicCard(L, { framework: true })}
+      <div class="actions soft-actions"><button class="btn pill" data-action="start-now">Start speaking now ${ARROW}</button></div>
+    </div>
+    ${stage(`<p class="ready"><span class="count-big" id="time">10</span><span>Starting in</span></p>${mascot('idle', 'peek')}`, { words: fw.steps, cls: 'timer-stage' })}
+    ${statsBar([['heart', `${session.turn + 1}/${session.count}`, 'speaker'], ['star', fw.steps.length, 'steps'], ['planet', `${minutes(SPEAK_MS)} min`, 'to speak']])}
   </section>`;
 }
 
@@ -314,28 +382,31 @@ function viewSpeak() {
   const slot = session.order[session.turn];
   const L = session.learners[slot];
   const fw = getFramework(L.framework);
-  return `<section class="screen">
-    <div class="phase-head">
-      <div class="phase-label"><span class="badge">Speak</span><p class="eyebrow">${esc(who(slot))} · ${esc(fw.name)}</p></div>
-      ${mascot('speak', 'small')}
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      <div class="soft-top">${chip('Speak', true)}${chip(`${who(slot)} · ${fw.name}`)}</div>
+      <h1 tabindex="-1" data-focus class="puffy sm speak-topic">${esc(topicOf(L).name)}</h1>
+      ${stepsList(fw, 'prompts')}
+      <div class="actions soft-actions">
+        <button class="btn secondary" data-action="toggle-pause" id="pause-btn">Pause</button>
+        <button class="btn secondary" data-action="end-early">Finish</button>
+      </div>
     </div>
-    <h1 tabindex="-1" data-focus class="speak-topic">${esc(topicOf(L).name)}</h1>
-    ${timerBlock()}
-    ${stepsList(fw, 'prompts')}
-    <div class="actions">
-      <button class="btn secondary" data-action="toggle-pause" id="pause-btn">Pause</button>
-      <button class="btn secondary" data-action="end-early">Finish</button>
-    </div>
+    ${stage(`${timerBlock()}${mascot('speak', 'peek')}`, { words: fw.steps, cls: 'timer-stage' })}
+    ${statsBar([['heart', `${session.turn + 1}/${session.count}`, 'speaker'], ['star', fw.steps.length, 'steps'], ['planet', topicOf(L).category, '']])}
   </section>`;
 }
 
 function viewDone() {
   const n = session.count;
-  return `<section class="screen center">
-    ${mascot('cheer', 'big')}
-    <h1 tabindex="-1" data-focus>Nice blurting!</h1>
-    <p class="lede">${n === 1 ? 'You learned a new concept and explained it out loud.' : `${n} learners, ${n} new concepts, all explained out loud.`}</p>
-    <div class="actions"><button class="btn" data-action="new-session">New session</button></div>
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      <h1 tabindex="-1" data-focus class="puffy">Nice<br>blurting!</h1>
+      <p class="soft-lede">${n === 1 ? 'You learned a new concept and explained it <em>out loud</em>.' : `${n} learners, ${n} new concepts, all explained <em>out loud</em>.`}</p>
+      <div class="actions soft-actions"><button class="btn pill" data-action="new-session">New session ${ARROW}</button></div>
+    </div>
+    ${stage(mascot('cheer', 'hero'), { card: topicsLeftCard() })}
+    ${statsBar([['heart', n, n === 1 ? 'concept explained' : 'concepts explained'], ['star', `${minutes(LEARN_MS) + n * minutes(SPEAK_MS)} min`, 'well spent'], ['planet', topicsLeft().toLocaleString(), 'topics left']])}
   </section>`;
 }
 
@@ -558,6 +629,12 @@ document.addEventListener('change', (e) => {
     fwDefaults[L.slot] = L.framework;
     store.set(KEY.fw, fwDefaults);
     saveSession();
+    // The stage shows the chosen framework: its steps on the orbit, its name on the card.
+    const fw = getFramework(L.framework);
+    const words = $app.querySelector('.orbit-words');
+    if (words) words.innerHTML = orbitWords(fw.steps);
+    const card = document.getElementById('fw-card');
+    if (card) card.textContent = fw.name;
   }
 });
 

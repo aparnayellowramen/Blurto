@@ -554,7 +554,6 @@ function pose(mood, t) {
     poseJump(t);
   } else if (mood === 'hero') {
     // Standing on the glass platform: breathing, blinking, and a little wave now and then.
-    platform.visible = true;
     R.body.position.y = 1.5 + s * 0.03;
     R.body.scale.set(1 - s * 0.006, 1 + s * 0.012, 1 - s * 0.006);
     R.root.rotation.y = -0.18 + Math.sin(t * 0.5) * 0.06;
@@ -629,7 +628,9 @@ function frameView(v, now) {
     cam = cams.bg;
   } else {
     pose(v.mood, t);
-    cam = v.mood === 'jump' ? cams.intro : v.mood === 'hero' ? cams.hero : cams.front;
+    // Monsters on a page's stage stand on the glass platform, seen from slightly above.
+    platform.visible = v.stage;
+    cam = v.mood === 'jump' ? cams.intro : v.stage ? cams.hero : cams.front;
   }
   cam.aspect = w / h;
   cam.updateProjectionMatrix();
@@ -698,7 +699,8 @@ export function upgrade(root) {
     canvas.width = 400;
     canvas.height = Math.round(400 / aspect);
     svg.replaceWith(canvas);
-    views.add({ canvas, ctx: canvas.getContext('2d'), mood, aspect, static: mood === 'logo', drawn: false, born: performance.now() });
+    const onStage = svg.classList.contains('hero');
+    views.add({ canvas, ctx: canvas.getContext('2d'), mood, aspect, stage: onStage, static: mood === 'logo', drawn: false, born: performance.now() });
   });
   start();
 }
