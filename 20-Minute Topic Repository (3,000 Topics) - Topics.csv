@@ -1,0 +1,3001 @@
+﻿ID,Category,Topic
+1,History,Tulip Mania
+2,History,Defenestration of Prague
+3,History,Bread Riots
+4,History,Dancing Plague
+5,History,Great Emu War
+6,History,Great Molasses Flood
+7,History,Children's Crusade
+8,History,Rosetta Stone
+9,History,Magna Carta
+10,History,Peace of Westphalia
+11,History,Treaty of Tordesillas
+12,History,Columbian Exchange
+13,History,Triangular Trade
+14,History,Enclosure Movement
+15,History,Luddites
+16,History,Peterloo Massacre
+17,History,Corn Laws
+18,History,Opium Wars
+19,History,Boxer Rebellion
+20,History,Meiji Restoration
+21,History,Indian Rebellion 1857
+22,History,Salt March
+23,History,Berlin Airlift
+24,History,Cuban Missile Crisis
+25,History,Bay of Pigs
+26,History,Marshall Plan
+27,History,Truman Doctrine
+28,History,Domino Theory
+29,History,Iron Curtain
+30,History,Velvet Revolution
+31,History,Prague Spring
+32,History,Hungarian Revolution 1956
+33,History,Great Leap Forward
+34,History,Long March
+35,History,Khmer Rouge
+36,History,Holodomor
+37,History,Katyn Massacre
+38,History,Nuremberg Trials
+39,History,Kristallnacht
+40,History,Reichstag Fire
+41,History,Beer Hall Putsch
+42,History,Weimar Hyperinflation
+43,History,Treaty of Versailles
+44,History,Zimmermann Telegram
+45,History,Christmas Truce 1914
+46,History,Schlieffen Plan
+47,History,Gallipoli Campaign
+48,History,Battle of Hastings
+49,History,Domesday Book
+50,History,Black Death
+51,History,Hundred Years' War
+52,History,Spanish Armada
+53,History,Glorious Revolution
+54,History,Gunpowder Plot
+55,History,South Sea Bubble
+56,History,Mississippi Bubble
+57,History,Boston Tea Party
+58,History,Stamp Act
+59,History,Federalist Papers
+60,History,Louisiana Purchase
+61,History,Trail of Tears
+62,History,Manifest Destiny
+63,History,Underground Railroad
+64,History,Dred Scott Decision
+65,History,Emancipation Proclamation
+66,History,Reconstruction Era
+67,History,Jim Crow Laws
+68,History,Harlem Renaissance
+69,History,Dust Bowl
+70,History,Bonus Army
+71,History,Japanese American Internment
+72,History,Manhattan Project
+73,History,Montgomery Bus Boycott
+74,History,Freedom Rides
+75,History,Stonewall Riots
+76,History,Watergate Scandal
+77,History,Iran-Contra Affair
+78,History,Fall of Constantinople
+79,History,Byzantine Iconoclasm
+80,History,Investiture Controversy
+81,History,Great Schism 1054
+82,History,Avignon Papacy
+83,History,Hanseatic League
+84,History,Silk Road
+85,History,Mongol Yam System
+86,History,Pax Romana
+87,History,Punic Wars
+88,History,Crossing the Rubicon
+89,History,Ides of March
+90,History,Library of Alexandria
+91,History,Code of Hammurabi
+92,History,Sea Peoples
+93,History,Bronze Age Collapse
+94,History,Göbekli Tepe
+95,History,Terracotta Army
+96,History,Mandate of Heaven
+97,History,Taiping Rebellion
+98,History,Sakoku Policy
+99,History,Tokugawa Shogunate
+100,History,Mansa Musa's Hajj
+101,History,Kingdom of Aksum
+102,History,Great Zimbabwe
+103,History,Scramble for Africa
+104,History,Berlin Conference
+105,History,Haitian Revolution
+106,History,Congress of Vienna
+107,History,Napoleonic Code
+108,History,Continental System
+109,History,Reign of Terror
+110,History,Tennis Court Oath
+111,History,Storming the Bastille
+112,History,Year Without Summer
+113,History,Irish Potato Famine
+114,History,Klondike Gold Rush
+115,History,Pony Express
+116,History,Transcontinental Railroad
+117,History,Suez Crisis
+118,Art,Chiaroscuro
+119,Art,Kintsugi
+120,Art,Trompe-l'œil
+121,Art,Sfumato
+122,Art,Impasto
+123,Art,Pointillism
+124,Art,Buon Fresco
+125,Art,Tenebrism
+126,Art,Linear Perspective
+127,Art,Contrapposto
+128,Art,Memento Mori
+129,Art,Vanitas Painting
+130,Art,Dutch Still Life
+131,Art,Ukiyo-e
+132,Art,Sumi-e Painting
+133,Art,Dada Movement
+134,Art,Readymades
+135,Art,Duchamp's Fountain
+136,Art,Analytic Cubism
+137,Art,Italian Futurism
+138,Art,Suprematism
+139,Art,Malevich's Black Square
+140,Art,Russian Constructivism
+141,Art,De Stijl
+142,Art,Fauvism
+143,Art,Der Blaue Reiter
+144,Art,Pre-Raphaelite Brotherhood
+145,Art,Hudson River School
+146,Art,Ashcan School
+147,Art,Abstract Expressionism
+148,Art,Drip Painting
+149,Art,Color Field Painting
+150,Art,Pop Art
+151,Art,Op Art
+152,Art,Minimalist Sculpture
+153,Art,Land Art
+154,Art,Spiral Jetty
+155,Art,Performance Art
+156,Art,Fluxus
+157,Art,Kaprow's Happenings
+158,Art,Institutional Critique
+159,Art,Conceptual Art
+160,Art,Graffiti Writing
+161,Art,Mexican Muralism
+162,Art,Socialist Realism
+163,Art,Degenerate Art Exhibition
+164,Art,Salon des Refusés
+165,Art,Camera Obscura
+166,Art,Hockney-Falco Thesis
+167,Art,Grisaille
+168,Art,Encaustic Painting
+169,Art,Egg Tempera
+170,Art,Gold Leaf Gilding
+171,Art,Illuminated Manuscripts
+172,Art,Book of Kells
+173,Art,Bayeux Tapestry
+174,Art,Byzantine Icons
+175,Art,Roman Mosaics
+176,Art,Stained Glass
+177,Art,Lost-Wax Casting
+178,Art,Benin Bronzes
+179,Art,Elgin Marbles
+180,Art,Art Repatriation
+181,Art,Provenance Research
+182,Art,Art Forgery
+183,Art,Han van Meegeren
+184,Art,Mona Lisa Theft
+185,Art,Gardner Museum Heist
+186,Art,Nazi-Looted Art
+187,Art,Monuments Men
+188,Art,Medici Patronage
+189,Art,Vasari's Lives
+190,Art,Sistine Chapel Ceiling
+191,Art,Leonardo's Last Supper
+192,Art,Las Meninas
+193,Art,The Night Watch
+194,Art,Picasso's Guernica
+195,Art,Munch's The Scream
+196,Art,Arnolfini Portrait
+197,Art,Venus of Willendorf
+198,Art,Lascaux Cave Paintings
+199,Art,Cave Hand Stencils
+200,Art,Aboriginal Dot Painting
+201,Art,Madhubani Painting
+202,Art,Mughal Miniatures
+203,Art,Persian Miniatures
+204,Art,Thangka Painting
+205,Art,Batik
+206,Art,Ikat Weaving
+207,Art,Chinese Calligraphy
+208,Art,Islamic Geometric Patterns
+209,Art,Arabesque Ornament
+210,Art,Art Nouveau
+211,Art,Photorealism
+212,Art,Hyperrealist Sculpture
+213,Art,Kinetic Art
+214,Art,Calder's Mobiles
+215,Art,Assemblage Art
+216,Art,Papier Collé
+217,Art,Frottage
+218,Art,Surrealist Automatism
+219,Art,Exquisite Corpse
+220,Art,Paranoiac-Critical Method
+221,Art,Metaphysical Painting
+222,Art,Neue Sachlichkeit
+223,Art,Negative Space
+224,Art,Complementary Colors
+225,Art,Daguerreotype
+226,Art,Pictorialism
+227,Art,Decisive Moment
+228,Art,Zone System
+229,Art,Cyanotype
+230,Art,Salvator Mundi
+231,Art,The Sublime
+232,Art,Picturesque Aesthetic
+233,Art,Golden Age Illustration
+234,Art,Woodblock Printing
+235,Science,Quantum Tunneling
+236,Science,Mycorrhizal Networks
+237,Science,Doppler Effect
+238,Science,Entropy
+239,Science,Uncertainty Principle
+240,Science,Schrödinger's Cat
+241,Science,Wave-Particle Duality
+242,Science,Double-Slit Experiment
+243,Science,Quantum Entanglement
+244,Science,Photoelectric Effect
+245,Science,Superconductivity
+246,Science,Bose-Einstein Condensate
+247,Science,Casimir Effect
+248,Science,Pauli Exclusion Principle
+249,Science,Half-Life
+250,Science,Radiocarbon Dating
+251,Science,Plate Tectonics
+252,Science,Continental Drift
+253,Science,Ring of Fire
+254,Science,Milankovitch Cycles
+255,Science,Snowball Earth
+256,Science,Great Oxygenation Event
+257,Science,Cambrian Explosion
+258,Science,Permian Extinction
+259,Science,K-Pg Extinction
+260,Science,Endosymbiotic Theory
+261,Science,CRISPR Gene Editing
+262,Science,Epigenetics
+263,Science,Horizontal Gene Transfer
+264,Science,Junk DNA
+265,Science,Telomeres
+266,Science,Bacteriophages
+267,Science,Quorum Sensing
+268,Science,Biofilms
+269,Science,Extremophiles
+270,Science,Tardigrades
+271,Science,Convergent Evolution
+272,Science,Red Queen Hypothesis
+273,Science,Kin Selection
+274,Science,Sexual Selection
+275,Science,Handicap Principle
+276,Science,Punctuated Equilibrium
+277,Science,Island Dwarfism
+278,Science,Bergmann's Rule
+279,Science,Batesian Mimicry
+280,Science,Müllerian Mimicry
+281,Science,Keystone Species
+282,Science,Trophic Cascade
+283,Science,Bioluminescence
+284,Science,C4 Photosynthesis
+285,Science,Krebs Cycle
+286,Science,Chirality
+287,Science,Enzyme Catalysis
+288,Science,Le Chatelier's Principle
+289,Science,Avogadro's Number
+290,Science,Mendeleev's Predictions
+291,Science,Noble Gases
+292,Science,Carbon Allotropes
+293,Science,Graphene
+294,Science,Buckminsterfullerene
+295,Science,Haber-Bosch Process
+296,Science,Hydrogen Bonding
+297,Science,Surface Tension
+298,Science,Non-Newtonian Fluids
+299,Science,Brownian Motion
+300,Science,Coriolis Effect
+301,Science,Bernoulli's Principle
+302,Science,Venturi Effect
+303,Science,Sonic Boom
+304,Science,Cherenkov Radiation
+305,Science,Absolute Zero
+306,Science,Triple Point
+307,Science,Supercooling
+308,Science,Leidenfrost Effect
+309,Science,Mpemba Effect
+310,Science,Piezoelectricity
+311,Science,Magnetoreception
+312,Science,Echolocation
+313,Science,Rayleigh Scattering
+314,Science,Rainbow Formation
+315,Science,Ball Lightning
+316,Science,Cold Fusion
+317,Science,N-Rays
+318,Science,Piltdown Man
+319,Science,Lysenkoism
+320,Science,Phlogiston Theory
+321,Science,Luminiferous Aether
+322,Science,Spontaneous Generation
+323,Science,Vitalism
+324,Science,Michelson-Morley Experiment
+325,Science,Eddington's 1919 Eclipse
+326,Science,Higgs Boson
+327,Science,Neutrino Oscillation
+328,Science,Antimatter
+329,Science,Isotopes
+330,Science,Nuclear Fission
+331,Science,Critical Mass
+332,Science,Mass Spectrometry
+333,Science,Chromatography
+334,Science,Electron Microscopy
+335,Science,Polymerase Chain Reaction
+336,Science,Gel Electrophoresis
+337,Science,Stem Cells
+338,Science,Dolly the Sheep
+339,Science,Hox Genes
+340,Science,Photoperiodism
+341,Science,Allelopathy
+342,Science,Carnivorous Plants
+343,Science,Slime Molds
+344,Science,Lichen Symbiosis
+345,Science,Zombie Ant Fungus
+346,Science,Parasitoid Wasps
+347,Science,Cuckoo Brood Parasitism
+348,Science,Eusociality
+349,Science,Naked Mole-Rats
+350,Science,Octopus Intelligence
+351,Science,Cephalopod Camouflage
+352,Feminism,Bechdel Test
+353,Feminism,Second Shift
+354,Feminism,Male Gaze
+355,Feminism,Glass Ceiling
+356,Feminism,Glass Cliff
+357,Feminism,Sticky Floor
+358,Feminism,Pink Tax
+359,Feminism,Motherhood Penalty
+360,Feminism,Fatherhood Bonus
+361,Feminism,Emotional Labor
+362,Feminism,Mental Load
+363,Feminism,Wages for Housework
+364,Feminism,Intersectionality
+365,Feminism,Standpoint Theory
+366,Feminism,Kyriarchy
+367,Feminism,Patriarchal Bargain
+368,Feminism,Benevolent Sexism
+369,Feminism,Ambivalent Sexism
+370,Feminism,Mansplaining
+371,Feminism,Hepeating
+372,Feminism,Tone Policing
+373,Feminism,Rape Culture
+374,Feminism,Victim Blaming
+375,Feminism,Affirmative Consent
+376,Feminism,Me Too Movement
+377,Feminism,Title IX
+378,Feminism,Equal Rights Amendment
+379,Feminism,Seneca Falls Convention
+380,Feminism,Declaration of Sentiments
+381,Feminism,Suffragettes
+382,Feminism,Coverture
+383,Feminism,Bluestocking Society
+384,Feminism,Wollstonecraft's Vindication
+385,Feminism,Beauvoir's Second Sex
+386,Feminism,The Feminine Mystique
+387,Feminism,First-Wave Feminism
+388,Feminism,Second-Wave Feminism
+389,Feminism,Third-Wave Feminism
+390,Feminism,Fourth-Wave Feminism
+391,Feminism,Radical Feminism
+392,Feminism,Liberal Feminism
+393,Feminism,Marxist Feminism
+394,Feminism,Ecofeminism
+395,Feminism,Black Feminism
+396,Feminism,Womanism
+397,Feminism,Chicana Feminism
+398,Feminism,Postcolonial Feminism
+399,Feminism,Islamic Feminism
+400,Feminism,Cyberfeminism
+401,Feminism,Xenofeminism
+402,Feminism,Carceral Feminism
+403,Feminism,Choice Feminism
+404,Feminism,Lipstick Feminism
+405,Feminism,Combahee River Collective
+406,Feminism,Feminist Sex Wars
+407,Feminism,Lavender Menace
+408,Feminism,Personal Is Political
+409,Feminism,Consciousness Raising
+410,Feminism,Gender Performativity
+411,Feminism,Sex-Gender Distinction
+412,Feminism,Doing Gender
+413,Feminism,Hegemonic Masculinity
+414,Feminism,Toxic Masculinity
+415,Feminism,Compulsory Heterosexuality
+416,Feminism,Cult of Domesticity
+417,Feminism,Separate Spheres
+418,Feminism,Female Hysteria
+419,Feminism,Rosie the Riveter
+420,Feminism,Iceland Women's Strike
+421,Feminism,Mirabal Sisters
+422,Feminism,European Witch Hunts
+423,Feminism,Foot Binding
+424,Feminism,Purdah
+425,Feminism,Bride Price
+426,Feminism,Dowry System
+427,Feminism,Missing Women Problem
+428,Feminism,Son Preference
+429,Feminism,Gender Data Gap
+430,Feminism,Gender Pain Gap
+431,Feminism,Menstrual Equity
+432,Feminism,Period Poverty
+433,Feminism,Tampon Tax
+434,Feminism,Reproductive Justice
+435,Feminism,Roe v. Wade
+436,Feminism,Dobbs Decision
+437,Feminism,Comstock Laws
+438,Feminism,Contraceptive Pill
+439,Feminism,Matrilineal Societies
+440,Feminism,Mosuo Matriarchy
+441,Feminism,Lean In Feminism
+442,Feminism,Leaky Pipeline
+443,Feminism,Queen Bee Syndrome
+444,Feminism,Double Bind
+445,Feminism,Femicide
+446,Feminism,Coercive Control
+447,Feminism,Marital Rape Exception
+448,Feminism,Unpaid Care Work
+449,Feminism,Feminization of Poverty
+450,Feminism,Gender Mainstreaming
+451,Feminism,CEDAW Treaty
+452,Feminism,Gender Quotas
+453,Feminism,Gender Voting Gap
+454,Feminism,The Manosphere
+455,Feminism,Gender-Critical Feminism
+456,Feminism,Transfeminism
+457,Feminism,Body Positivity
+458,Feminism,The Beauty Myth
+459,Feminism,Fat Liberation
+460,Feminism,Objectification Theory
+461,Feminism,Self-Objectification
+462,Feminism,Smurfette Principle
+463,Feminism,Fridging
+464,Feminism,Women's Liberation Movement
+465,Feminism,Jane Collective
+466,Feminism,Bra-Burning Myth
+467,Feminism,Miss America Protest
+468,Feminism,Bread and Roses
+469,Pop Culture,Uncanny Valley
+470,Pop Culture,Kayfabe
+471,Pop Culture,Laugh Tracks
+472,Pop Culture,Jumping the Shark
+473,Pop Culture,Fourth Wall
+474,Pop Culture,Easter Eggs
+475,Pop Culture,Retcon
+476,Pop Culture,Fan Fiction
+477,Pop Culture,Shipping Culture
+478,Pop Culture,Stan Culture
+479,Pop Culture,Parasocial Relationships
+480,Pop Culture,Cancel Culture
+481,Pop Culture,Meme Lifecycle
+482,Pop Culture,Rickrolling
+483,Pop Culture,Doge Meme
+484,Pop Culture,Loss Meme
+485,Pop Culture,Copypasta
+486,Pop Culture,Creepypasta
+487,Pop Culture,Slender Man
+488,Pop Culture,Lonelygirl15
+489,Pop Culture,Mukbang
+490,Pop Culture,ASMR Videos
+491,Pop Culture,Unboxing Videos
+492,Pop Culture,Haul Videos
+493,Pop Culture,Reaction Videos
+494,Pop Culture,Let's Play
+495,Pop Culture,Speedrunning
+496,Pop Culture,Twitch Plays Pokémon
+497,Pop Culture,E3 Expo
+498,Pop Culture,Console Wars
+499,Pop Culture,Video Game Crash
+500,Pop Culture,E.T. Atari Burial
+501,Pop Culture,Konami Code
+502,Pop Culture,Gamergate
+503,Pop Culture,Loot Boxes
+504,Pop Culture,Battle Pass
+505,Pop Culture,Gacha Games
+506,Pop Culture,Pokémon Go Craze
+507,Pop Culture,Tamagotchi
+508,Pop Culture,Beanie Babies Bubble
+509,Pop Culture,Cabbage Patch Riots
+510,Pop Culture,Tickle Me Elmo
+511,Pop Culture,Fidget Spinners
+512,Pop Culture,Pet Rock
+513,Pop Culture,Rubik's Cube Craze
+514,Pop Culture,Hula Hoop Fad
+515,Pop Culture,Mood Rings
+516,Pop Culture,Pogs
+517,Pop Culture,Chain Letters
+518,Pop Culture,Y2K Aesthetic
+519,Pop Culture,Cottagecore
+520,Pop Culture,Dark Academia
+521,Pop Culture,Vaporwave
+522,Pop Culture,Barbenheimer
+523,Pop Culture,Brat Summer
+524,Pop Culture,Girl Dinner
+525,Pop Culture,Quiet Luxury
+526,Pop Culture,Normcore
+527,Pop Culture,Hipster Subculture
+528,Pop Culture,Emo Subculture
+529,Pop Culture,Goth Subculture
+530,Pop Culture,Mod Subculture
+531,Pop Culture,Punk DIY Ethic
+532,Pop Culture,Riot Grrrl
+533,Pop Culture,Zine Culture
+534,Pop Culture,Mixtapes
+535,Pop Culture,Payola Scandal
+536,Pop Culture,Milli Vanilli Scandal
+537,Pop Culture,Napster
+538,Pop Culture,Loudness War
+539,Pop Culture,Auto-Tune
+540,Pop Culture,One-Hit Wonders
+541,Pop Culture,Boy Band Formula
+542,Pop Culture,K-pop Idol System
+543,Pop Culture,Hallyu Wave
+544,Pop Culture,Eurovision Song Contest
+545,Pop Culture,Lip Sync Battles
+546,Pop Culture,MTV Generation
+547,Pop Culture,Super Bowl Halftime
+548,Pop Culture,Wardrobe Malfunction
+549,Pop Culture,Reality TV Origins
+550,Pop Culture,The Real World
+551,Pop Culture,Survivor Formula
+552,Pop Culture,Big Brother Format
+553,Pop Culture,Talent Show Format
+554,Pop Culture,Soap Operas
+555,Pop Culture,Telenovelas
+556,Pop Culture,Bollywood Masala Film
+557,Pop Culture,Nollywood
+558,Pop Culture,Spaghetti Westerns
+559,Pop Culture,Film Noir
+560,Pop Culture,Blaxploitation
+561,Pop Culture,Grindhouse Cinema
+562,Pop Culture,Midnight Movies
+563,Pop Culture,Rocky Horror Culture
+564,Pop Culture,Cult Classics
+565,Pop Culture,So-Bad-It's-Good
+566,Pop Culture,The Room Phenomenon
+567,Pop Culture,Blockbuster Era
+568,Pop Culture,Summer Blockbuster
+569,Pop Culture,Hays Code
+570,Pop Culture,MPAA Ratings
+571,Pop Culture,Golden Age Hollywood
+572,Pop Culture,Studio System
+573,Pop Culture,Method Acting
+574,Pop Culture,Oscar Bait
+575,Pop Culture,Oscars So White
+576,Pop Culture,Cinematic Universe
+577,Pop Culture,Franchise Fatigue
+578,Pop Culture,Reboot Culture
+579,Pop Culture,Nostalgia Bait
+580,Pop Culture,Streaming Wars
+581,Pop Culture,Binge-Watching
+582,Pop Culture,Prestige TV
+583,Pop Culture,Water Cooler TV
+584,Pop Culture,Spoiler Culture
+585,Pop Culture,Box Office Bomb
+586,Philosophy,Ship of Theseus
+587,Philosophy,Veil of Ignorance
+588,Philosophy,Occam's Razor
+589,Philosophy,Trolley Problem
+590,Philosophy,Categorical Imperative
+591,Philosophy,Utilitarian Calculus
+592,Philosophy,Experience Machine
+593,Philosophy,Brain-in-a-Vat
+594,Philosophy,Cartesian Doubt
+595,Philosophy,Cogito Ergo Sum
+596,Philosophy,Mind-Body Problem
+597,Philosophy,Philosophical Zombies
+598,Philosophy,Chinese Room Argument
+599,Philosophy,Mary's Room
+600,Philosophy,Nagel's Bat
+601,Philosophy,Hard Problem
+602,Philosophy,Qualia
+603,Philosophy,Personal Identity
+604,Philosophy,Sorites Paradox
+605,Philosophy,Liar Paradox
+606,Philosophy,Zeno's Paradoxes
+607,Philosophy,Buridan's Ass
+608,Philosophy,Pascal's Wager
+609,Philosophy,Pascal's Mugging
+610,Philosophy,Newcomb's Problem
+611,Philosophy,Prisoner's Dilemma
+612,Philosophy,Is-Ought Problem
+613,Philosophy,Naturalistic Fallacy
+614,Philosophy,Problem of Induction
+615,Philosophy,Grue Paradox
+616,Philosophy,Gettier Problems
+617,Philosophy,Justified True Belief
+618,Philosophy,Falsifiability
+619,Philosophy,Paradigm Shift
+620,Philosophy,Demarcation Problem
+621,Philosophy,Plato's Cave
+622,Philosophy,Theory of Forms
+623,Philosophy,Socratic Method
+624,Philosophy,Socratic Irony
+625,Philosophy,Euthyphro Dilemma
+626,Philosophy,Ring of Gyges
+627,Philosophy,Golden Mean
+628,Philosophy,Eudaimonia
+629,Philosophy,Stoic Dichotomy
+630,Philosophy,Amor Fati
+631,Philosophy,Epicurean Pleasure
+632,Philosophy,Diogenes' Cynicism
+633,Philosophy,Pyrrhonian Skepticism
+634,Philosophy,Eternal Recurrence
+635,Philosophy,Übermensch
+636,Philosophy,Will to Power
+637,Philosophy,Master-Slave Morality
+638,Philosophy,God Is Dead
+639,Philosophy,Existential Angst
+640,Philosophy,Bad Faith
+641,Philosophy,Absurdism
+642,Philosophy,Myth of Sisyphus
+643,Philosophy,Existence Precedes Essence
+644,Philosophy,Being-Toward-Death
+645,Philosophy,Dasein
+646,Philosophy,Phenomenological Reduction
+647,Philosophy,Hermeneutic Circle
+648,Philosophy,Dialectical Materialism
+649,Philosophy,Hegelian Dialectic
+650,Philosophy,Alienation of Labor
+651,Philosophy,False Consciousness
+652,Philosophy,Commodity Fetishism
+653,Philosophy,Social Contract
+654,Philosophy,State of Nature
+655,Philosophy,Leviathan
+656,Philosophy,General Will
+657,Philosophy,Tyranny of Majority
+658,Philosophy,Harm Principle
+659,Philosophy,Negative Liberty
+660,Philosophy,Positive Liberty
+661,Philosophy,Original Position
+662,Philosophy,Difference Principle
+663,Philosophy,Entitlement Theory
+664,Philosophy,Moral Luck
+665,Philosophy,Moral Relativism
+666,Philosophy,Divine Command Theory
+667,Philosophy,Virtue Ethics
+668,Philosophy,Ethics of Care
+669,Philosophy,Effective Altruism
+670,Philosophy,Drowning Child Argument
+671,Philosophy,Repugnant Conclusion
+672,Philosophy,Non-Identity Problem
+673,Philosophy,Double Effect Doctrine
+674,Philosophy,Act vs Omission
+675,Philosophy,Speciesism
+676,Philosophy,Simulation Hypothesis
+677,Philosophy,Roko's Basilisk
+678,Philosophy,Free Will Debate
+679,Philosophy,Compatibilism
+680,Philosophy,Hard Determinism
+681,Philosophy,Laplace's Demon
+682,Philosophy,Frankfurt Cases
+683,Philosophy,Akrasia
+684,Philosophy,Language Games
+685,Philosophy,Private Language Argument
+686,Philosophy,Beetle-in-a-Box
+687,Philosophy,Deconstruction
+688,Philosophy,Différance
+689,Philosophy,Death of Author
+690,Philosophy,Simulacra
+691,Philosophy,Panopticon Discipline
+692,Philosophy,Biopower
+693,Philosophy,Banality of Evil
+694,Philosophy,Rhizome
+695,Philosophy,Society of Spectacle
+696,Philosophy,Rawlsian Justice
+697,Philosophy,Mereological Nihilism
+698,Philosophy,Modal Realism
+699,Philosophy,Possible Worlds
+700,Philosophy,Bundle Theory
+701,Philosophy,Problem of Universals
+702,Philosophy,Nominalism
+703,Theology,Apophatic Theology
+704,Theology,Theodicy
+705,Theology,Liberation Theology
+706,Theology,Problem of Evil
+707,Theology,Ontological Argument
+708,Theology,Cosmological Argument
+709,Theology,Teleological Argument
+710,Theology,Kalam Argument
+711,Theology,Fine-Tuning Argument
+712,Theology,Aquinas' Five Ways
+713,Theology,Divine Simplicity
+714,Theology,Divine Hiddenness
+715,Theology,Omnipotence Paradox
+716,Theology,Trinity Doctrine
+717,Theology,Hypostatic Union
+718,Theology,Kenosis
+719,Theology,Incarnation
+720,Theology,Transubstantiation
+721,Theology,Consubstantiation
+722,Theology,Real Presence
+723,Theology,Original Sin
+724,Theology,Felix Culpa
+725,Theology,Predestination
+726,Theology,Double Predestination
+727,Theology,Total Depravity
+728,Theology,TULIP Calvinism
+729,Theology,Arminianism
+730,Theology,Pelagianism
+731,Theology,Sola Fide
+732,Theology,Sola Scriptura
+733,Theology,Indulgences Controversy
+734,Theology,Ninety-Five Theses
+735,Theology,Diet of Worms
+736,Theology,Council of Nicaea
+737,Theology,Council of Trent
+738,Theology,Second Vatican Council
+739,Theology,Filioque Clause
+740,Theology,Arian Controversy
+741,Theology,Gnosticism
+742,Theology,Docetism
+743,Theology,Marcionism
+744,Theology,Manichaeism
+745,Theology,Nestorianism
+746,Theology,Papal Infallibility
+747,Theology,Apostolic Succession
+748,Theology,Purgatory
+749,Theology,Limbo
+750,Theology,Harrowing of Hell
+751,Theology,Rapture Theology
+752,Theology,Premillennialism
+753,Theology,Dispensationalism
+754,Theology,Prosperity Gospel
+755,Theology,Social Gospel
+756,Theology,Black Liberation Theology
+757,Theology,Feminist Theology
+758,Theology,Process Theology
+759,Theology,Death-of-God Theology
+760,Theology,Open Theism
+761,Theology,Universalism
+762,Theology,Annihilationism
+763,Theology,Natural Theology
+764,Theology,Negative Theology
+765,Theology,Cloud of Unknowing
+766,Theology,Desert Fathers
+767,Theology,Hesychasm
+768,Theology,Jesus Prayer
+769,Theology,Theosis
+770,Theology,Imago Dei
+771,Theology,Covenant Theology
+772,Theology,Messianic Expectation
+773,Theology,Suffering Servant
+774,Theology,Kabbalah Sefirot
+775,Theology,Tikkun Olam
+776,Theology,Tzimtzum
+777,Theology,Golem Legend
+778,Theology,Talmudic Debate
+779,Theology,Midrash
+780,Theology,Shekhinah
+781,Theology,Sabbatai Zevi
+782,Theology,Hasidism
+783,Theology,Tawhid
+784,Theology,Five Pillars
+785,Theology,Sufism
+786,Theology,Whirling Dervishes
+787,Theology,Ijtihad
+788,Theology,Sharia vs Fiqh
+789,Theology,Mu'tazila Rationalism
+790,Theology,Ash'arism
+791,Theology,Mahdi Expectation
+792,Theology,Night Journey
+793,Theology,Abrogation Naskh
+794,Theology,Karma
+795,Theology,Samsara
+796,Theology,Moksha
+797,Theology,Dharma
+798,Theology,Bhakti Movement
+799,Theology,Avatars Doctrine
+800,Theology,Trimurti
+801,Theology,Advaita Nondualism
+802,Theology,Four Noble Truths
+803,Theology,Eightfold Path
+804,Theology,Nirvana
+805,Theology,Bodhisattva Ideal
+806,Theology,Pure Land Buddhism
+807,Theology,Zen Koans
+808,Theology,Theravada vs Mahayana
+809,Theology,Tulku System
+810,Theology,Sikh Langar
+811,Theology,Khalsa
+812,Theology,Zoroastrian Dualism
+813,Theology,Towers of Silence
+814,Theology,Bahá'í Unity
+815,Theology,Shinto Kami
+816,Theology,Animism
+817,Theology,Totemism
+818,Theology,Cargo Cults
+819,Theology,Secular Humanism
+820,Finance,Moral Hazard
+821,Finance,Yield Curve Inversion
+822,Finance,Dollar-Cost Averaging
+823,Finance,Compound Interest
+824,Finance,Rule of 72
+825,Finance,Money's Time Value
+826,Finance,Inflation Hedge
+827,Finance,Index Funds
+828,Finance,Expense Ratios
+829,Finance,Efficient Market Hypothesis
+830,Finance,Random Walk Theory
+831,Finance,Beta Coefficient
+832,Finance,Sharpe Ratio
+833,Finance,Diversification
+834,Finance,Modern Portfolio Theory
+835,Finance,Efficient Frontier
+836,Finance,Capital Asset Pricing
+837,Finance,Risk Premium
+838,Finance,Equity Risk Premium
+839,Finance,Black-Scholes Model
+840,Finance,Options Greeks
+841,Finance,Put-Call Parity
+842,Finance,Covered Calls
+843,Finance,Short Selling
+844,Finance,Short Squeeze
+845,Finance,GameStop Short Squeeze
+846,Finance,Naked Shorting
+847,Finance,Margin Calls
+848,Finance,Leverage
+849,Finance,Carry Trade
+850,Finance,Arbitrage
+851,Finance,Statistical Arbitrage
+852,Finance,High-Frequency Trading
+853,Finance,Flash Crash 2010
+854,Finance,Dark Pools
+855,Finance,Order Flow Payments
+856,Finance,Circuit Breakers
+857,Finance,Black Monday 1987
+858,Finance,Dot-Com Bubble
+859,Finance,Subprime Mortgage Crisis
+860,Finance,Credit Default Swaps
+861,Finance,Collateralized Debt Obligations
+862,Finance,Mortgage-Backed Securities
+863,Finance,Too-Big-to-Fail
+864,Finance,Bank Run
+865,Finance,Fractional Reserve Banking
+866,Finance,Deposit Insurance
+867,Finance,Last-Resort Lending
+868,Finance,Quantitative Easing
+869,Finance,Quantitative Tightening
+870,Finance,Repo Market
+871,Finance,LIBOR Scandal
+872,Finance,Basel Accords
+873,Finance,Glass-Steagall Act
+874,Finance,Dodd-Frank Act
+875,Finance,Volcker Rule
+876,Finance,Stress Tests
+877,Finance,Credit Ratings
+878,Finance,Junk Bonds
+879,Finance,Bond Duration
+880,Finance,Convexity
+881,Finance,Coupon Rate
+882,Finance,Zero-Coupon Bonds
+883,Finance,Treasury Inflation-Protected Securities
+884,Finance,Municipal Bonds
+885,Finance,Sovereign Default
+886,Finance,Hyperinflation Zimbabwe
+887,Finance,Currency Peg
+888,Finance,Currency Board
+889,Finance,Bretton Woods System
+890,Finance,Nixon Shock
+891,Finance,Gold Standard
+892,Finance,Fiat Money
+893,Finance,Petrodollar
+894,Finance,Reserve Currency
+895,Finance,Exchange Rate Parity
+896,Finance,Big Mac Index
+897,Finance,Ponzi Scheme
+898,Finance,Pyramid Schemes
+899,Finance,Madoff Fraud
+900,Finance,Enron Scandal
+901,Finance,Pump and Dump
+902,Finance,Insider Trading
+903,Finance,Front Running
+904,Finance,Wash Trading
+905,Finance,Private Equity
+906,Finance,Leveraged Buyout
+907,Finance,Venture Capital
+908,Finance,Unicorn Startups
+909,Finance,Down Round
+910,Finance,SPAC Boom
+911,Finance,Initial Public Offering
+912,Finance,Direct Listing
+913,Finance,Stock Buybacks
+914,Finance,Dividend Yield
+915,Finance,Dividend Reinvestment
+916,Finance,Price-to-Earnings Ratio
+917,Finance,Book Value
+918,Finance,Discounted Cash Flow
+919,Finance,Net Present Value
+920,Finance,Working Capital
+921,Finance,Free Cash Flow
+922,Finance,EBITDA
+923,Finance,Goodwill Accounting
+924,Finance,Mark-to-Market Accounting
+925,Finance,Creative Accounting
+926,Finance,Annuities
+927,Finance,Whole Life Insurance
+928,Finance,Term Life Insurance
+929,Finance,Reinsurance
+930,Finance,Catastrophe Bonds
+931,Finance,Actuarial Science
+932,Finance,Credit Scores
+933,Finance,Revolving Credit
+934,Finance,Payday Loans
+935,Finance,Microfinance
+936,Finance,Buy-Now-Pay-Later
+937,Technology,Moore's Law
+938,Technology,Zero-Knowledge Proofs
+939,Technology,Packet Switching
+940,Technology,Public-Key Cryptography
+941,Technology,Diffie-Hellman Key Exchange
+942,Technology,RSA Encryption
+943,Technology,Hash Functions
+944,Technology,Blockchain Consensus
+945,Technology,Proof of Work
+946,Technology,Proof of Stake
+947,Technology,Smart Contracts
+948,Technology,Byzantine Generals Problem
+949,Technology,CAP Theorem
+950,Technology,Two-Phase Commit
+951,Technology,Load Balancing
+952,Technology,Content Delivery Networks
+953,Technology,Domain Name System
+954,Technology,TCP Handshake
+955,Technology,IPv4 Exhaustion
+956,Technology,Net Neutrality
+957,Technology,BGP Hijacking
+958,Technology,Distributed Denial-of-Service
+959,Technology,Phishing
+960,Technology,Social Engineering
+961,Technology,Zero-Day Exploits
+962,Technology,Ransomware
+963,Technology,Stuxnet
+964,Technology,WannaCry Attack
+965,Technology,Heartbleed Bug
+966,Technology,Log4Shell
+967,Technology,Y2K Bug
+968,Technology,Year 2038 Problem
+969,Technology,Buffer Overflow
+970,Technology,SQL Injection
+971,Technology,Two-Factor Authentication
+972,Technology,Passkeys
+973,Technology,End-to-End Encryption
+974,Technology,Tor Onion Routing
+975,Technology,VPN Tunneling
+976,Technology,Cookies and Tracking
+977,Technology,Browser Fingerprinting
+978,Technology,Filter Bubbles
+979,Technology,Recommendation Algorithms
+980,Technology,Attention Economy
+981,Technology,Infinite Scroll
+982,Technology,Notification Design
+983,Technology,Algorithmic Bias
+984,Technology,Facial Recognition
+985,Technology,Deepfakes
+986,Technology,Large Language Models
+987,Technology,Transformer Architecture
+988,Technology,Attention Mechanism
+989,Technology,Neural Networks
+990,Technology,Backpropagation
+991,Technology,Gradient Descent
+992,Technology,Overfitting
+993,Technology,Reinforcement Learning
+994,Technology,AlphaGo
+995,Technology,Turing Test
+996,Technology,ELIZA Effect
+997,Technology,AI Alignment
+998,Technology,Paperclip Maximizer
+999,Technology,AI Hallucinations
+1000,Technology,Prompt Injection
+1001,Technology,Generative Adversarial Networks
+1002,Technology,Diffusion Models
+1003,Technology,Computer Vision
+1004,Technology,Natural Language Processing
+1005,Technology,Expert Systems
+1006,Technology,AI Winter
+1007,Technology,Technological Singularity
+1008,Technology,Quantum Computing
+1009,Technology,Qubits
+1010,Technology,Shor's Algorithm
+1011,Technology,Quantum Supremacy
+1012,Technology,Von Neumann Architecture
+1013,Technology,Transistors
+1014,Technology,Integrated Circuits
+1015,Technology,Semiconductor Fabrication
+1016,Technology,Extreme Ultraviolet Lithography
+1017,Technology,Chiplets
+1018,Technology,GPU Computing
+1019,Technology,RISC vs CISC
+1020,Technology,Cloud Computing
+1021,Technology,Serverless Computing
+1022,Technology,Containers
+1023,Technology,Virtual Machines
+1024,Technology,Open Source
+1025,Technology,Linux Kernel
+1026,Technology,Copyleft
+1027,Technology,Git Version Control
+1028,Technology,Agile Methodology
+1029,Technology,Technical Debt
+1030,Technology,Conway's Law
+1031,Technology,Brooks's Law
+1032,Technology,Halting Problem
+1033,Technology,P vs NP
+1034,Technology,Big O Notation
+1035,Technology,Turing Completeness
+1036,Technology,Lambda Calculus
+1037,Technology,Garbage Collection
+1038,Technology,Object-Oriented Programming
+1039,Technology,Functional Programming
+1040,Technology,APIs
+1041,Technology,Microservices
+1042,Technology,Internet of Things
+1043,Technology,Edge Computing
+1044,Technology,5G Networks
+1045,Technology,Mesh Networks
+1046,Technology,GPS Trilateration
+1047,Technology,RFID Tags
+1048,Technology,NFC Payments
+1049,Technology,Lithium-Ion Batteries
+1050,Technology,Solid-State Batteries
+1051,Technology,Capacitive Touchscreens
+1052,Technology,E-Ink Displays
+1053,Technology,OLED Displays
+1054,Social Welfare,Universal Basic Income
+1055,Social Welfare,Benefits Cliff
+1056,Social Welfare,Housing First
+1057,Social Welfare,Negative Income Tax
+1058,Social Welfare,Earned Income Credit
+1059,Social Welfare,Child Tax Credit
+1060,Social Welfare,Means Testing
+1061,Social Welfare,Targeted vs Universal
+1062,Social Welfare,Welfare Trap
+1063,Social Welfare,Poverty Line
+1064,Social Welfare,Relative Poverty
+1065,Social Welfare,Working Poor
+1066,Social Welfare,Food Deserts
+1067,Social Welfare,Food Banks
+1068,Social Welfare,SNAP Benefits
+1069,Social Welfare,WIC Program
+1070,Social Welfare,School Lunch Programs
+1071,Social Welfare,Social Security
+1072,Social Welfare,Pay-As-You-Go Pensions
+1073,Social Welfare,Pension Crisis
+1074,Social Welfare,Medicaid
+1075,Social Welfare,Medicare
+1076,Social Welfare,Single-Payer Healthcare
+1077,Social Welfare,Beveridge Report
+1078,Social Welfare,Nordic Model
+1079,Social Welfare,Flexicurity
+1080,Social Welfare,Bismarckian Welfare
+1081,Social Welfare,Welfare State Regimes
+1082,Social Welfare,Workhouses
+1083,Social Welfare,Poor Laws
+1084,Social Welfare,Speenhamland System
+1085,Social Welfare,Settlement House Movement
+1086,Social Welfare,Hull House
+1087,Social Welfare,War on Poverty
+1088,Social Welfare,Great Society
+1089,Social Welfare,Welfare Reform 1996
+1090,Social Welfare,Welfare Queen Myth
+1091,Social Welfare,Workfare
+1092,Social Welfare,Conditional Cash Transfers
+1093,Social Welfare,Bolsa Família
+1094,Social Welfare,Direct Cash Transfers
+1095,Social Welfare,Baby Bonds
+1096,Social Welfare,Baby Boxes
+1097,Social Welfare,Paid Parental Leave
+1098,Social Welfare,Universal Childcare
+1099,Social Welfare,Child Poverty
+1100,Social Welfare,Foster Care System
+1101,Social Welfare,Aging Out
+1102,Social Welfare,Kinship Care
+1103,Social Welfare,Orphanage Model
+1104,Social Welfare,Point-in-Time Counts
+1105,Social Welfare,Hidden Homelessness
+1106,Social Welfare,Hostile Architecture
+1107,Social Welfare,Rent Control
+1108,Social Welfare,Social Housing
+1109,Social Welfare,Vienna Social Housing
+1110,Social Welfare,Housing Vouchers
+1111,Social Welfare,Inclusionary Zoning
+1112,Social Welfare,Redlining
+1113,Social Welfare,Gentrification
+1114,Social Welfare,Displacement
+1115,Social Welfare,Eviction Crisis
+1116,Social Welfare,Tenant Unions
+1117,Social Welfare,Minimum Wage
+1118,Social Welfare,Living Wage
+1119,Social Welfare,Wage Theft
+1120,Social Welfare,Unemployment Insurance
+1121,Social Welfare,Job Guarantee
+1122,Social Welfare,Workers' Compensation
+1123,Social Welfare,Disability Benefits
+1124,Social Welfare,Disability Poverty Trap
+1125,Social Welfare,Social Disability Model
+1126,Social Welfare,Deinstitutionalization
+1127,Social Welfare,Community Mental Health
+1128,Social Welfare,Harm Reduction
+1129,Social Welfare,Needle Exchange Programs
+1130,Social Welfare,Safe Injection Sites
+1131,Social Welfare,Portugal Drug Decriminalization
+1132,Social Welfare,Recidivism
+1133,Social Welfare,Restorative Justice
+1134,Social Welfare,Prison Reentry
+1135,Social Welfare,Ban the Box
+1136,Social Welfare,Cash Bail Reform
+1137,Social Welfare,Juvenile Diversion
+1138,Social Welfare,Social Determinants
+1139,Social Welfare,Adverse Childhood Experiences
+1140,Social Welfare,Intergenerational Poverty
+1141,Social Welfare,Poverty Premium
+1142,Social Welfare,Unbanked Population
+1143,Social Welfare,Digital Exclusion
+1144,Social Welfare,Fuel Poverty
+1145,Social Welfare,Social Safety Net
+1146,Social Welfare,Mutual Aid
+1147,Social Welfare,Friendly Societies
+1148,Social Welfare,Charity vs Justice
+1149,Social Welfare,Deserving Poor
+1150,Social Welfare,Stigma of Welfare
+1151,Social Welfare,Benefit Take-Up Gap
+1152,Social Welfare,Administrative Burden
+1153,Social Welfare,Sludge in Policy
+1154,Social Welfare,Elder Care Crisis
+1155,Social Welfare,Carer's Allowance
+1156,Social Welfare,Loneliness Epidemic
+1157,Social Welfare,Ministry of Loneliness
+1158,Social Welfare,Social Prescribing
+1159,Social Welfare,Refugee Resettlement
+1160,Social Welfare,Asylum Seeker Support
+1161,Social Welfare,Universal Credit
+1162,Social Welfare,Sure Start Centres
+1163,Social Welfare,Head Start Program
+1164,Social Welfare,Perry Preschool Study
+1165,Social Welfare,Nurse-Family Partnership
+1166,Social Welfare,Moving to Opportunity
+1167,Social Welfare,Guaranteed Income Pilots
+1168,Social Welfare,Stockton SEED Experiment
+1169,Social Welfare,Mincome Experiment
+1170,Psychology,Dunning-Kruger Effect
+1171,Psychology,Cognitive Dissonance
+1172,Psychology,Confirmation Bias
+1173,Psychology,Anchoring Bias
+1174,Psychology,Availability Heuristic
+1175,Psychology,Representativeness Heuristic
+1176,Psychology,Sunk Cost Fallacy
+1177,Psychology,Framing Effect
+1178,Psychology,Endowment Effect
+1179,Psychology,Status Quo Bias
+1180,Psychology,Bystander Effect
+1181,Psychology,Kitty Genovese Case
+1182,Psychology,Diffusion of Responsibility
+1183,Psychology,Milgram Experiment
+1184,Psychology,Stanford Prison Experiment
+1185,Psychology,Asch Conformity
+1186,Psychology,Groupthink
+1187,Psychology,Group Polarization
+1188,Psychology,Deindividuation
+1189,Psychology,Social Loafing
+1190,Psychology,Halo Effect
+1191,Psychology,Horn Effect
+1192,Psychology,Fundamental Attribution Error
+1193,Psychology,Actor-Observer Bias
+1194,Psychology,Self-Serving Bias
+1195,Psychology,Just-World Hypothesis
+1196,Psychology,Spotlight Effect
+1197,Psychology,Illusion of Transparency
+1198,Psychology,False Consensus Effect
+1199,Psychology,Pluralistic Ignorance
+1200,Psychology,Mere Exposure Effect
+1201,Psychology,Foot-in-the-Door
+1202,Psychology,Door-in-the-Face
+1203,Psychology,Reciprocity Norm
+1204,Psychology,Scarcity Principle
+1205,Psychology,Learned Helplessness
+1206,Psychology,Locus of Control
+1207,Psychology,Growth Mindset
+1208,Psychology,Self-Efficacy
+1209,Psychology,Flow State
+1210,Psychology,Maslow's Hierarchy
+1211,Psychology,Self-Determination Theory
+1212,Psychology,Intrinsic Motivation
+1213,Psychology,Overjustification Effect
+1214,Psychology,Marshmallow Test
+1215,Psychology,Delay of Gratification
+1216,Psychology,Ego Depletion
+1217,Psychology,Replication Crisis
+1218,Psychology,Pygmalion Effect
+1219,Psychology,Golem Effect
+1220,Psychology,Hawthorne Effect
+1221,Psychology,Imposter Syndrome
+1222,Psychology,Gaslighting
+1223,Psychology,Attachment Theory
+1224,Psychology,Strange Situation
+1225,Psychology,Harlow's Monkeys
+1226,Psychology,Object Permanence
+1227,Psychology,Piaget's Stages
+1228,Psychology,Theory of Mind
+1229,Psychology,Sally-Anne Test
+1230,Psychology,Proximal Development Zone
+1231,Psychology,Mirror Self-Recognition
+1232,Psychology,Classical Conditioning
+1233,Psychology,Pavlov's Dogs
+1234,Psychology,Little Albert Experiment
+1235,Psychology,Operant Conditioning
+1236,Psychology,Skinner Box
+1237,Psychology,Variable Reward Schedules
+1238,Psychology,Extinction Burst
+1239,Psychology,Systematic Desensitization
+1240,Psychology,Exposure Therapy
+1241,Psychology,Cognitive Behavioral Therapy
+1242,Psychology,Cognitive Distortions
+1243,Psychology,Catastrophizing
+1244,Psychology,Rumination
+1245,Psychology,Mindfulness-Based Therapy
+1246,Psychology,Dialectical Behavior Therapy
+1247,Psychology,Psychoanalysis
+1248,Psychology,Defense Mechanisms
+1249,Psychology,Projection
+1250,Psychology,Repression
+1251,Psychology,Freudian Slips
+1252,Psychology,Oedipus Complex
+1253,Psychology,Collective Unconscious
+1254,Psychology,Jungian Archetypes
+1255,Psychology,Shadow Self
+1256,Psychology,Introversion Extroversion
+1257,Psychology,Big Five Personality
+1258,Psychology,Myers-Briggs Critique
+1259,Psychology,Dark Triad
+1260,Psychology,Narcissistic Supply
+1261,Psychology,Rorschach Test
+1262,Psychology,Barnum Effect
+1263,Psychology,Synesthesia
+1264,Psychology,Neuroplasticity
+1265,Psychology,Mirror Neurons
+1266,Psychology,Split-Brain Experiments
+1267,Psychology,Phineas Gage
+1268,Psychology,Patient H.M.
+1269,Psychology,Working Memory
+1270,Psychology,Magical Number Seven
+1271,Psychology,Chunking
+1272,Psychology,Serial Position Effect
+1273,Psychology,Forgetting Curve
+1274,Psychology,Spacing Effect
+1275,Psychology,Testing Effect
+1276,Psychology,False Memories
+1277,Psychology,Misinformation Effect
+1278,Psychology,Repressed Memory Wars
+1279,Psychology,Déjà Vu
+1280,Psychology,Tip-of-the-Tongue
+1281,Psychology,Change Blindness
+1282,Psychology,Inattentional Blindness
+1283,Psychology,Invisible Gorilla
+1284,Psychology,Cocktail Party Effect
+1285,Psychology,McGurk Effect
+1286,Psychology,Stroop Effect
+1287,Economics,Tragedy of Commons
+1288,Economics,Opportunity Cost
+1289,Economics,Comparative Advantage
+1290,Economics,Invisible Hand
+1291,Economics,Supply and Demand
+1292,Economics,Price Elasticity
+1293,Economics,Giffen Goods
+1294,Economics,Veblen Goods
+1295,Economics,Inferior Goods
+1296,Economics,Diminishing Marginal Utility
+1297,Economics,Marginal Revolution
+1298,Economics,Consumer Surplus
+1299,Economics,Deadweight Loss
+1300,Economics,Price Ceilings
+1301,Economics,Price Discrimination
+1302,Economics,Monopsony
+1303,Economics,Natural Monopoly
+1304,Economics,Oligopoly Pricing
+1305,Economics,OPEC Cartel
+1306,Economics,Network Effects
+1307,Economics,Switching Costs
+1308,Economics,Public Goods
+1309,Economics,Free Rider Problem
+1310,Economics,Externalities
+1311,Economics,Pigouvian Tax
+1312,Economics,Coase Theorem
+1313,Economics,Cap and Trade
+1314,Economics,Market for Lemons
+1315,Economics,Information Asymmetry
+1316,Economics,Adverse Selection
+1317,Economics,Signaling Theory
+1318,Economics,Principal-Agent Problem
+1319,Economics,Rent-Seeking
+1320,Economics,Regulatory Capture
+1321,Economics,Public Choice Theory
+1322,Economics,Arrow's Impossibility Theorem
+1323,Economics,Nash Equilibrium
+1324,Economics,Game Theory
+1325,Economics,Ultimatum Game
+1326,Economics,Dictator Game
+1327,Economics,Pareto Efficiency
+1328,Economics,Kaldor-Hicks Efficiency
+1329,Economics,Gini Coefficient
+1330,Economics,Lorenz Curve
+1331,Economics,Kuznets Curve
+1332,Economics,Environmental Kuznets Curve
+1333,Economics,Piketty's r>g
+1334,Economics,Laffer Curve
+1335,Economics,Phillips Curve
+1336,Economics,Stagflation
+1337,Economics,Okun's Law
+1338,Economics,NAIRU
+1339,Economics,Frictional Unemployment
+1340,Economics,Structural Unemployment
+1341,Economics,Keynesian Multiplier
+1342,Economics,Paradox of Thrift
+1343,Economics,Liquidity Trap
+1344,Economics,Crowding Out
+1345,Economics,Ricardian Equivalence
+1346,Economics,Modern Monetary Theory
+1347,Economics,Quantity Theory
+1348,Economics,Velocity of Money
+1349,Economics,Seigniorage
+1350,Economics,Inflation Targeting
+1351,Economics,Taylor Rule
+1352,Economics,Forward Guidance
+1353,Economics,Zero Lower Bound
+1354,Economics,Negative Interest Rates
+1355,Economics,Deflationary Spiral
+1356,Economics,Debt Deflation
+1357,Economics,Austrian Business Cycle
+1358,Economics,Creative Destruction
+1359,Economics,Schumpeterian Innovation
+1360,Economics,Solow Growth Model
+1361,Economics,Convergence Hypothesis
+1362,Economics,Middle-Income Trap
+1363,Economics,Resource Curse
+1364,Economics,Dutch Disease
+1365,Economics,Import Substitution
+1366,Economics,Export-Led Growth
+1367,Economics,Asian Tigers
+1368,Economics,Washington Consensus
+1369,Economics,Structural Adjustment Programs
+1370,Economics,Mercantilism
+1371,Economics,Physiocrats
+1372,Economics,Labor Value Theory
+1373,Economics,Surplus Value
+1374,Economics,Malthusian Trap
+1375,Economics,Demographic Dividend
+1376,Economics,Dependency Ratio
+1377,Economics,Brain Drain
+1378,Economics,Remittances
+1379,Economics,Informal Economy
+1380,Economics,Gig Economy
+1381,Economics,Care Economy
+1382,Economics,Doughnut Economics
+1383,Economics,Degrowth
+1384,Economics,GDP Limitations
+1385,Economics,Gross National Happiness
+1386,Economics,Human Development Index
+1387,Economics,Purchasing Power Parity
+1388,Economics,Balance of Payments
+1389,Economics,Trade Deficits
+1390,Economics,Tariffs
+1391,Economics,Smoot-Hawley Tariff
+1392,Economics,Trade Wars
+1393,Economics,Most Favored Nation
+1394,Economics,Customs Unions
+1395,Economics,Optimal Currency Area
+1396,Economics,Impossible Trinity
+1397,Economics,Beggar-Thy-Neighbor
+1398,Economics,Nudge Theory
+1399,Economics,Libertarian Paternalism
+1400,Economics,Hyperbolic Discounting
+1401,Economics,Mental Accounting
+1402,Economics,Bounded Rationality
+1403,Economics,Satisficing
+1404,Linguistics,Sapir-Whorf Hypothesis
+1405,Linguistics,Linguistic Relativity
+1406,Linguistics,Universal Grammar
+1407,Linguistics,Poverty of Stimulus
+1408,Linguistics,Language Acquisition Device
+1409,Linguistics,Critical Period Hypothesis
+1410,Linguistics,Wug Test
+1411,Linguistics,Overregularization
+1412,Linguistics,Motherese
+1413,Linguistics,Pidgins
+1414,Linguistics,Creole Languages
+1415,Linguistics,Code-Switching
+1416,Linguistics,Diglossia
+1417,Linguistics,Language Death
+1418,Linguistics,Language Revitalization
+1419,Linguistics,Hebrew Revival
+1420,Linguistics,Endangered Languages
+1421,Linguistics,Language Isolates
+1422,Linguistics,Basque Language
+1423,Linguistics,Proto-Indo-European
+1424,Linguistics,Grimm's Law
+1425,Linguistics,Great Vowel Shift
+1426,Linguistics,Sound Change
+1427,Linguistics,Comparative Method
+1428,Linguistics,Glottochronology
+1429,Linguistics,Language Families
+1430,Linguistics,Dialect Continuum
+1431,Linguistics,Mutual Intelligibility
+1432,Linguistics,Language vs Dialect
+1433,Linguistics,Received Pronunciation
+1434,Linguistics,African American English
+1435,Linguistics,Northern Cities Shift
+1436,Linguistics,Uptalk
+1437,Linguistics,Vocal Fry
+1438,Linguistics,Code Talkers
+1439,Linguistics,Phonemes
+1440,Linguistics,Minimal Pairs
+1441,Linguistics,Allophones
+1442,Linguistics,International Phonetic Alphabet
+1443,Linguistics,Click Consonants
+1444,Linguistics,Tonal Languages
+1445,Linguistics,Whistled Languages
+1446,Linguistics,Sign Language Grammar
+1447,Linguistics,Nicaraguan Sign Language
+1448,Linguistics,Al-Sayyid Bedouin Sign
+1449,Linguistics,Morphemes
+1450,Linguistics,Agglutinative Languages
+1451,Linguistics,Polysynthetic Languages
+1452,Linguistics,Isolating Languages
+1453,Linguistics,Grammatical Gender
+1454,Linguistics,Evidentiality
+1455,Linguistics,Ergative-Absolutive Alignment
+1456,Linguistics,Pirahã Recursion Debate
+1457,Linguistics,Recursion
+1458,Linguistics,Word Order Typology
+1459,Linguistics,Garden-Path Sentences
+1460,Linguistics,Buffalo Buffalo Buffalo
+1461,Linguistics,Colorless Green Ideas
+1462,Linguistics,Syntax Trees
+1463,Linguistics,Speech Act Theory
+1464,Linguistics,Performative Utterances
+1465,Linguistics,Grice's Maxims
+1466,Linguistics,Implicature
+1467,Linguistics,Politeness Theory
+1468,Linguistics,Face-Saving
+1469,Linguistics,Deixis
+1470,Linguistics,Presupposition
+1471,Linguistics,Semantic Change
+1472,Linguistics,Semantic Bleaching
+1473,Linguistics,Euphemism Treadmill
+1474,Linguistics,Pejoration
+1475,Linguistics,Amelioration
+1476,Linguistics,Folk Etymology
+1477,Linguistics,Back-Formation
+1478,Linguistics,Eggcorns
+1479,Linguistics,Mondegreens
+1480,Linguistics,Malapropisms
+1481,Linguistics,Spoonerisms
+1482,Linguistics,Portmanteau Words
+1483,Linguistics,Loanwords
+1484,Linguistics,Calques
+1485,Linguistics,False Friends
+1486,Linguistics,Cognates
+1487,Linguistics,Onomatopoeia
+1488,Linguistics,Sound Symbolism
+1489,Linguistics,Bouba-Kiki Effect
+1490,Linguistics,Phonaesthemes
+1491,Linguistics,Zipf's Law
+1492,Linguistics,Basic Color Terms
+1493,Linguistics,Kinship Terminology
+1494,Linguistics,Eskimo Snow Words
+1495,Linguistics,Linguistic Prescriptivism
+1496,Linguistics,Descriptivism
+1497,Linguistics,Split Infinitives
+1498,Linguistics,Singular They
+1499,Linguistics,Oxford Comma
+1500,Linguistics,Double Negatives
+1501,Linguistics,Writing Systems
+1502,Linguistics,Logographic Scripts
+1503,Linguistics,Abjads
+1504,Linguistics,Abugidas
+1505,Linguistics,Syllabaries
+1506,Linguistics,Cuneiform
+1507,Linguistics,Egyptian Hieroglyphs
+1508,Linguistics,Linear B Decipherment
+1509,Linguistics,Linear A
+1510,Linguistics,Voynich Manuscript
+1511,Linguistics,Rongorongo Script
+1512,Linguistics,Hangul Invention
+1513,Linguistics,Cherokee Syllabary
+1514,Linguistics,Esperanto
+1515,Linguistics,Constructed Languages
+1516,Linguistics,Klingon Language
+1517,Linguistics,Toki Pona
+1518,Linguistics,Newspeak
+1519,Linguistics,Language Planning
+1520,Linguistics,Academie Française
+1521,Mythology,Trickster Archetype
+1522,Mythology,Hero's Journey
+1523,Mythology,Flood Myths
+1524,Mythology,Creation Myths
+1525,Mythology,Cosmic Egg
+1526,Mythology,World Tree Yggdrasil
+1527,Mythology,Ragnarök
+1528,Mythology,Valhalla
+1529,Mythology,Valkyries
+1530,Mythology,Loki's Children
+1531,Mythology,Norns
+1532,Mythology,Odin's Sacrifice
+1533,Mythology,Mjölnir
+1534,Mythology,Bifröst
+1535,Mythology,Pandora's Box
+1536,Mythology,Prometheus' Fire
+1537,Mythology,Sisyphus' Punishment
+1538,Mythology,Tantalus
+1539,Mythology,Narcissus and Echo
+1540,Mythology,Orpheus and Eurydice
+1541,Mythology,Persephone's Abduction
+1542,Mythology,Eleusinian Mysteries
+1543,Mythology,Oracle of Delphi
+1544,Mythology,Cassandra's Curse
+1545,Mythology,Trojan Horse
+1546,Mythology,Achilles' Heel
+1547,Mythology,Judgment of Paris
+1548,Mythology,Labours of Heracles
+1549,Mythology,Medusa
+1550,Mythology,Minotaur's Labyrinth
+1551,Mythology,Icarus' Fall
+1552,Mythology,Oedipus Myth
+1553,Mythology,Theban Cycle
+1554,Mythology,Golden Fleece
+1555,Mythology,Odysseus' Journey
+1556,Mythology,Sirens
+1557,Mythology,Scylla and Charybdis
+1558,Mythology,Cyclops Polyphemus
+1559,Mythology,Titanomachy
+1560,Mythology,Kronos Devouring
+1561,Mythology,River Styx
+1562,Mythology,Underworld Judges
+1563,Mythology,Elysian Fields
+1564,Mythology,Furies
+1565,Mythology,Fates Moirai
+1566,Mythology,Muses
+1567,Mythology,Nymphs
+1568,Mythology,Satyrs
+1569,Mythology,Dionysian Rites
+1570,Mythology,Bacchae
+1571,Mythology,Roman Lares
+1572,Mythology,Janus
+1573,Mythology,Romulus and Remus
+1574,Mythology,Aeneas' Exile
+1575,Mythology,Osiris Myth
+1576,Mythology,Weighing of Heart
+1577,Mythology,Ra's Solar Barque
+1578,Mythology,Apophis Serpent
+1579,Mythology,Eye of Horus
+1580,Mythology,Ma'at
+1581,Mythology,Anubis
+1582,Mythology,Egyptian Funerary Texts
+1583,Mythology,Epic of Gilgamesh
+1584,Mythology,Enkidu
+1585,Mythology,Inanna's Descent
+1586,Mythology,Tiamat and Marduk
+1587,Mythology,Enuma Elish
+1588,Mythology,Ahura Mazda
+1589,Mythology,Brahma's Day
+1590,Mythology,Churning of Ocean
+1591,Mythology,Ganesha's Head
+1592,Mythology,Krishna's Childhood
+1593,Mythology,Ramayana
+1594,Mythology,Hanuman
+1595,Mythology,Mahabharata War
+1596,Mythology,Kali
+1597,Mythology,Shiva's Dance
+1598,Mythology,Naga Serpents
+1599,Mythology,Garuda
+1600,Mythology,Pangu Creation
+1601,Mythology,Nüwa Mending Sky
+1602,Mythology,Monkey King
+1603,Mythology,Chang'e Moon
+1604,Mythology,Chinese Zodiac Race
+1605,Mythology,Jade Emperor
+1606,Mythology,Amaterasu's Cave
+1607,Mythology,Izanagi and Izanami
+1608,Mythology,Susanoo
+1609,Mythology,Yōkai
+1610,Mythology,Kitsune
+1611,Mythology,Tengu
+1612,Mythology,Kappa
+1613,Mythology,Oni
+1614,Mythology,Anansi the Spider
+1615,Mythology,Mami Wata
+1616,Mythology,Yoruba Orishas
+1617,Mythology,Shango
+1618,Mythology,Mwindo Epic
+1619,Mythology,Popol Vuh
+1620,Mythology,Maya Hero Twins
+1621,Mythology,Quetzalcoatl
+1622,Mythology,Aztec Fifth Sun
+1623,Mythology,Inti Sun God
+1624,Mythology,Pachamama
+1625,Mythology,Dreamtime
+1626,Mythology,Rainbow Serpent
+1627,Mythology,Maui's Feats
+1628,Mythology,Pele Volcano Goddess
+1629,Mythology,Coyote Trickster
+1630,Mythology,Raven Trickster
+1631,Mythology,Wendigo
+1632,Mythology,Thunderbird
+1633,Mythology,Skinwalker Legends
+1634,Mythology,Sky Woman
+1635,Mythology,Cú Chulainn
+1636,Mythology,Tuatha Dé Danann
+1637,Mythology,Banshee
+1638,Literature,Unreliable Narrator
+1639,Literature,Stream of Consciousness
+1640,Literature,Free Indirect Discourse
+1641,Literature,Chekhov's Gun
+1642,Literature,In Medias Res
+1643,Literature,Deus ex Machina
+1644,Literature,Dramatic Irony
+1645,Literature,Tragic Flaw
+1646,Literature,Catharsis
+1647,Literature,Hubris
+1648,Literature,Anagnorisis
+1649,Literature,Peripeteia
+1650,Literature,Three Unities
+1651,Literature,Aristotle's Poetics
+1652,Literature,Bildungsroman
+1653,Literature,Künstlerroman
+1654,Literature,Picaresque Novel
+1655,Literature,Epistolary Novel
+1656,Literature,Frame Narrative
+1657,Literature,Story Within Story
+1658,Literature,Metafiction
+1659,Literature,Magical Realism
+1660,Literature,Gothic Novel
+1661,Literature,Southern Gothic
+1662,Literature,Byronic Hero
+1663,Literature,Antihero
+1664,Literature,Femme Fatale
+1665,Literature,Madwoman in Attic
+1666,Literature,Manic Pixie Dreamgirl
+1667,Literature,Objective Correlative
+1668,Literature,Negative Capability
+1669,Literature,New Criticism
+1670,Literature,Reader-Response Theory
+1671,Literature,Intentional Fallacy
+1672,Literature,Anxiety of Influence
+1673,Literature,Intertextuality
+1674,Literature,Pastiche
+1675,Literature,Parody vs Satire
+1676,Literature,Juvenalian Satire
+1677,Literature,Horatian Satire
+1678,Literature,Allegory
+1679,Literature,Fable
+1680,Literature,Parable
+1681,Literature,Archetypal Criticism
+1682,Literature,Defamiliarization
+1683,Literature,Russian Formalism
+1684,Literature,Heteroglossia
+1685,Literature,Carnivalesque
+1686,Literature,Polyphonic Novel
+1687,Literature,Hemingway's Iceberg Theory
+1688,Literature,Minimalist Fiction
+1689,Literature,Dirty Realism
+1690,Literature,Kitchen Sink Realism
+1691,Literature,Literary Naturalism
+1692,Literature,Literary Realism
+1693,Literature,Romanticism
+1694,Literature,Transcendentalism
+1695,Literature,Lost Generation
+1696,Literature,Beat Generation
+1697,Literature,Négritude Movement
+1698,Literature,Bloomsbury Group
+1699,Literature,Modernist Fragmentation
+1700,Literature,Postmodern Novel
+1701,Literature,Oulipo
+1702,Literature,Lipograms
+1703,Literature,Haiku Form
+1704,Literature,Sonnet Form
+1705,Literature,Petrarchan Sonnet
+1706,Literature,Villanelle
+1707,Literature,Sestina
+1708,Literature,Ghazal
+1709,Literature,Iambic Pentameter
+1710,Literature,Blank Verse
+1711,Literature,Free Verse
+1712,Literature,Enjambment
+1713,Literature,Caesura
+1714,Literature,Kenning
+1715,Literature,Alliterative Verse
+1716,Literature,Oral-Formulaic Theory
+1717,Literature,Homeric Epithets
+1718,Literature,Epic Simile
+1719,Literature,Invocation of Muse
+1720,Literature,Ekphrasis
+1721,Literature,Pathetic Fallacy
+1722,Literature,Synecdoche
+1723,Literature,Metonymy
+1724,Literature,Zeugma
+1725,Literature,Chiasmus
+1726,Literature,Anaphora
+1727,Literature,Litotes
+1728,Literature,Bathos
+1729,Literature,Purple Prose
+1730,Literature,Show Don't Tell
+1731,Literature,Red Herring
+1732,Literature,MacGuffin
+1733,Literature,Shaggy Dog Story
+1734,Literature,Cliffhanger
+1735,Literature,Serialized Fiction
+1736,Literature,Penny Dreadfuls
+1737,Literature,Gothic Doubles
+1738,Literature,Doppelgänger Motif
+1739,Literature,Kafkaesque
+1740,Literature,Orwellian
+1741,Literature,Dickensian
+1742,Literature,Quixotic
+1743,Literature,Faustian Bargain
+1744,Literature,Pyrrhic Victory
+1745,Literature,Catch-22
+1746,Literature,The Yellow Wallpaper
+1747,Literature,Locked-Room Mystery
+1748,Literature,Golden Age Detective
+1749,Literature,Hardboiled Fiction
+1750,Literature,Cozy Mystery
+1751,Literature,Dystopian Fiction
+1752,Literature,Utopian Fiction
+1753,Literature,Cyberpunk
+1754,Literature,Afrofuturism
+1755,Music,Circle of Fifths
+1756,Music,Equal Temperament
+1757,Music,Pythagorean Tuning
+1758,Music,Just Intonation
+1759,Music,Overtone Series
+1760,Music,Tritone Paradox
+1761,Music,Devil's Interval
+1762,Music,Perfect Pitch
+1763,Music,Relative Pitch
+1764,Music,Earworms
+1765,Music,Shepard Tone
+1766,Music,Blue Notes
+1767,Music,Twelve-Bar Blues
+1768,Music,Call and Response
+1769,Music,Syncopation
+1770,Music,Polyrhythm
+1771,Music,Swing Rhythm
+1772,Music,Clave Rhythm
+1773,Music,Backbeat
+1774,Music,Amen Break
+1775,Music,Sampling Culture
+1776,Music,Breakbeats
+1777,Music,Turntablism
+1778,Music,Hip-Hop Origins
+1779,Music,Bronx Block Parties
+1780,Music,Golden Age Hip-Hop
+1781,Music,Mumble Rap
+1782,Music,Drill Music
+1783,Music,Grime
+1784,Music,Dubstep Drop
+1785,Music,Rave Culture
+1786,Music,Detroit Techno
+1787,Music,Chicago House
+1788,Music,Disco Demolition Night
+1789,Music,Motown Sound
+1790,Music,Wall of Sound
+1791,Music,Phil Spector Production
+1792,Music,Nashville Sound
+1793,Music,Bakersfield Sound
+1794,Music,Brill Building
+1795,Music,Tin Pan Alley
+1796,Music,British Invasion
+1797,Music,Merseybeat
+1798,Music,Psychedelic Rock
+1799,Music,Krautrock
+1800,Music,Prog Rock
+1801,Music,Glam Rock
+1802,Music,Punk Rock
+1803,Music,Grunge
+1804,Music,Shoegaze
+1805,Music,Britpop
+1806,Music,Nu Metal
+1807,Music,Black Metal
+1808,Music,Death Growl
+1809,Music,Power Chords
+1810,Music,Guitar Feedback
+1811,Music,Distortion Pedals
+1812,Music,Moog Synthesizer
+1813,Music,Theremin
+1814,Music,Vocoder
+1815,Music,Roland TR-808
+1816,Music,MIDI Protocol
+1817,Music,Drum Machines
+1818,Music,Click Tracks
+1819,Music,Multitrack Recording
+1820,Music,Les Paul's Innovations
+1821,Music,Vinyl Revival
+1822,Music,Cassette Culture
+1823,Music,Compact Disc
+1824,Music,MP3 Compression
+1825,Music,Streaming Royalties
+1826,Music,Spotify Payouts
+1827,Music,Sampling Lawsuits
+1828,Music,Blurred Lines Case
+1829,Music,Stairway Plagiarism Case
+1830,Music,Ghostwriting Songs
+1831,Music,Session Musicians
+1832,Music,Wrecking Crew
+1833,Music,Funk Brothers
+1834,Music,Gregorian Chant
+1835,Music,Polyphony
+1836,Music,Counterpoint
+1837,Music,Fugue
+1838,Music,Sonata Form
+1839,Music,Theme and Variations
+1840,Music,Leitmotif
+1841,Music,Gesamtkunstwerk
+1842,Music,Bel Canto
+1843,Music,Castrati
+1844,Music,Opera Seria
+1845,Music,Opera Buffa
+1846,Music,Program Music
+1847,Music,Absolute Music
+1848,Music,Twelve-Tone Technique
+1849,Music,Serialism
+1850,Music,Minimalist Music
+1851,Music,"Cage's 4'33"""
+1852,Music,Musique Concrète
+1853,Music,Aleatoric Music
+1854,Music,Microtonality
+1855,Music,Raga
+1856,Music,Tala Cycles
+1857,Music,Gamelan
+1858,Music,Maqam
+1859,Music,Throat Singing
+1860,Music,Yodeling
+1861,Music,Flamenco Duende
+1862,Music,Fado Saudade
+1863,Music,Tango Origins
+1864,Music,Samba Schools
+1865,Music,Bossa Nova
+1866,Music,Reggae Riddims
+1867,Music,Dub Music
+1868,Music,Afrobeat
+1869,Music,Highlife
+1870,Music,Calypso
+1871,Music,Klezmer
+1872,Architecture,Brutalism
+1873,Architecture,Gothic Flying Buttresses
+1874,Architecture,Pointed Arch
+1875,Architecture,Roman Concrete
+1876,Architecture,Pantheon Dome
+1877,Architecture,Hagia Sophia Dome
+1878,Architecture,Pendentives
+1879,Architecture,Vitruvian Triad
+1880,Architecture,Classical Orders
+1881,Architecture,Doric Column
+1882,Architecture,Entasis
+1883,Architecture,Caryatids
+1884,Architecture,Romanesque Style
+1885,Architecture,Rose Windows
+1886,Architecture,Gargoyles
+1887,Architecture,Baroque Architecture
+1888,Architecture,Rococo Interiors
+1889,Architecture,Palladian Style
+1890,Architecture,Neoclassical Architecture
+1891,Architecture,Beaux-Arts
+1892,Architecture,Gothic Revival
+1893,Architecture,Victorian Painted Ladies
+1894,Architecture,Chicago School
+1895,Architecture,First Skyscrapers
+1896,Architecture,Elevator Safety Brake
+1897,Architecture,Steel-Frame Construction
+1898,Architecture,Form Follows Function
+1899,Architecture,Ornament and Crime
+1900,Architecture,Less Is More
+1901,Architecture,Corbusier's Five Points
+1902,Architecture,Machine for Living
+1903,Architecture,International Style
+1904,Architecture,Bauhaus Architecture
+1905,Architecture,Prairie School
+1906,Architecture,Fallingwater
+1907,Architecture,Organic Architecture
+1908,Architecture,Usonian Houses
+1909,Architecture,Case Study Houses
+1910,Architecture,Mid-Century Modern
+1911,Architecture,Googie Architecture
+1912,Architecture,Metabolism Movement
+1913,Architecture,Archigram
+1914,Architecture,Deconstructivism
+1915,Architecture,Bilbao Effect
+1916,Architecture,Starchitecture
+1917,Architecture,Postmodern Architecture
+1918,Architecture,Decorated Shed
+1919,Architecture,High-Tech Architecture
+1920,Architecture,Parametric Design
+1921,Architecture,Blobitecture
+1922,Architecture,Geodesic Domes
+1923,Architecture,Tensegrity
+1924,Architecture,Cantilevers
+1925,Architecture,Arches and Keystones
+1926,Architecture,Barrel Vaults
+1927,Architecture,Ribbed Vaults
+1928,Architecture,Load-Bearing Walls
+1929,Architecture,Curtain Walls
+1930,Architecture,Tuned Mass Dampers
+1931,Architecture,Seismic Base Isolation
+1932,Architecture,Passive House
+1933,Architecture,Passive Cooling
+1934,Architecture,Windcatchers
+1935,Architecture,Courtyard Houses
+1936,Architecture,Earthen Architecture
+1937,Architecture,Rammed Earth
+1938,Architecture,Adobe Construction
+1939,Architecture,Cob Houses
+1940,Architecture,Stilt Houses
+1941,Architecture,Igloo Engineering
+1942,Architecture,Yurts
+1943,Architecture,Japanese Tatami Rooms
+1944,Architecture,Shoji Screens
+1945,Architecture,Feng Shui Architecture
+1946,Architecture,Vastu Shastra
+1947,Architecture,Stepwells
+1948,Architecture,Mughal Gardens
+1949,Architecture,Islamic Muqarnas
+1950,Architecture,Mashrabiya Screens
+1951,Architecture,Minarets
+1952,Architecture,Pagodas
+1953,Architecture,Stupas
+1954,Architecture,Ziggurats
+1955,Architecture,Pyramid Construction
+1956,Architecture,Megalithic Structures
+1957,Architecture,Stonehenge Construction
+1958,Architecture,Machu Picchu Masonry
+1959,Architecture,Great Wall Construction
+1960,Architecture,Garden Cities
+1961,Architecture,Radiant City
+1962,Architecture,Levittown Suburbs
+1963,Architecture,Pruitt-Igoe Demolition
+1964,Architecture,Cité Radieuse
+1965,Architecture,Brasília Planning
+1966,Architecture,Chandigarh Planning
+1967,Architecture,Haussmann's Paris
+1968,Architecture,Barcelona Superblocks
+1969,Architecture,Eixample Grid
+1970,Architecture,Manhattan Grid
+1971,Architecture,Eyes on Street
+1972,Architecture,Defensible Space
+1973,Architecture,New Urbanism
+1974,Architecture,Fifteen-Minute City
+1975,Architecture,Adaptive Reuse
+1976,Architecture,High Line
+1977,Architecture,Tiny Houses
+1978,Architecture,Shipping Container Homes
+1979,Architecture,Biophilic Design
+1980,Architecture,Green Roofs
+1981,Architecture,Vertical Forests
+1982,Architecture,Sick Building Syndrome
+1983,Architecture,Kowloon Walled City
+1984,Politics & Law,Gerrymandering
+1985,Politics & Law,Filibuster
+1986,Politics & Law,Electoral College
+1987,Politics & Law,First-Past-the-Post
+1988,Politics & Law,Ranked-Choice Voting
+1989,Politics & Law,Proportional Representation
+1990,Politics & Law,Duverger's Law
+1991,Politics & Law,Spoiler Effect
+1992,Politics & Law,Median Voter Theorem
+1993,Politics & Law,Condorcet Paradox
+1994,Politics & Law,Separation of Powers
+1995,Politics & Law,Checks and Balances
+1996,Politics & Law,Judicial Review
+1997,Politics & Law,Marbury v. Madison
+1998,Politics & Law,Federalism
+1999,Politics & Law,Subsidiarity
+2000,Politics & Law,Habeas Corpus
+2001,Politics & Law,Due Process
+2002,Politics & Law,Presumption of Innocence
+2003,Politics & Law,Double Jeopardy
+2004,Politics & Law,Miranda Rights
+2005,Politics & Law,Exclusionary Rule
+2006,Politics & Law,Poisonous Tree Doctrine
+2007,Politics & Law,Right to Silence
+2008,Politics & Law,Jury Nullification
+2009,Politics & Law,Plea Bargaining
+2010,Politics & Law,Mandatory Minimums
+2011,Politics & Law,Three-Strikes Laws
+2012,Politics & Law,Stand Your Ground
+2013,Politics & Law,Castle Doctrine
+2014,Politics & Law,Qualified Immunity
+2015,Politics & Law,Civil Asset Forfeiture
+2016,Politics & Law,Stare Decisis
+2017,Politics & Law,Common Law
+2018,Politics & Law,Civil Law Tradition
+2019,Politics & Law,Natural Law
+2020,Politics & Law,Legal Positivism
+2021,Politics & Law,Originalism
+2022,Politics & Law,Living Constitution
+2023,Politics & Law,Textualism
+2024,Politics & Law,Strict Scrutiny
+2025,Politics & Law,Equal Protection Clause
+2026,Politics & Law,Commerce Clause
+2027,Politics & Law,Brown v. Board
+2028,Politics & Law,Plessy v. Ferguson
+2029,Politics & Law,Citizens United
+2030,Politics & Law,Super PACs
+2031,Politics & Law,Lobbying
+2032,Politics & Law,Revolving Door
+2033,Politics & Law,Pork Barrel Spending
+2034,Politics & Law,Logrolling
+2035,Politics & Law,Earmarks
+2036,Politics & Law,Lame Duck Session
+2037,Politics & Law,Pocket Veto
+2038,Politics & Law,Line-Item Veto
+2039,Politics & Law,Executive Orders
+2040,Politics & Law,Signing Statements
+2041,Politics & Law,Impeachment Process
+2042,Politics & Law,Twenty-Fifth Amendment
+2043,Politics & Law,Emoluments Clause
+2044,Politics & Law,Presidential Pardon
+2045,Politics & Law,War Powers Resolution
+2046,Politics & Law,Unitary Executive Theory
+2047,Politics & Law,Deep State Theory
+2048,Politics & Law,Overton Window
+2049,Politics & Law,Political Spectrum
+2050,Politics & Law,Horseshoe Theory
+2051,Politics & Law,Populism
+2052,Politics & Law,Demagoguery
+2053,Politics & Law,Authoritarian Personality
+2054,Politics & Law,Competitive Authoritarianism
+2055,Politics & Law,Hybrid Regimes
+2056,Politics & Law,Democratic Backsliding
+2057,Politics & Law,Coup d'État
+2058,Politics & Law,Self-Coup
+2059,Politics & Law,Personality Cult
+2060,Politics & Law,Propaganda Model
+2061,Politics & Law,Manufacturing Consent
+2062,Politics & Law,Agenda Setting
+2063,Politics & Law,Spin Doctors
+2064,Politics & Law,Dog-Whistle Politics
+2065,Politics & Law,Wedge Issues
+2066,Politics & Law,Southern Strategy
+2067,Politics & Law,October Surprise
+2068,Politics & Law,Coattail Effect
+2069,Politics & Law,Incumbency Advantage
+2070,Politics & Law,Swing States
+2071,Politics & Law,Voter Suppression
+2072,Politics & Law,Voter ID Laws
+2073,Politics & Law,Compulsory Voting
+2074,Politics & Law,Direct Democracy
+2075,Politics & Law,Swiss Referendums
+2076,Politics & Law,Sortition
+2077,Politics & Law,Citizens' Assemblies
+2078,Politics & Law,Parliamentary Sovereignty
+2079,Politics & Law,Westminster System
+2080,Politics & Law,No-Confidence Vote
+2081,Politics & Law,Coalition Government
+2082,Politics & Law,Constitutional Monarchy
+2083,Politics & Law,Church-State Separation
+2084,Politics & Law,Laïcité
+2085,Politics & Law,Sovereign Immunity
+2086,Politics & Law,Diplomatic Immunity
+2087,Politics & Law,Extradition
+2088,Politics & Law,Universal Jurisdiction
+2089,Politics & Law,International Criminal Court
+2090,Politics & Law,Geneva Conventions
+2091,Politics & Law,Just War Theory
+2092,Politics & Law,Responsibility to Protect
+2093,Politics & Law,Security Council Veto
+2094,Politics & Law,Balance of Power
+2095,Politics & Law,Political Realism
+2096,Politics & Law,Soft Power
+2097,Politics & Law,Hard Power
+2098,Politics & Law,Mutually Assured Destruction
+2099,Politics & Law,Thucydides Trap
+2100,Politics & Law,Deterrence Theory
+2101,Anthropology,Potlatch
+2102,Anthropology,Kula Ring
+2103,Anthropology,Gift Economy
+2104,Anthropology,Reciprocity Types
+2105,Anthropology,Big Man Societies
+2106,Anthropology,Chiefdoms
+2107,Anthropology,Band Societies
+2108,Anthropology,Egalitarian Societies
+2109,Anthropology,Original Affluent Society
+2110,Anthropology,Hunter-Gatherer Leisure
+2111,Anthropology,Dunbar's Number
+2112,Anthropology,Kinship Systems
+2113,Anthropology,Matrilocal Residence
+2114,Anthropology,Patrilineal Descent
+2115,Anthropology,Clan Systems
+2116,Anthropology,Moieties
+2117,Anthropology,Exogamy
+2118,Anthropology,Incest Taboo
+2119,Anthropology,Polyandry
+2120,Anthropology,Ghost Marriage
+2121,Anthropology,Walking Marriage
+2122,Anthropology,Bride Service
+2123,Anthropology,Rites of Passage
+2124,Anthropology,Liminality
+2125,Anthropology,Communitas
+2126,Anthropology,Initiation Rites
+2127,Anthropology,Totem and Taboo
+2128,Anthropology,Mana
+2129,Anthropology,Taboo Concept
+2130,Anthropology,Cultural Relativism
+2131,Anthropology,Ethnocentrism
+2132,Anthropology,Participant Observation
+2133,Anthropology,Thick Description
+2134,Anthropology,Emic vs Etic
+2135,Anthropology,Salvage Ethnography
+2136,Anthropology,Armchair Anthropology
+2137,Anthropology,Margaret Mead Controversy
+2138,Anthropology,Nacirema Ritual
+2139,Anthropology,Cultural Diffusion
+2140,Anthropology,Acculturation
+2141,Anthropology,Cultural Appropriation
+2142,Anthropology,Invention of Tradition
+2143,Anthropology,Imagined Communities
+2144,Anthropology,Orientalism
+2145,Anthropology,Noble Savage
+2146,Anthropology,Human Zoos
+2147,Anthropology,Scientific Racism
+2148,Anthropology,Race as Construct
+2149,Anthropology,Cranial Measurement Debate
+2150,Anthropology,Out of Africa
+2151,Anthropology,Neanderthal Interbreeding
+2152,Anthropology,Denisovans
+2153,Anthropology,Homo Floresiensis
+2154,Anthropology,Lucy Australopithecus
+2155,Anthropology,Bipedalism Origins
+2156,Anthropology,Cooking Hypothesis
+2157,Anthropology,Grandmother Hypothesis
+2158,Anthropology,Obstetric Dilemma
+2159,Anthropology,Agricultural Revolution
+2160,Anthropology,Agriculture as Mistake
+2161,Anthropology,Domestication Syndrome
+2162,Anthropology,Self-Domestication Hypothesis
+2163,Anthropology,Neolithic Revolution
+2164,Anthropology,Çatalhöyük
+2165,Anthropology,Ötzi the Iceman
+2166,Anthropology,Bog Bodies
+2167,Anthropology,Mummification Practices
+2168,Anthropology,Sky Burial
+2169,Anthropology,Ancestor Veneration
+2170,Anthropology,Día de Muertos
+2171,Anthropology,Famadihana
+2172,Anthropology,Shamanism
+2173,Anthropology,Spirit Possession
+2174,Anthropology,Witchcraft Accusations
+2175,Anthropology,Evil Eye
+2176,Anthropology,Honor-Shame Cultures
+2177,Anthropology,Guilt vs Shame
+2178,Anthropology,High-Context Cultures
+2179,Anthropology,Monochronic vs Polychronic
+2180,Anthropology,Proxemics
+2181,Anthropology,Body Language Culture
+2182,Anthropology,Food Taboos
+2183,Anthropology,Pig Taboo
+2184,Anthropology,Sacred Cows
+2185,Anthropology,Body Modification
+2186,Anthropology,Tattoo Traditions
+2187,Anthropology,Scarification
+2188,Anthropology,Lip Plates
+2189,Anthropology,Neck Rings
+2190,Anthropology,Head Shaping
+2191,Anthropology,Third Gender
+2192,Anthropology,Two-Spirit Identity
+2193,Anthropology,Hijra Community
+2194,Anthropology,Muxe Identity
+2195,Anthropology,Fa'afafine
+2196,Anthropology,Uncontacted Tribes
+2197,Anthropology,Sentinelese
+2198,Anthropology,Yanomami Controversy
+2199,Anthropology,Hadza People
+2200,Anthropology,!Kung San
+2201,Anthropology,Inuit Adaptation
+2202,Anthropology,Sherpa High-Altitude
+2203,Anthropology,Bajau Sea Nomads
+2204,Anthropology,Pastoral Nomadism
+2205,Anthropology,Transhumance
+2206,Anthropology,Caste System
+2207,Anthropology,Untouchability
+2208,Anthropology,Moka Exchange
+2209,Anthropology,Stone Money Yap
+2210,Medicine & Health,Placebo Effect
+2211,Medicine & Health,Nocebo Effect
+2212,Medicine & Health,Germ Theory
+2213,Medicine & Health,Miasma Theory
+2214,Medicine & Health,Semmelweis Reflex
+2215,Medicine & Health,Handwashing Revolution
+2216,Medicine & Health,Broad Street Pump
+2217,Medicine & Health,John Snow Cholera
+2218,Medicine & Health,Vaccination Origins
+2219,Medicine & Health,Variolation
+2220,Medicine & Health,Smallpox Eradication
+2221,Medicine & Health,Herd Immunity
+2222,Medicine & Health,Antibiotic Resistance
+2223,Medicine & Health,Penicillin Discovery
+2224,Medicine & Health,Phage Therapy
+2225,Medicine & Health,Superbugs
+2226,Medicine & Health,Prions
+2227,Medicine & Health,HeLa Cells
+2228,Medicine & Health,Tuskegee Syphilis Study
+2229,Medicine & Health,Informed Consent
+2230,Medicine & Health,Hippocratic Oath
+2231,Medicine & Health,Thalidomide Disaster
+2232,Medicine & Health,Drug Trials Phases
+2233,Medicine & Health,Double-Blind Trials
+2234,Medicine & Health,Randomized Controlled Trials
+2235,Medicine & Health,Evidence-Based Medicine
+2236,Medicine & Health,Overdiagnosis
+2237,Medicine & Health,False Positives
+2238,Medicine & Health,Base Rate Fallacy
+2239,Medicine & Health,Screening Paradox
+2240,Medicine & Health,Lead-Time Bias
+2241,Medicine & Health,Iatrogenic Harm
+2242,Medicine & Health,Medical Gaslighting
+2243,Medicine & Health,Yentl Syndrome
+2244,Medicine & Health,Hygiene Hypothesis
+2245,Medicine & Health,Gut Microbiome
+2246,Medicine & Health,Fecal Transplants
+2247,Medicine & Health,Gut-Brain Axis
+2248,Medicine & Health,Autoimmunity
+2249,Medicine & Health,Cytokine Storm
+2250,Medicine & Health,Chronic Inflammation
+2251,Medicine & Health,Insulin Resistance
+2252,Medicine & Health,Metabolic Syndrome
+2253,Medicine & Health,Blue Zones
+2254,Medicine & Health,Intermittent Fasting
+2255,Medicine & Health,Circadian Rhythms
+2256,Medicine & Health,Sleep Debt
+2257,Medicine & Health,REM Sleep
+2258,Medicine & Health,Glymphatic System
+2259,Medicine & Health,Microsleeps
+2260,Medicine & Health,Sleep Paralysis
+2261,Medicine & Health,Night Shift Effects
+2262,Medicine & Health,Chronotypes
+2263,Medicine & Health,Hormesis
+2264,Medicine & Health,Allostatic Load
+2265,Medicine & Health,Fight or Flight
+2266,Medicine & Health,Vagus Nerve
+2267,Medicine & Health,Heart Rate Variability
+2268,Medicine & Health,Phantom Limb Pain
+2269,Medicine & Health,Mirror Box Therapy
+2270,Medicine & Health,Referred Pain
+2271,Medicine & Health,Gate Control Theory
+2272,Medicine & Health,Opioid Epidemic
+2273,Medicine & Health,OxyContin Marketing
+2274,Medicine & Health,Naloxone
+2275,Medicine & Health,Addiction Neuroscience
+2276,Medicine & Health,Dopamine Reward Pathway
+2277,Medicine & Health,Rat Park Experiment
+2278,Medicine & Health,Tolerance and Withdrawal
+2279,Medicine & Health,Psychedelic Therapy
+2280,Medicine & Health,Ketamine for Depression
+2281,Medicine & Health,Lobotomy History
+2282,Medicine & Health,Electroconvulsive Therapy
+2283,Medicine & Health,Serotonin Hypothesis
+2284,Medicine & Health,SSRIs
+2285,Medicine & Health,Chemical Imbalance Myth
+2286,Medicine & Health,Anesthesia Discovery
+2287,Medicine & Health,Ether Day
+2288,Medicine & Health,Blood Types
+2289,Medicine & Health,Rh Factor
+2290,Medicine & Health,Organ Transplant Rejection
+2291,Medicine & Health,Immunosuppression
+2292,Medicine & Health,Organ Donation Opt-Out
+2293,Medicine & Health,Xenotransplantation
+2294,Medicine & Health,mRNA Vaccines
+2295,Medicine & Health,Monoclonal Antibodies
+2296,Medicine & Health,Gene Therapy
+2297,Medicine & Health,CAR-T Therapy
+2298,Medicine & Health,Cancer Immunotherapy
+2299,Medicine & Health,Tumor Suppressor Genes
+2300,Medicine & Health,BRCA Genes
+2301,Medicine & Health,Metastasis
+2302,Medicine & Health,Angiogenesis
+2303,Medicine & Health,Pandemic Preparedness
+2304,Medicine & Health,Spanish Flu 1918
+2305,Medicine & Health,Zoonotic Spillover
+2306,Medicine & Health,Gain-of-Function Research
+2307,Medicine & Health,Contact Tracing
+2308,Medicine & Health,R Naught
+2309,Medicine & Health,Flattening the Curve
+2310,Medicine & Health,Long COVID
+2311,Medicine & Health,Health Literacy
+2312,Medicine & Health,Life Expectancy Gaps
+2313,Environment,Carbon Sequestration
+2314,Environment,Greenhouse Effect
+2315,Environment,Carbon Budget
+2316,Environment,Net Zero
+2317,Environment,Tipping Points
+2318,Environment,Permafrost Thaw
+2319,Environment,Methane Clathrates
+2320,Environment,Albedo Effect
+2321,Environment,Arctic Amplification
+2322,Environment,Polar Vortex
+2323,Environment,Jet Stream Changes
+2324,Environment,El Niño
+2325,Environment,La Niña
+2326,Environment,Atlantic Meridional Circulation
+2327,Environment,Ocean Acidification
+2328,Environment,Coral Bleaching
+2329,Environment,Dead Zones
+2330,Environment,Eutrophication
+2331,Environment,Algal Blooms
+2332,Environment,Microplastics
+2333,Environment,Pacific Garbage Patch
+2334,Environment,Plastic Recycling Myth
+2335,Environment,Circular Economy
+2336,Environment,Cradle to Cradle
+2337,Environment,Life Cycle Assessment
+2338,Environment,Carbon Footprint Origins
+2339,Environment,Carbon Offsets
+2340,Environment,Carbon Tax
+2341,Environment,Carbon Border Adjustment
+2342,Environment,Emissions Trading
+2343,Environment,Kyoto Protocol
+2344,Environment,Paris Agreement
+2345,Environment,Montreal Protocol
+2346,Environment,Ozone Hole
+2347,Environment,CFC Ban
+2348,Environment,Acid Rain
+2349,Environment,Leaded Gasoline
+2350,Environment,Silent Spring
+2351,Environment,DDT Ban
+2352,Environment,Love Canal
+2353,Environment,Bhopal Disaster
+2354,Environment,Exxon Valdez Spill
+2355,Environment,Deepwater Horizon
+2356,Environment,Minamata Disease
+2357,Environment,Chernobyl Exclusion Zone
+2358,Environment,Fukushima Disaster
+2359,Environment,Environmental Justice
+2360,Environment,Cancer Alley
+2361,Environment,Sacrifice Zones
+2362,Environment,Climate Refugees
+2363,Environment,Sea Level Rise
+2364,Environment,Managed Retreat
+2365,Environment,Sinking Cities
+2366,Environment,Urban Heat Islands
+2367,Environment,Wet-Bulb Temperature
+2368,Environment,Heat Domes
+2369,Environment,Atmospheric Rivers
+2370,Environment,Megadroughts
+2371,Environment,Desertification
+2372,Environment,Great Green Wall
+2373,Environment,Aral Sea Disaster
+2374,Environment,Groundwater Depletion
+2375,Environment,Virtual Water
+2376,Environment,Water Wars
+2377,Environment,Amazon Deforestation
+2378,Environment,Palm Oil Problem
+2379,Environment,Slash and Burn
+2380,Environment,Rewilding
+2381,Environment,Yellowstone Wolves
+2382,Environment,Beaver Reintroduction
+2383,Environment,Invasive Species
+2384,Environment,Cane Toads Australia
+2385,Environment,Kudzu Vine
+2386,Environment,Habitat Fragmentation
+2387,Environment,Wildlife Corridors
+2388,Environment,Shifting Baselines
+2389,Environment,Sixth Mass Extinction
+2390,Environment,Insect Apocalypse
+2391,Environment,Colony Collapse Disorder
+2392,Environment,Pollinator Decline
+2393,Environment,Seed Banks
+2394,Environment,Svalbard Seed Vault
+2395,Environment,De-Extinction
+2396,Environment,Biodiversity Hotspots
+2397,Environment,Ecosystem Services
+2398,Environment,Natural Capital
+2399,Environment,Rights of Nature
+2400,Environment,Indigenous Land Management
+2401,Environment,Cultural Burning
+2402,Environment,Wildfire Feedback Loops
+2403,Environment,Mangrove Restoration
+2404,Environment,Blue Carbon
+2405,Environment,Kelp Forests
+2406,Environment,Ocean Iron Fertilization
+2407,Environment,Solar Geoengineering
+2408,Environment,Direct Air Capture
+2409,Environment,Carbon Capture Storage
+2410,Environment,Green Hydrogen
+2411,Environment,Nuclear Power Debate
+2412,Environment,EROI
+2413,Environment,Duck Curve
+2414,Environment,Grid-Scale Storage
+2415,Environment,Pumped Hydro
+2416,Environment,Greenwashing
+2417,Environment,Planetary Boundaries
+2418,Environment,Anthropocene
+2419,Environment,Gaia Hypothesis
+2420,Environment,Overshoot Day
+2421,Environment,Fast Fashion Waste
+2422,Environment,Light Pollution
+2423,Environment,Noise Pollution
+2424,Mathematics,Monty Hall Problem
+2425,Mathematics,Birthday Paradox
+2426,Mathematics,Gambler's Fallacy
+2427,Mathematics,Central Limit Theorem
+2428,Mathematics,Bayes' Theorem
+2429,Mathematics,Simpson's Paradox
+2430,Mathematics,Regression to Mean
+2431,Mathematics,Survivorship Bias
+2432,Mathematics,Benford's Law
+2433,Mathematics,Pareto Distribution
+2434,Mathematics,Normal Distribution
+2435,Mathematics,Standard Deviation
+2436,Mathematics,P-Hacking
+2437,Mathematics,Statistical Significance
+2438,Mathematics,Correlation vs Causation
+2439,Mathematics,Golden Ratio
+2440,Mathematics,Fibonacci Sequence
+2441,Mathematics,Pascal's Triangle
+2442,Mathematics,Prime Numbers
+2443,Mathematics,Twin Prime Conjecture
+2444,Mathematics,Goldbach's Conjecture
+2445,Mathematics,Riemann Hypothesis
+2446,Mathematics,Fermat's Last Theorem
+2447,Mathematics,Collatz Conjecture
+2448,Mathematics,Sieve of Eratosthenes
+2449,Mathematics,Euclid's Infinite Primes
+2450,Mathematics,Irrational Numbers
+2451,Mathematics,√2 Irrationality
+2452,Mathematics,Pi
+2453,Mathematics,Euler's Number
+2454,Mathematics,Euler's Identity
+2455,Mathematics,Imaginary Numbers
+2456,Mathematics,Complex Plane
+2457,Mathematics,Zero's Invention
+2458,Mathematics,Negative Numbers History
+2459,Mathematics,Hilbert's Hotel
+2460,Mathematics,Cantor's Diagonal Argument
+2461,Mathematics,Countable vs Uncountable
+2462,Mathematics,Continuum Hypothesis
+2463,Mathematics,Gödel's Incompleteness Theorems
+2464,Mathematics,Russell's Paradox
+2465,Mathematics,Barber Paradox
+2466,Mathematics,Banach-Tarski Paradox
+2467,Mathematics,Axiom of Choice
+2468,Mathematics,Calculus Priority Dispute
+2469,Mathematics,Derivatives Intuition
+2470,Mathematics,Integrals Intuition
+2471,Mathematics,Fundamental Theorem Calculus
+2472,Mathematics,Taylor Series
+2473,Mathematics,Fourier Transform
+2474,Mathematics,Exponential Growth
+2475,Mathematics,Logarithms
+2476,Mathematics,Slide Rules
+2477,Mathematics,Non-Euclidean Geometry
+2478,Mathematics,Parallel Postulate
+2479,Mathematics,Möbius Strip
+2480,Mathematics,Klein Bottle
+2481,Mathematics,Donut-Mug Topology
+2482,Mathematics,Königsberg Bridges Problem
+2483,Mathematics,Graph Theory
+2484,Mathematics,Four Color Theorem
+2485,Mathematics,Traveling Salesman Problem
+2486,Mathematics,Six Degrees
+2487,Mathematics,Small-World Networks
+2488,Mathematics,Fractals
+2489,Mathematics,Mandelbrot Set
+2490,Mathematics,Coastline Paradox
+2491,Mathematics,Koch Snowflake
+2492,Mathematics,Sierpiński Triangle
+2493,Mathematics,Chaos Theory
+2494,Mathematics,Butterfly Effect
+2495,Mathematics,Strange Attractors
+2496,Mathematics,Logistic Map
+2497,Mathematics,Cellular Automata
+2498,Mathematics,Game of Life
+2499,Mathematics,Rule 110
+2500,Mathematics,Penrose Tiling
+2501,Mathematics,Tessellations
+2502,Mathematics,Platonic Solids
+2503,Mathematics,Euler's Polyhedron Formula
+2504,Mathematics,Kissing Number Problem
+2505,Mathematics,Sphere Packing
+2506,Mathematics,Kepler Conjecture
+2507,Mathematics,Pythagorean Theorem
+2508,Mathematics,Pythagorean Triples
+2509,Mathematics,Squaring the Circle
+2510,Mathematics,Doubling the Cube
+2511,Mathematics,Trisecting the Angle
+2512,Mathematics,Compass Straightedge Constructions
+2513,Mathematics,Magic Squares
+2514,Mathematics,Sudoku Mathematics
+2515,Mathematics,Tower of Hanoi
+2516,Mathematics,Knight's Tour
+2517,Mathematics,Eight Queens Puzzle
+2518,Mathematics,Pigeonhole Principle
+2519,Mathematics,Mathematical Induction
+2520,Mathematics,Proof by Contradiction
+2521,Mathematics,Modular Arithmetic
+2522,Mathematics,Clock Arithmetic
+2523,Mathematics,Perfect Numbers
+2524,Mathematics,Amicable Numbers
+2525,Mathematics,Ramanujan's Taxicab Number
+2526,Mathematics,Kaprekar's Constant
+2527,Mathematics,Graham's Number
+2528,Mathematics,Googol
+2529,Mathematics,Busy Beaver
+2530,Mathematics,Ackermann Function
+2531,Mathematics,Kolmogorov Complexity
+2532,Mathematics,Information Theory
+2533,Mathematics,Shannon Entropy
+2534,Mathematics,Error-Correcting Codes
+2535,Mathematics,Bloom Filters
+2536,Mathematics,Monte Carlo Method
+2537,Mathematics,Buffon's Needle
+2538,Mathematics,Random Walks
+2539,Mathematics,Markov Chains
+2540,Mathematics,Gambler's Ruin
+2541,Space,Fermi Paradox
+2542,Space,Drake Equation
+2543,Space,Great Filter
+2544,Space,Dark Forest Theory
+2545,Space,Kardashev Scale
+2546,Space,Dyson Spheres
+2547,Space,Wow! Signal
+2548,Space,SETI
+2549,Space,Golden Record
+2550,Space,Arecibo Message
+2551,Space,Pale Blue Dot
+2552,Space,Overview Effect
+2553,Space,Goldilocks Zone
+2554,Space,Exoplanet Transit Method
+2555,Space,Hot Jupiters
+2556,Space,TRAPPIST-1 System
+2557,Space,Rogue Planets
+2558,Space,Planet Nine
+2559,Space,Pluto's Demotion
+2560,Space,Kuiper Belt
+2561,Space,Oort Cloud
+2562,Space,Asteroid Belt Myths
+2563,Space,Lagrange Points
+2564,Space,Hohmann Transfer Orbit
+2565,Space,Gravity Assist
+2566,Space,Escape Velocity
+2567,Space,Geostationary Orbit
+2568,Space,Kessler Syndrome
+2569,Space,Space Debris
+2570,Space,Tidal Locking
+2571,Space,Roche Limit
+2572,Space,Saturn's Rings
+2573,Space,Europa's Ocean
+2574,Space,Enceladus Geysers
+2575,Space,Titan's Methane Lakes
+2576,Space,Io's Volcanoes
+2577,Space,Great Red Spot
+2578,Space,Olympus Mons
+2579,Space,Mars Water Evidence
+2580,Space,Martian Dust Storms
+2581,Space,Venus Runaway Greenhouse
+2582,Space,Mercury's Precession
+2583,Space,Moon's Formation
+2584,Space,Giant Impact Hypothesis
+2585,Space,Lunar Far Side
+2586,Space,Lunar Libration
+2587,Space,Supermoons
+2588,Space,Solar Eclipses
+2589,Space,Saros Cycle
+2590,Space,Solar Wind
+2591,Space,Solar Flares
+2592,Space,Carrington Event
+2593,Space,Sunspot Cycle
+2594,Space,Coronal Heating Problem
+2595,Space,Aurora Borealis
+2596,Space,Van Allen Belts
+2597,Space,Stellar Nucleosynthesis
+2598,Space,Main Sequence Stars
+2599,Space,Red Giants
+2600,Space,White Dwarfs
+2601,Space,Chandrasekhar Limit
+2602,Space,Neutron Stars
+2603,Space,Pulsars
+2604,Space,Magnetars
+2605,Space,Supernovae
+2606,Space,Type Ia Supernovae
+2607,Space,Kilonovae
+2608,Space,Gamma-Ray Bursts
+2609,Space,Event Horizons
+2610,Space,Hawking Radiation
+2611,Space,Spaghettification
+2612,Space,Information Paradox
+2613,Space,Wormholes
+2614,Space,Gravitational Lensing
+2615,Space,Gravitational Waves
+2616,Space,LIGO Detection
+2617,Space,Time Dilation
+2618,Space,Twin Paradox
+2619,Space,Spacetime Curvature
+2620,Space,Cosmic Microwave Background
+2621,Space,Big Bang Nucleosynthesis
+2622,Space,Cosmic Inflation
+2623,Space,Redshift
+2624,Space,Hubble's Law
+2625,Space,Hubble Tension
+2626,Space,Dark Matter
+2627,Space,Dark Energy
+2628,Space,Galaxy Rotation Curves
+2629,Space,Olbers' Paradox
+2630,Space,Heat Death
+2631,Space,Big Rip
+2632,Space,Multiverse Hypothesis
+2633,Space,Anthropic Principle
+2634,Space,Cosmic Web
+2635,Space,Great Attractor
+2636,Space,Andromeda Collision
+2637,Space,Quasars
+2638,Space,Sagittarius A*
+2639,Space,Event Horizon Telescope
+2640,Space,James Webb Telescope
+2641,Space,Hubble Deep Field
+2642,Space,Space Race
+2643,Space,Sputnik Crisis
+2644,Space,Apollo 13
+2645,Space,Apollo 11 Landing
+2646,Space,Moon Landing Hoax
+2647,Space,Challenger Disaster
+2648,Space,Space Shuttle Program
+2649,Space,International Space Station
+2650,Space,Reusable Rockets
+2651,Space,Space Elevators
+2652,Space,Solar Sails
+2653,Space,Generation Ships
+2654,Space,Terraforming Mars
+2655,Space,Outer Space Treaty
+2656,Space,Planetary Protection
+2657,Food & Culture,Maillard Reaction
+2658,Food & Culture,Umami
+2659,Food & Culture,Fermentation
+2660,Food & Culture,Sourdough Starters
+2661,Food & Culture,Kimchi Culture
+2662,Food & Culture,Miso
+2663,Food & Culture,Koji Mold
+2664,Food & Culture,Kombucha
+2665,Food & Culture,Natural Wine
+2666,Food & Culture,Terroir
+2667,Food & Culture,Appellation Rules
+2668,Food & Culture,Champagne Method
+2669,Food & Culture,Sommelier Blind Tasting
+2670,Food & Culture,Coffee Ceremony Ethiopia
+2671,Food & Culture,Third-Wave Coffee
+2672,Food & Culture,Espresso Origins
+2673,Food & Culture,Coffeehouse Culture
+2674,Food & Culture,Japanese Tea Ceremony
+2675,Food & Culture,British Afternoon Tea
+2676,Food & Culture,Chai Culture
+2677,Food & Culture,Tea Trade History
+2678,Food & Culture,Spice Trade
+2679,Food & Culture,Black Pepper History
+2680,Food & Culture,Saffron Economics
+2681,Food & Culture,Vanilla Pollination
+2682,Food & Culture,Chocolate History
+2683,Food & Culture,Cacao as Currency
+2684,Food & Culture,Sugar Plantations
+2685,Food & Culture,Potato Spread
+2686,Food & Culture,Tomato in Italy
+2687,Food & Culture,Chili Pepper Spread
+2688,Food & Culture,Scoville Scale
+2689,Food & Culture,Capsaicin Addiction
+2690,Food & Culture,MSG Myth
+2691,Food & Culture,Salt History
+2692,Food & Culture,Garum
+2693,Food & Culture,Roman Banquets
+2694,Food & Culture,Medieval Feasts
+2695,Food & Culture,Trencher Bread
+2696,Food & Culture,Haute Cuisine
+2697,Food & Culture,Escoffier Brigade System
+2698,Food & Culture,Mother Sauces
+2699,Food & Culture,Nouvelle Cuisine
+2700,Food & Culture,Molecular Gastronomy
+2701,Food & Culture,Sous Vide
+2702,Food & Culture,Farm-to-Table
+2703,Food & Culture,Slow Food Movement
+2704,Food & Culture,Fast Food Origins
+2705,Food & Culture,McDonaldization
+2706,Food & Culture,TV Dinners
+2707,Food & Culture,Food Pyramid History
+2708,Food & Culture,Sugar vs Fat
+2709,Food & Culture,Ultra-Processed Foods
+2710,Food & Culture,Mediterranean Diet
+2711,Food & Culture,Okinawan Diet
+2712,Food & Culture,French Paradox
+2713,Food & Culture,Kosher Laws
+2714,Food & Culture,Halal Practices
+2715,Food & Culture,Jain Diet
+2716,Food & Culture,Vegetarianism in India
+2717,Food & Culture,Lent Fasting
+2718,Food & Culture,Ramadan Iftar
+2719,Food & Culture,Thanksgiving Myths
+2720,Food & Culture,Potluck Culture
+2721,Food & Culture,Street Food Culture
+2722,Food & Culture,Hawker Centres
+2723,Food & Culture,Night Markets
+2724,Food & Culture,Food Trucks
+2725,Food & Culture,Yum Cha
+2726,Food & Culture,Tapas Culture
+2727,Food & Culture,Mezze
+2728,Food & Culture,Smörgåsbord
+2729,Food & Culture,Omakase
+2730,Food & Culture,Kaiseki
+2731,Food & Culture,Bento Culture
+2732,Food & Culture,Ramen History
+2733,Food & Culture,Sushi Evolution
+2734,Food & Culture,Pizza Napoletana
+2735,Food & Culture,Pasta Shapes
+2736,Food & Culture,Cheese Aging
+2737,Food & Culture,Raw Milk Debate
+2738,Food & Culture,Rice Cultures
+2739,Food & Culture,Maize Nixtamalization
+2740,Food & Culture,Tortilla History
+2741,Food & Culture,Curry Globalization
+2742,Food & Culture,Chicken Tikka Origins
+2743,Food & Culture,Fusion Cuisine
+2744,Food & Culture,Chop Suey Origins
+2745,Food & Culture,Fortune Cookies
+2746,Food & Culture,Tex-Mex
+2747,Food & Culture,Soul Food
+2748,Food & Culture,Barbecue Regional Styles
+2749,Food & Culture,Cajun vs Creole
+2750,Food & Culture,Gumbo History
+2751,Food & Culture,Hot Dog Origins
+2752,Food & Culture,Hamburger Origins
+2753,Food & Culture,Ketchup's History
+2754,Food & Culture,Sandwich Origins
+2755,Food & Culture,Cutlery History
+2756,Food & Culture,Chopsticks Etiquette
+2757,Food & Culture,Table Manners
+2758,Food & Culture,Tipping Culture
+2759,Food & Culture,Michelin Stars
+2760,Food & Culture,Food Critics
+2761,Food & Culture,First Restaurants
+2762,Food & Culture,First Cookbooks
+2763,Food & Culture,Food Photography
+2764,Food & Culture,Comfort Food Science
+2765,Food & Culture,Acquired Tastes
+2766,Food & Culture,Supertasters
+2767,Food & Culture,Durian Ban
+2768,Food & Culture,Casu Marzu
+2769,Food & Culture,Hákarl
+2770,Food & Culture,Insect Eating
+2771,Food & Culture,Lab-Grown Meat
+2772,Food & Culture,Plant-Based Meat
+2773,Design,Dark Patterns
+2774,Design,Affordances
+2775,Design,Signifiers
+2776,Design,Norman Doors
+2777,Design,Desire Paths
+2778,Design,Skeuomorphism
+2779,Design,Flat Design
+2780,Design,Material Design
+2781,Design,Neumorphism
+2782,Design,Glassmorphism
+2783,Design,Brutalist Web Design
+2784,Design,Swiss Style
+2785,Design,Grid Systems
+2786,Design,Golden Section Layout
+2787,Design,Rule of Thirds
+2788,Design,Visual Hierarchy
+2789,Design,White Space
+2790,Design,Gestalt Proximity
+2791,Design,Figure-Ground
+2792,Design,Color Theory
+2793,Design,Color Psychology
+2794,Design,Pantone Color System
+2795,Design,Kerning
+2796,Design,Leading
+2797,Design,Serif vs Sans-Serif
+2798,Design,Helvetica
+2799,Design,Comic Sans Hate
+2800,Design,Garamond
+2801,Design,Futura
+2802,Design,Typeface vs Font
+2803,Design,Movable Type
+2804,Design,Gutenberg Press
+2805,Design,Blackletter
+2806,Design,Variable Fonts
+2807,Design,Emoji Design
+2808,Design,Wayfinding Design
+2809,Design,Pictograms
+2810,Design,Isotype
+2811,Design,London Tube Map
+2812,Design,Vignelli Subway Map
+2813,Design,Highway Signage Fonts
+2814,Design,Logo Redesign Backlash
+2815,Design,Brand Identity
+2816,Design,Paul Rand Logos
+2817,Design,I ♥ NY
+2818,Design,Nike Swoosh
+2819,Design,Apple Design Language
+2820,Design,Dieter Rams' Principles
+2821,Design,Less but Better
+2822,Design,Form Follows Emotion
+2823,Design,Arts and Crafts
+2824,Design,William Morris Patterns
+2825,Design,Art Deco Design
+2826,Design,Streamline Moderne
+2827,Design,Memphis Design
+2828,Design,Scandinavian Design
+2829,Design,Japanese Minimalism
+2830,Design,Mid-Century Furniture
+2831,Design,Eames Chair
+2832,Design,Panton Chair
+2833,Design,Bentwood Chairs
+2834,Design,Ergonomics
+2835,Design,Universal Design
+2836,Design,Inclusive Design
+2837,Design,Curb Cut Effect
+2838,Design,WCAG Guidelines
+2839,Design,Color Blindness Design
+2840,Design,Human-Centered Design
+2841,Design,Design Thinking
+2842,Design,Double Diamond
+2843,Design,User Personas
+2844,Design,Jobs-to-Be-Done
+2845,Design,Usability Testing
+2846,Design,A/B Testing
+2847,Design,Fitts's Law
+2848,Design,Hick's Law
+2849,Design,Jakob's Law
+2850,Design,Aesthetic-Usability Effect
+2851,Design,Progressive Disclosure
+2852,Design,Onboarding Flows
+2853,Design,Empty States
+2854,Design,Microinteractions
+2855,Design,Skeleton Screens
+2856,Design,Hamburger Menu Debate
+2857,Design,Mobile-First Design
+2858,Design,Responsive Design
+2859,Design,Design Systems
+2860,Design,Atomic Design
+2861,Design,Information Architecture
+2862,Design,Card Sorting
+2863,Design,Wireframing
+2864,Design,Prototyping Fidelity
+2865,Design,Speculative Design
+2866,Design,Critical Design
+2867,Design,Biomimicry
+2868,Design,Packaging Design
+2869,Design,Unboxing Experience
+2870,Design,Sound Design UX
+2871,Design,Haptics Design
+2872,Design,Data Visualization Ethics
+2873,Design,Chartjunk
+2874,Design,Tufte's Data-Ink
+2875,Design,Infographics
+2876,Design,Nightingale's Rose Chart
+2877,Design,Minard's Napoleon Map
+2878,Design,Poster Design History
+2879,Design,Propaganda Posters
+2880,Design,Album Cover Art
+2881,Design,Book Cover Design
+2882,Design,Movie Poster Tropes
+2883,Design,Fashion Cycles
+2884,Design,Trend Forecasting
+2885,Business,Planned Obsolescence
+2886,Business,Phoebus Cartel
+2887,Business,Disruptive Innovation
+2888,Business,Innovator's Dilemma
+2889,Business,First-Mover Advantage
+2890,Business,Fast Follower
+2891,Business,Blue Ocean Strategy
+2892,Business,Porter's Five Forces
+2893,Business,SWOT Analysis
+2894,Business,Competitive Moats
+2895,Business,Economies of Scale
+2896,Business,Economies of Scope
+2897,Business,Vertical Integration
+2898,Business,Horizontal Integration
+2899,Business,Conglomerate Discount
+2900,Business,Keiretsu
+2901,Business,Chaebol
+2902,Business,Franchising Model
+2903,Business,Razor and Blades
+2904,Business,Freemium Model
+2905,Business,Subscription Economy
+2906,Business,Platform Business Model
+2907,Business,Two-Sided Markets
+2908,Business,Flywheel Effect
+2909,Business,Lean Startup
+2910,Business,Minimum Viable Product
+2911,Business,Product-Market Fit
+2912,Business,Pivoting
+2913,Business,Blitzscaling
+2914,Business,Burn Rate
+2915,Business,Unit Economics
+2916,Business,Customer Acquisition Cost
+2917,Business,Lifetime Value
+2918,Business,Churn Rate
+2919,Business,Net Promoter Score
+2920,Business,Growth Hacking
+2921,Business,Viral Coefficient
+2922,Business,Long Tail
+2923,Business,Pareto Principle
+2924,Business,Peter Principle
+2925,Business,Parkinson's Law
+2926,Business,Dilbert Principle
+2927,Business,Bullshit Jobs
+2928,Business,Quiet Quitting
+2929,Business,Great Resignation
+2930,Business,Hustle Culture
+2931,Business,Four-Day Workweek
+2932,Business,Remote Work Debate
+2933,Business,Open-Plan Offices
+2934,Business,Hot Desking
+2935,Business,OKRs
+2936,Business,Key Performance Indicators
+2937,Business,Management by Objectives
+2938,Business,Scientific Management
+2939,Business,Taylorism
+2940,Business,Fordism
+2941,Business,Toyota Production System
+2942,Business,Kaizen
+2943,Business,Kanban
+2944,Business,Just-in-Time Inventory
+2945,Business,Six Sigma
+2946,Business,Lean Manufacturing
+2947,Business,Bullwhip Effect
+2948,Business,Supply Chain Shocks
+2949,Business,Ever Given Blockage
+2950,Business,Offshoring
+2951,Business,Reshoring
+2952,Business,Nearshoring
+2953,Business,Outsourcing
+2954,Business,Shareholder Primacy
+2955,Business,Stakeholder Capitalism
+2956,Business,B Corporations
+2957,Business,ESG Investing
+2958,Business,Corporate Social Responsibility
+2959,Business,Triple Bottom Line
+2960,Business,Rainbow Capitalism
+2961,Business,Woke Capitalism
+2962,Business,Golden Parachutes
+2963,Business,Executive Pay Gap
+2964,Business,Stock-Based Compensation
+2965,Business,Poison Pill Defense
+2966,Business,Hostile Takeovers
+2967,Business,Activist Investors
+2968,Business,Mergers Culture Clash
+2969,Business,Brand Equity
+2970,Business,Brand Archetypes
+2971,Business,Positioning Strategy
+2972,Business,Marketing Mix
+2973,Business,Loss Leaders
+2974,Business,Decoy Pricing
+2975,Business,Charm Pricing
+2976,Business,Dynamic Pricing
+2977,Business,Surge Pricing
+2978,Business,Shrinkflation
+2979,Business,Skimpflation
+2980,Business,Price Anchoring
+2981,Business,Scarcity Marketing
+2982,Business,Limited Drops
+2983,Business,Hype Marketing
+2984,Business,Guerrilla Marketing
+2985,Business,Word-of-Mouth Marketing
+2986,Business,Ambush Marketing
+2987,Business,Cult Brands
+2988,Business,New Coke Fiasco
+2989,Business,Pepsi Challenge
+2990,Business,Kodak's Decline
+2991,Business,Blockbuster vs Netflix
+2992,Business,Nokia's Fall
+2993,Business,Theranos Fraud
+2994,Business,WeWork Collapse
+2995,Business,Black Box Thinking
+2996,Business,Psychological Safety
+2997,Business,Matrix Organizations
+2998,Business,Holacracy
+2999,Business,Skunkworks
+3000,Business,Intrapreneurship

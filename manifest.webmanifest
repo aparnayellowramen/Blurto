@@ -1,0 +1,14 @@
+{
+  "name": "Blurto",
+  "short_name": "Blurto",
+  "description": "Draw a random concept, learn it in 20 minutes, then explain it out loud in 2.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF8F3",
+  "theme_color": "#5B3FE0",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
