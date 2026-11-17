@@ -336,7 +336,7 @@ function buildMonster() {
 }
 
 // ---- Scene, cameras, renderer ----------------------------------------------
-let renderer, scene, shadow;
+let renderer, scene, shadow, platform;
 const cams = {};
 
 function init() {
@@ -366,6 +366,21 @@ function init() {
   shadow.position.set(0, 0.003, 0.05);
   scene.add(shadow);
 
+  // A frosted glass platform for the picker page's hero monster to stand on.
+  platform = new THREE.Group();
+  const glass = new THREE.Mesh(new THREE.CylinderGeometry(2.05, 2.15, 0.2, 96), new THREE.MeshPhysicalMaterial({
+    color: '#F4EDFF', transparent: true, opacity: 0.5, roughness: 0.2, clearcoat: 1, clearcoatRoughness: 0.15, depthWrite: false,
+  }));
+  glass.position.y = -0.1;
+  const rimTop = new THREE.Mesh(new THREE.TorusGeometry(2.05, 0.035, 12, 120), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.85 }));
+  rimTop.rotation.x = Math.PI / 2;
+  const inner = new THREE.Mesh(new THREE.RingGeometry(1.55, 1.62, 96), new THREE.MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.45, side: THREE.DoubleSide }));
+  inner.rotation.x = -Math.PI / 2;
+  inner.position.y = 0.002;
+  platform.add(glass, rimTop, inner);
+  platform.renderOrder = -1;
+  scene.add(platform);
+
   // Front view for the small monsters, and a taller frame for the jumping intro.
   cams.front = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
   cams.front.position.set(0, 1.75, 10);
@@ -373,6 +388,10 @@ function init() {
   cams.intro = new THREE.PerspectiveCamera(28, 0.75, 0.1, 100);
   cams.intro.position.set(0, 2.25, 9.2);
   cams.intro.lookAt(0, 2.1, 0);
+  // Looking slightly down, so the platform reads as a disc.
+  cams.hero = new THREE.PerspectiveCamera(27, 1, 0.1, 100);
+  cams.hero.position.set(0, 3.4, 10.6);
+  cams.hero.lookAt(0, 1.35, 0);
   buildBackground();
 }
 
@@ -386,7 +405,8 @@ const PUFFS = [
   [-1.04, -0.86, -4, 0.82, 3, 0.7], [0.62, 0.98, 2, 0.34, 2, 1.3], [0.08, 0.22, -9, 1.15, 0, 0.5],
   [0.96, 0.1, -7, 1.0, 2, 0.55], [-0.55, 0.42, -8, 0.9, 3, 0.6],
 ];
-const PUFF_COLS = [['#FFDCE7', '#FFB3CB'], ['#D6F7EE', '#9FE7D3'], ['#FFF3C9', '#FFE48C'], ['#E8E0FF', '#C7B6FF']];
+// Pink, lilac, orange and plum, like balls of yarn.
+const PUFF_COLS = [['#FFC2DE', '#F28CBF'], ['#D9C8FF', '#A98BEA'], ['#FFC79A', '#F59A52'], ['#C9A8F0', '#8F68D9']];
 let bgScene;
 const puffs = [];
 const lean = { x: 0, y: 0, tx: 0, ty: 0 };
@@ -469,6 +489,7 @@ function reset() {
   R.happy.visible = false;
   shadow.scale.set(1, 1, 1);
   shadow.material.opacity = 0.85;
+  platform.visible = false;
 }
 
 function shut(on) {
@@ -531,6 +552,19 @@ function pose(mood, t) {
   U.wind.value.set(0.08 + Math.sin(t) * 0.04, 0, 0.05);
   if (mood === 'jump') {
     poseJump(t);
+  } else if (mood === 'hero') {
+    // Standing on the glass platform: breathing, blinking, and a little wave now and then.
+    platform.visible = true;
+    R.body.position.y = 1.5 + s * 0.03;
+    R.body.scale.set(1 - s * 0.006, 1 + s * 0.012, 1 - s * 0.006);
+    R.root.rotation.y = -0.18 + Math.sin(t * 0.5) * 0.06;
+    const w = t % 5.5;
+    const wave = w < 1.4 ? Math.sin((w / 1.4) * Math.PI) : 0;
+    R.armR.rotation.set(0, 0, -0.14 - wave * 2.3 - wave * Math.sin(t * 14) * 0.25);
+    R.armL.rotation.z = 0.14 + s * 0.04;
+    R.mouth.scale.setScalar(1 + wave * 0.3);
+    if (wave > 0.4) shut(true); else blink(t);
+    shadow.material.opacity = 0.6;
   } else if (mood === 'idle' || mood === 'logo') {
     R.body.position.y = 1.5 + s * 0.025;
     R.body.scale.set(1 - s * 0.006, 1 + s * 0.01, 1 - s * 0.006);
@@ -595,7 +629,7 @@ function frameView(v, now) {
     cam = cams.bg;
   } else {
     pose(v.mood, t);
-    cam = v.mood === 'jump' ? cams.intro : cams.front;
+    cam = v.mood === 'jump' ? cams.intro : v.mood === 'hero' ? cams.hero : cams.front;
   }
   cam.aspect = w / h;
   cam.updateProjectionMatrix();
@@ -654,7 +688,7 @@ export function background() {
 /** Replace the flat SVG monsters inside `root` with live 3D ones. */
 export function upgrade(root) {
   ensureInit();
-  root.querySelectorAll('svg.mascot').forEach((svg) => {
+  root.querySelectorAll('svg.mascot:not(.flat)').forEach((svg) => { // tiny avatars stay flat
     const mood = ([...svg.classList].find((c) => c.startsWith('m-')) || 'm-idle').slice(2);
     const vb = svg.viewBox.baseVal;
     const aspect = mood === 'jump' ? 0.75 : vb.width / vb.height;

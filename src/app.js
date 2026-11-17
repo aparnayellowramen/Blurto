@@ -38,12 +38,15 @@ const MARKS = {
 const TIMED = new Set(['learn', 'handoff', 'speak']);
 const PHASES = new Set(['draw', 'learn', 'handoff', 'speak', 'done']);
 
-const KEY = { queue: 'blurto.queue.v1', fw: 'blurto.frameworks.v1', session: 'blurto.session.v1', count: 'blurto.count.v1' };
+const KEY = { queue: 'blurto.queue.v1', fw: 'blurto.frameworks.v1', session: 'blurto.session.v1', count: 'blurto.count.v1', pending: 'blurto.pending.v1' };
 
 // ---- State ----------------------------------------------------------------
 const topics = new Map(); // id -> { name, category }
 let allIds = [];
 let queueState = { queue: [], used: [] };
+// Topics drawn but given back by going Back (or quitting) before learning started.
+// They come up again on the next draw, so Back can't be used to skip a topic.
+let pending = [];
 let fwDefaults = {};      // learner slot (0-3) -> framework id, remembered across sessions
 let session = null;
 let justRevealed = false;
@@ -60,6 +63,23 @@ const topicOf = (L) => topics.get(L.topicId);
 const saveQueue = () => store.set(KEY.queue, queueState);
 const saveSession = () => (session ? store.set(KEY.session, session) : store.remove(KEY.session));
 const minutes = (ms) => Math.round(ms / 60_000 * SPEED);
+const savePending = () => store.set(KEY.pending, pending);
+const topicsLeft = () => queueState.queue.length + pending.length;
+
+/** The next topic: one given back earlier if there is one, else a fresh one. */
+function drawTopic() {
+  if (pending.length) { const id = pending.shift(); savePending(); return id; }
+  const id = takeNext(queueState);
+  saveQueue(); // saved before showing it, so a reload can't be used to skip
+  return id;
+}
+
+/** Hand the session's drawn topics back, to come up again on the next draws. */
+function keepDrawnTopics() {
+  const drawn = session.learners.map((L) => L.topicId).filter((id) => id != null);
+  pending = [...drawn, ...pending.filter((id) => !drawn.includes(id))];
+  savePending();
+}
 
 function announce(msg) {
   $announcer.textContent = '';
@@ -114,7 +134,7 @@ function topicCard(L, { reveal = false, framework = false } = {}) {
 }
 
 function viewSetup() {
-  const left = queueState.queue.length;
+  const left = topicsLeft();
   if (left === 0) {
     return `<section class="screen center">
       ${mascot('cheer', 'big')}
@@ -126,39 +146,101 @@ function viewSetup() {
   }
   const saved = Number(store.get(KEY.count)) || 1;
   const selected = Math.min(Math.max(1, saved), 4, left);
-  return `<section class="screen">
-    <div class="hero">
-      ${mascot('idle')}
-      <h1 tabindex="-1" data-focus>Learn it in 20.<br>Explain it in 2.</h1>
-      <p class="lede">Draw a random concept, research it for ${minutes(LEARN_MS)} minutes, then explain it out loud in ${minutes(SPEAK_MS)}.</p>
-    </div>
-    <fieldset class="count">
-      <legend>How many learners?</legend>
-      <div class="count-grid">
-        ${[1, 2, 3, 4].map((n) => `<div class="tile">
-          <input type="radio" name="count" id="count-${n}" value="${n}"${n === selected ? ' checked' : ''}${n > left ? ' disabled' : ''}>
-          <label for="count-${n}"><span class="n">${n}</span><span class="sub">${n === 1 ? 'solo' : 'people'}</span></label>
-        </div>`).join('')}
+  const total = allIds.length;
+  const categories = new Set([...topics.values()].map((t) => t.category)).size;
+  return `<section class="screen soft">
+    <div class="soft-copy">
+      <h1 tabindex="-1" data-focus class="puffy">Learn it in ${minutes(LEARN_MS)}.<br>Explain it in ${minutes(SPEAK_MS)}.</h1>
+      <p class="soft-lede">Draw a random concept, research it for ${minutes(LEARN_MS)} minutes, then explain it <em>out loud</em> in ${minutes(SPEAK_MS)}.</p>
+      <div class="soft-rule" aria-hidden="true"></div>
+      <fieldset class="count glass">
+        <legend>How many learners?</legend>
+        <div class="count-row">
+          <div class="count-pills">
+            ${[1, 2, 3, 4].map((n) => `<span class="pill-opt">
+              <input type="radio" name="count" id="count-${n}" value="${n}"${n === selected ? ' checked' : ''}${n > left ? ' disabled' : ''}>
+              <label for="count-${n}"><span class="sr-only">${n === 1 ? '1 learner' : `${n} learners`}</span><span aria-hidden="true">${n}</span></label>
+            </span>`).join('')}
+          </div>
+          <span class="avatars" id="avatars" aria-hidden="true">${avatars(selected)}</span>
+        </div>
+        <p class="hint" id="duration">${durationHint(selected)}</p>
+      </fieldset>
+      <div class="soft-actions">
+        <button class="btn pill" data-action="start">Start session <span aria-hidden="true">→</span></button>
+        <button class="btn round" data-action="replay-intro" aria-label="Play the intro again">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg>
+        </button>
       </div>
-      <p class="hint" id="duration">${durationHint(selected)}</p>
-    </fieldset>
-    <div class="actions"><button class="btn" data-action="start">Start session</button></div>
+    </div>
+    <div class="stage" aria-hidden="true">
+      ${orbits()}
+      ${mascot('hero', 'hero')}
+      <div class="stat-card glass">
+        <span class="stat-label">Topics left</span>
+        <strong>${left.toLocaleString()}</strong>
+        <span class="stat-bar"><i style="width:${Math.round((left / total) * 100)}%"></i></span>
+      </div>
+      <span class="bead bead-star">★</span>
+      <span class="bead bead-heart">♥</span>
+    </div>
+    <ul class="stats glass">
+      <li>${ICON.heart}<span><strong>${total.toLocaleString()}</strong> topics</span></li>
+      <li>${ICON.star}<span><strong>${categories}</strong> categories</span></li>
+      <li>${ICON.planet}<span><strong>${FRAMEWORKS.length}</strong> frameworks</span></li>
+    </ul>
   </section>`;
 }
+
+// Little monsters, one per learner, in the reference's pink / lilac / orange / mint.
+function avatars(n) {
+  return Array.from({ length: n }, (_, i) => `<span class="avatar av-${i}">${mascot('idle', 'flat')}</span>`).join('');
+}
+
+// Dashed orbit rings around the stage, with the session's four beats on them.
+function orbits() {
+  const cx = 200; const cy = 214; const rx = 186; const ry = 150;
+  const label = (deg, text) => {
+    const a = (deg * Math.PI) / 180;
+    const x = cx + rx * Math.cos(a); const y = cy + ry * Math.sin(a);
+    let tilt = (Math.atan2(ry * Math.cos(a), -rx * Math.sin(a)) * 180) / Math.PI;
+    if (tilt > 90) tilt -= 180; if (tilt < -90) tilt += 180;
+    return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" transform="rotate(${tilt.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" text-anchor="middle" dominant-baseline="middle">${text}</text>`;
+  };
+  const ring = `M${cx - rx} ${cy} a${rx} ${ry} 0 1 0 ${rx * 2} 0 a${rx} ${ry} 0 1 0 ${-rx * 2} 0`;
+  return `<svg class="orbits" viewBox="0 0 400 400">
+    <ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" class="orbit"/>
+    <ellipse cx="${cx}" cy="${cy + 6}" rx="${rx - 34}" ry="${ry - 30}" class="orbit faint"/>
+    <g class="orbit-words">${label(-140, 'LEARN')}${label(-62, 'RESEARCH')}${label(162, 'EXPLAIN')}${label(18, 'BLURT')}</g>
+    <circle r="6" class="orbit-dot"><animateMotion dur="26s" repeatCount="indefinite" path="${ring}"/></circle>
+    <circle r="4" class="orbit-dot pink"><animateMotion dur="26s" begin="-13s" repeatCount="indefinite" path="${ring}"/></circle>
+  </svg>`;
+}
+
+const ICON = {
+  heart: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.4C1.4 7.6 3.6 4 7.2 4c2 0 3.6 1.1 4.8 2.7C13.2 5.1 14.8 4 16.8 4c3.6 0 5.8 3.6 4.5 7.1-1.8 4.8-9.3 9.4-9.3 9.4z" fill="#F27BB6"/></svg>',
+  star: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8l2.7 5.8 6.3.7-4.7 4.3 1.3 6.2L12 16.7l-5.6 3.1 1.3-6.2L3 9.3l6.3-.7z" fill="#F6A04D" stroke="#F6A04D" stroke-width="1.5" stroke-linejoin="round"/></svg>',
+  planet: '<svg class="stat-ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="6" fill="#A98BEA"/><ellipse cx="12" cy="12" rx="10.5" ry="3.6" fill="none" stroke="#7E5FD6" stroke-width="1.6" transform="rotate(-20 12 12)"/></svg>',
+};
 
 function durationHint(n) {
   const total = minutes(LEARN_MS) + n * minutes(SPEAK_MS);
   return n === 1
-    ? `About ${total} minutes. ${queueState.queue.length.toLocaleString()} topics left on this device.`
-    : `About ${total} minutes, passing one phone around. ${queueState.queue.length.toLocaleString()} topics left.`;
+    ? `About ${total} minutes. ${topicsLeft().toLocaleString()} topics left on this device.`
+    : `About ${total} minutes, passing one phone around. ${topicsLeft().toLocaleString()} topics left.`;
 }
 
 function viewDraw() {
   const i = session.drawIndex;
   const L = session.learners[i];
   const eyebrow = session.count === 1 ? 'Solo session' : `Learner ${i + 1} of ${session.count}`;
+  const back = `<button class="back-btn" data-action="back">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${i > 0 ? `Learner ${i}` : 'Back'}
+    </button>`;
   if (L.topicId == null) {
     return `<section class="screen center">
+      ${back}
       <p class="eyebrow">${eyebrow}</p>
       <h1 tabindex="-1" data-focus>${session.count === 1 ? 'Draw your topic' : `Learner ${i + 1}, draw your topic`}</h1>
       ${mascot('curious', 'big')}
@@ -168,6 +250,7 @@ function viewDraw() {
   }
   const last = i === session.count - 1;
   return `<section class="screen">
+    ${back}
     <p class="eyebrow">${eyebrow}</p>
     <h1 tabindex="-1" data-focus class="sr-only">Your topic: ${esc(topicOf(L).name)}</h1>
     ${topicCard(L, { reveal: justRevealed })}
@@ -266,6 +349,7 @@ function render() {
     ${inSession ? '<button class="link-btn" data-action="quit">Quit</button>' : ''}`;
   $app.innerHTML = VIEWS[phase]();
   upgradeMonsters($top, $app);
+  if (prefersReducedMotion()) $app.querySelector('.orbits')?.pauseAnimations();
   justRevealed = false;
   if (TIMED.has(phase)) {
     updateTimer();
@@ -369,7 +453,7 @@ function finishPhase() {
 const actions = {
   start() {
     const n = Number(document.querySelector('input[name="count"]:checked')?.value) || 1;
-    if (n > queueState.queue.length) return;
+    if (n > topicsLeft()) return;
     store.set(KEY.count, n);
     session = newSession(n);
     saveSession();
@@ -378,8 +462,7 @@ const actions = {
   generate() {
     const L = session.learners[session.drawIndex];
     if (L.topicId != null) return;
-    const id = takeNext(queueState);
-    saveQueue(); // saved before showing it, so a reload can't be used to skip
+    const id = drawTopic();
     if (id == null) { session = null; saveSession(); render(); return; }
     L.topicId = id;
     justRevealed = true;
@@ -418,8 +501,21 @@ const actions = {
   'start-now'() {
     finishPhase();
   },
+  back() {
+    if (session?.phase !== 'draw') return;
+    if (session.drawIndex > 0) {
+      session.drawIndex--; // the previous learner keeps their topic and can change framework
+    } else {
+      keepDrawnTopics();
+      session = null;
+    }
+    saveSession();
+    render();
+  },
   quit() {
-    if (!confirm('Quit this session? Topics already drawn stay used.')) return;
+    const drawing = session.phase === 'draw';
+    if (!confirm(drawing ? 'Quit this session?' : 'Quit this session? Topics already drawn stay used.')) return;
+    if (drawing) keepDrawnTopics(); // nothing learned yet, so the topics come up again
     session = null;
     saveSession();
     render();
@@ -428,6 +524,9 @@ const actions = {
     session = null;
     saveSession();
     render();
+  },
+  'replay-intro'() {
+    playIntro();
   },
   'reset-topics'() {
     if (!confirm(`Start over with all ${allIds.length.toLocaleString()} topics? Topics you've already seen can come up again.`)) return;
@@ -444,9 +543,15 @@ document.addEventListener('click', (e) => {
   actions[btn.dataset.action]?.();
 });
 
+// Escape goes back from the topic screens, like the Back button.
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && session?.phase === 'draw' && !document.querySelector('.intro')) actions.back();
+});
+
 document.addEventListener('change', (e) => {
   if (e.target.name === 'count') {
     document.getElementById('duration').textContent = durationHint(Number(e.target.value));
+    document.getElementById('avatars').innerHTML = avatars(Number(e.target.value));
   } else if (e.target.name === 'fw' && session?.phase === 'draw') {
     const L = session.learners[session.drawIndex];
     L.framework = e.target.value;
@@ -469,10 +574,12 @@ const HOP_MS = 720;
 const SLIDE_AT_MS = HOP_MS * 2.3; // as the third jump takes off
 const SCROLL_MS = 1400;           // longest picker transition, incl. its cascade
 
+function prefersReducedMotion() {
+  try { return matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { return false; }
+}
+
 function playIntro() {
-  let reduce = false;
-  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { /* ignore */ }
-  if (reduce) return;
+  if (prefersReducedMotion() || document.querySelector('.intro')) return;
   const el = document.createElement('div');
   el.className = 'intro';
   el.setAttribute('aria-hidden', 'true');
@@ -523,6 +630,8 @@ async function init() {
   saveQueue();
   const fw = store.get(KEY.fw);
   fwDefaults = fw && typeof fw === 'object' ? fw : {};
+  const savedPending = store.get(KEY.pending);
+  pending = Array.isArray(savedPending) ? [...new Set(savedPending.filter((id) => topics.has(id)))] : [];
   const saved = store.get(KEY.session);
   session = isValidSession(saved) ? saved : null;
   if (!session) store.remove(KEY.session);
