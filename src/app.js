@@ -3,7 +3,7 @@ import { reconcileQueue, takeNext, shuffle } from './queue.js';
 import * as T from './timer.js';
 import { store } from './storage.js';
 import { sounds, vibrate, unlockAudio, keepAwake } from './device.js';
-import { mascot } from './mascot.js';
+import { mascot, trotter } from './mascot.js';
 
 // ---- Config ---------------------------------------------------------------
 // ?speed=60 runs every timer 60x faster, for testing a whole session quickly.
@@ -116,7 +116,7 @@ function viewSetup() {
   const selected = Math.min(Math.max(1, saved), 4, left);
   return `<section class="screen">
     <div class="hero">
-      ${mascot('idle', 'big')}
+      ${trotter()}
       <h1 tabindex="-1" data-focus>Learn it in 20.<br>Explain it in 2.</h1>
       <p class="lede">Draw a random concept, research it for ${minutes(LEARN_MS)} minutes, then explain it out loud in ${minutes(SPEAK_MS)}.</p>
     </div>

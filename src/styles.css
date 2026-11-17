@@ -13,7 +13,8 @@
   --speak: #C2410C;       --on-speak: #FFFFFF;  --speak-soft: #FDE6D8;  --speak-ink: #9A3412;  --speak-bg: #FFF6F0;
   --warn: #B91C1C;
 
-  --monster: #7C5CFF;  --monster-belly: #A996FF;  --monster-lip: #5B3FE0;
+  --monster: #7C5CFF;  --monster-belly: #A996FF;  --monster-lip: #5B3FE0;  --monster-shade: #4A31C4;
+  --ink: #2B1640;
 
   --accent: var(--brand); --on-accent: var(--on-brand); --accent-soft: var(--brand-soft); --accent-ink: var(--brand-ink);
   color-scheme: light dark;
@@ -33,7 +34,8 @@
     --speak: #FF8F5E;   --on-speak: #2A1206;  --speak-soft: #43241A;  --speak-ink: #FFB592;  --speak-bg: #1C1314;
     --warn: #FF7B7B;
 
-    --monster: #8F74FF;  --monster-belly: #B5A6FF;  --monster-lip: #6A4FF0;
+    --monster: #8F74FF;  --monster-belly: #B5A6FF;  --monster-lip: #6A4FF0;  --monster-shade: #5639DA;
+    --ink: #E9E3FF;
   }
 }
 
@@ -244,6 +246,99 @@ legend { padding: 0; margin-bottom: 12px; font-size: 1.125rem; font-weight: 800;
 .m-cheer .m-body { animation: hop .7s ease-in-out infinite alternate; }
 .m-logo .m-mouth { transform: scale(1.15); }
 
+/* ---- Landing scene: side-view vignettes that dissolve into each other ----
+   10 s loop: study 0–2 s, celebrate 2–4 s, zoom 4–6 s, trot 6–10 s.
+   Neighbouring scenes overlap for 0.25 s, so one ghosts into the next. */
+.side-scene { display: block; width: min(76vw, 36vh, 300px); height: auto; margin: -6px auto -4px; overflow: visible; }
+.side-scene .ink { stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; stroke-opacity: 0; }
+.side-scene .sc { opacity: 0; animation: 10s linear infinite; }
+.side-scene .skin { fill: var(--monster); }
+.side-scene .far { fill: var(--monster-lip); }
+.side-scene .foot { fill: var(--monster-lip); }
+.side-scene .foot-far { fill: var(--monster-shade); }
+.side-scene .belly { fill: var(--monster-belly); }
+.side-scene .eye { fill: #FFFFFF; }
+.side-scene .pupil { fill: #1B1030; }
+.side-scene .glint { fill: #FFFFFF; }
+.side-scene .cheek { fill: #FF8FB1; opacity: .6; }
+.side-scene .mouth { fill: #2B1640; stroke: var(--monster-shade); stroke-width: 2.4; }
+.side-scene .tongue { fill: #FF7A9A; }
+.side-scene .tooth { fill: #FFFFFF; }
+.s-shadow { fill: var(--monster); opacity: .2; }
+
+/* Rig pivots (in the rig's own coordinates). */
+.s-leg, .s-arm, .s-wing, .s-bob, .s-hop, .s-float, .s-pupil { transform-box: view-box; }
+.s-leg-b { transform-origin: 100px 144px; }
+.s-leg-f { transform-origin: 134px 144px; }
+.s-arm-b { transform-origin: 104px 118px; }
+.s-arm-f { transform-origin: 122px 119px; }
+.s-wing { transform-origin: 100px 76px; }
+.s-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: s-flicker .3s ease-in-out infinite alternate; }
+
+/* Scene timing */
+.side-scene .sc-study { animation-name: sc-study; }
+.side-scene .sc-party { animation-name: sc-party; }
+.side-scene .sc-fly   { animation-name: sc-fly; }
+.side-scene .sc-trot  { animation-name: sc-trot; }
+@keyframes sc-study { 0%, 20% { opacity: 1; } 22.5%, 97.5% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes sc-party { 0%, 17.5% { opacity: 0; } 20%, 40% { opacity: 1; } 42.5%, 100% { opacity: 0; } }
+@keyframes sc-fly   { 0%, 37.5% { opacity: 0; } 40%, 60% { opacity: 1; } 62.5%, 100% { opacity: 0; } }
+@keyframes sc-trot  { 0% { opacity: 1; } 2.5%, 57.5% { opacity: 0; } 60%, 100% { opacity: 1; } }
+
+/* Study: sitting, typing, eyes on the screen */
+.sc-study .s-leg, .sc-party .s-leg { transform: rotate(-80deg); }
+.sc-study .s-arm-f { animation: s-type .18s ease-in-out infinite alternate; }
+.sc-study .s-arm-b { transform: rotate(-40deg); }
+.sc-study .s-pupil { animation: s-read 2s ease-in-out infinite; }
+@keyframes s-type { from { transform: rotate(-58deg); } to { transform: rotate(-46deg); } }
+@keyframes s-read { 0%, 30% { transform: translate(0, 1px); } 50%, 80% { transform: translate(1.5px, 2px); } }
+
+/* Celebrate: happy wiggle next to the cake */
+.sc-party .s-hop { animation: s-hop .35s ease-in-out infinite alternate; }
+.sc-party .s-arm-f { transform: rotate(-150deg); }
+.sc-party .s-arm-b { transform: rotate(-130deg); }
+@keyframes s-hop { from { transform: translateY(0) rotate(0deg); } to { transform: translateY(-4px) rotate(-2deg); } }
+@keyframes s-flicker { from { transform: scale(.85, .8); opacity: .8; } to { transform: scale(1.05, 1.1); opacity: 1; } }
+
+/* Zoom: legs tucked, wings flapping, speed lines streaming back */
+.sc-fly .s-leg { transform: rotate(60deg); }
+.sc-fly .s-arm-f { transform: rotate(50deg); }
+.sc-fly .s-arm-b { transform: rotate(40deg); }
+.sc-fly .s-float { animation: s-float .5s ease-in-out infinite alternate; }
+.sc-fly .s-wing { animation: s-flap .16s ease-in-out infinite alternate; }
+.s-speed path { stroke-dasharray: 22 60; animation: s-speed .4s linear infinite; }
+.s-speed path:nth-child(2) { animation-delay: -.15s; }
+.s-speed path:nth-child(3) { animation-delay: -.28s; }
+.s-shadow-fly { transform-box: fill-box; transform-origin: center; animation: s-fly-shadow .5s ease-in-out infinite alternate; }
+@keyframes s-float { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+@keyframes s-flap { from { transform: rotate(8deg) scaleY(1); } to { transform: rotate(-14deg) scaleY(.75); } }
+@keyframes s-speed { from { stroke-dashoffset: -60; } to { stroke-dashoffset: 22; } }
+@keyframes s-fly-shadow { from { transform: scaleX(1); opacity: .16; } to { transform: scaleX(.85); opacity: .1; } }
+
+/* Trot: legs in turn, body bobbing twice per stride, arms swinging */
+.sc-trot .s-leg-f { animation: s-stride .3s ease-in-out infinite alternate; }
+.sc-trot .s-leg-b { animation: s-stride .3s ease-in-out infinite alternate-reverse; }
+.sc-trot .s-arm-f { animation: s-swing .3s ease-in-out infinite alternate-reverse; }
+.sc-trot .s-arm-b { animation: s-swing .3s ease-in-out infinite alternate; }
+.sc-trot .s-bob { animation: s-bob .15s ease-in-out infinite alternate; }
+.s-shadow-trot { transform-box: fill-box; transform-origin: center; animation: s-trot-shadow .15s ease-in-out infinite alternate; }
+@keyframes s-stride { from { transform: rotate(26deg); } to { transform: rotate(-26deg); } }
+@keyframes s-swing { from { transform: rotate(30deg); } to { transform: rotate(-30deg); } }
+@keyframes s-bob { from { transform: translateY(1px) rotate(.6deg); } to { transform: translateY(-5px) rotate(-.6deg); } }
+@keyframes s-trot-shadow { from { transform: scaleX(1); } to { transform: scaleX(.9); } }
+
+/* Mid-trot it turns into line art for a moment, then colour washes back in.
+   The line art is a second copy of the rig with paper fills, so hidden parts stay hidden. */
+.side-scene .wing { stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
+.side-scene .s-lines { opacity: 0; animation: s-lines 10s linear infinite; }
+.side-scene .s-lines .ink { stroke-opacity: 1; }
+.side-scene .s-lines * { fill: var(--bg); }
+.side-scene .s-lines .line[fill="none"], .side-scene .s-lines .line[fill="none"] * { fill: none; }
+.side-scene .s-lines .mouth { stroke: var(--ink); }
+.s-shadow-trot { animation: s-trot-shadow .15s ease-in-out infinite alternate, s-shadow-fade 10s linear infinite; }
+@keyframes s-lines { 0%, 79% { opacity: 0; } 80.5%, 86% { opacity: 1; } 90%, 100% { opacity: 0; } }
+@keyframes s-shadow-fade { 0%, 79% { opacity: .2; } 80.5%, 86% { opacity: .08; } 90%, 100% { opacity: .2; } }
+
 @keyframes bob { 50% { transform: translateY(-4px); } }
 @keyframes talk { from { transform: scale(.9); } to { transform: scale(1.4); } }
 @keyframes hop { from { transform: translateY(0); } to { transform: translateY(-8px); } }
@@ -272,4 +367,7 @@ legend { padding: 0; margin-bottom: 12px; font-size: 1.125rem; font-weight: 800;
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* Still scene: the monster celebrating next to its cake. */
+  .side-scene .sc { opacity: 0; }
+  .side-scene .sc-party { opacity: 1; }
 }
