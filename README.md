@@ -4,7 +4,11 @@
 
 Blurt o draws you one random concept, gives you 20 minutes to learn it, then 2 minutes to explain it out loud using a proven speaking framework. Play alone or with up to 3 friends, passing one phone around.
 
-![Blurt o: the end screen with the fluffy monster cheering, next to the tagline "Learn it in 20. Explain it in 2. Out loud."](docs/hero.jpg)
+
+
+https://github.com/user-attachments/assets/e8e59f60-ace5-4e09-a565-40a1a4c00c60
+
+
 
 ---
 
