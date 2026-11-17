@@ -3,13 +3,15 @@ import { reconcileQueue, takeNext, shuffle } from './queue.js';
 import * as T from './timer.js';
 import { store } from './storage.js';
 import { sounds, vibrate, unlockAudio, keepAwake } from './device.js';
-import { mascot, trotter, playScene } from './mascot.js';
+import { mascot } from './mascot.js';
 
 // The 3D monster loads in the background. Until it's ready, or if the device
 // can't run WebGL, the flat SVG monster shows instead.
 const monster3d = import('./monster3d.js')
   .then((m) => (m.supported() ? m : null))
   .catch(() => null);
+// Floating fluff puffs behind every screen (3D only).
+monster3d.then((m) => { try { m?.background(); } catch { /* no background */ } });
 const upgradeMonsters = (...roots) => monster3d.then((m) => {
   if (!m) return;
   try { roots.forEach((r) => m.upgrade(r)); } catch { /* keep the SVG */ }
@@ -126,7 +128,7 @@ function viewSetup() {
   const selected = Math.min(Math.max(1, saved), 4, left);
   return `<section class="screen">
     <div class="hero">
-      ${trotter()}
+      ${mascot('idle')}
       <h1 tabindex="-1" data-focus>Learn it in 20.<br>Explain it in 2.</h1>
       <p class="lede">Draw a random concept, research it for ${minutes(LEARN_MS)} minutes, then explain it out loud in ${minutes(SPEAK_MS)}.</p>
     </div>
@@ -263,7 +265,6 @@ function render() {
   $top.innerHTML = `<span class="logo" role="img" aria-label="Blurto">Blurt${mascot('logo')}</span>
     ${inSession ? '<button class="link-btn" data-action="quit">Quit</button>' : ''}`;
   $app.innerHTML = VIEWS[phase]();
-  playScene($app.querySelector('.side-scene'));
   upgradeMonsters($top, $app);
   justRevealed = false;
   if (TIMED.has(phase)) {
@@ -460,8 +461,53 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') tick();
 });
 
+// ---- Opening intro ------------------------------------------------------------
+// The big monster jumps three times; on the third jump the page scrolls down
+// to the learner picker (styles.css, "Opening intro"). A tap skips it. The hop
+// length must match JUMP.period in monster3d.js and the .72s in styles.css.
+const HOP_MS = 720;
+const SLIDE_AT_MS = HOP_MS * 2.3; // as the third jump takes off
+const SCROLL_MS = 1400;           // longest picker transition, incl. its cascade
+
+function playIntro() {
+  let reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { /* ignore */ }
+  if (reduce) return;
+  const el = document.createElement('div');
+  el.className = 'intro';
+  el.setAttribute('aria-hidden', 'true');
+  el.innerHTML = mascot('jump');
+  document.body.append(el);
+  const html = document.documentElement;
+  html.classList.add('intro-on'); // the picker waits one screen below
+  let gone = false;
+  const leave = () => {
+    if (gone) return;
+    gone = true;
+    document.removeEventListener('keydown', leave);
+    html.classList.add('intro-out');
+    requestAnimationFrame(() => {
+      el.classList.add('leaving');
+      html.classList.remove('intro-on');
+    });
+    setTimeout(() => { el.remove(); html.classList.remove('intro-out'); }, SCROLL_MS);
+  };
+  el.addEventListener('click', leave);
+  document.addEventListener('keydown', leave);
+  // Give the 3D monster a moment to load so the jumps and the slide stay in step;
+  // if it's slow (or unsupported) the flat monster jumps instead.
+  Promise.race([monster3d, new Promise((r) => setTimeout(() => r(null), 1200))]).then((m) => {
+    if (gone) return;
+    if (m) { try { m.upgrade(el); } catch { /* keep the SVG */ } }
+    el.classList.add('go');
+    setTimeout(leave, SLIDE_AT_MS);
+  });
+}
+
 // ---- Start ----------------------------------------------------------------
 async function init() {
+  // The intro plays on every open, unless a session is in progress.
+  if (!store.get(KEY.session)) playIntro();
   try {
     const res = await fetch('data/topics.json');
     if (!res.ok) throw new Error(res.status);

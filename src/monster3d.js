@@ -18,10 +18,11 @@ const COL = {
   rainbow: ['#FFB3CB', '#9FE7D3', '#FFE48C', '#C7B6FF'],
   cheek: '#FF8FA6',
   eye: '#1C100E', mouth: '#3A1613', lip: '#B85A55', tongue: '#FF7F98',
-  sketch: '#8E879C',
 };
-const TAU = Math.PI * 2;
 const Z_AXIS = new THREE.Vector3(0, 0, 1);
+
+/** The intro's jump: three hops, the last one biggest. Shared with app.js. */
+export const JUMP = { period: 0.72, count: 3 };
 
 export function supported() {
   try {
@@ -92,9 +93,9 @@ uniform float uRainbow;
 uniform vec3 uRain[4];
 uniform vec4 uCheeks[2];
 uniform vec3 uCheekCol;
-uniform float uSketch;
-uniform vec3 uPaper;
 uniform vec3 uKey;
+uniform vec3 uFog;
+uniform float uFogAmt;
 varying vec3 vBase;
 varying vec3 vN;
 varying vec3 vView;
@@ -103,15 +104,10 @@ ${NOISE}
 void main() {
   float h = uLayer;
   if (h > 0.0) {
-    if (uSketch > 0.5 || vMask < 0.04) discard;
+    if (vMask < 0.04) discard;
     float n = noise3(vBase * uDensity) * 0.62 + noise3(vBase * uDensity * 2.7 + 11.0) * 0.38;
     float hh = h / max(vMask, 0.25);
     if (n < mix(0.32, 0.86, clamp(hh, 0.0, 1.0))) discard;
-  }
-  if (uSketch > 0.5) {
-    gl_FragColor = vec4(uPaper, 1.0);
-    #include <colorspace_fragment>
-    return;
   }
   float g = clamp((vBase.y - uYRange.x) / (uYRange.y - uYRange.x), 0.0, 1.0);
   vec3 col = mix(uColBottom, uColTop, g);
@@ -135,21 +131,21 @@ void main() {
   lit += col * 0.1 * h + vec3(1.0) * rim * 0.2 * (0.4 + 0.6 * h);
   gl_FragColor = vec4(lit, 1.0);
   #include <tonemapping_fragment>
+  // Distant background puffs fade into the page colour.
+  gl_FragColor.rgb = mix(gl_FragColor.rgb, uFog, uFogAmt);
   #include <colorspace_fragment>
 }`;
 
 // Shared uniforms, updated once per frame.
 const U = {
   time: { value: 0 },
-  sketch: { value: 0 },
-  paper: { value: new THREE.Color('#FBF8F3') },
   key: { value: new THREE.Vector3(0, 1, 0) },
   wind: { value: new THREE.Vector3(0.12, 0, 0.06) },
+  fog: { value: new THREE.Color('#FBF8F3') },
 };
 const KEY_WORLD = new THREE.Vector3(-0.45, 0.85, 0.55).normalize();
 
 let LAYERS = 20;
-const furGroups = [];
 
 function furry(geo, o) {
   const v4 = (arr, n) => Array.from({ length: n }, (_, i) => (arr[i] ? new THREE.Vector4(...arr[i]) : new THREE.Vector4(0, 0, 0, 0)));
@@ -167,9 +163,9 @@ function furry(geo, o) {
     uRain: { value: COL.rainbow.map((c) => new THREE.Color(c)) },
     uCheeks: { value: v4(o.cheeks || [], 2) },
     uCheekCol: { value: new THREE.Color(COL.cheek) },
-    uSketch: U.sketch,
-    uPaper: U.paper,
     uKey: U.key,
+    uFog: U.fog,
+    uFogAmt: { value: o.fog ?? 0 },
   };
   const layers = o.layers ?? LAYERS;
   const group = new THREE.Group();
@@ -183,17 +179,8 @@ function furry(geo, o) {
     mesh.renderOrder = i;
     group.add(mesh);
   }
-  // Line-art moment: a slightly larger back-face copy draws a clean outline.
-  const outline = new THREE.Mesh(geo, OUTLINE_MAT);
-  outline.scale.setScalar(o.outline ?? 1.03);
-  outline.visible = false;
-  group.add(outline);
-  furGroups.push(group);
-  group.userData.outline = outline;
   return group;
 }
-
-let OUTLINE_MAT;
 
 // ---- Shapes ---------------------------------------------------------------
 const EGG_Y = 1.18;
@@ -246,21 +233,10 @@ function radialTexture() {
   return t;
 }
 
-function stripeTexture(a, b) {
-  const c = document.createElement('canvas');
-  c.width = 8; c.height = 64;
-  const x = c.getContext('2d');
-  for (let i = 0; i < 8; i++) { x.fillStyle = i % 2 ? b : a; x.fillRect(0, i * 8, 8, 8); }
-  const t = new THREE.CanvasTexture(c);
-  t.colorSpace = THREE.SRGBColorSpace;
-  return t;
-}
-
 // ---- The rig --------------------------------------------------------------
 let R = null;
 
 function buildMonster() {
-  OUTLINE_MAT = new THREE.MeshBasicMaterial({ color: COL.sketch, side: THREE.BackSide });
   const root = new THREE.Group();
   const body = new THREE.Group();
   body.position.y = 1.5;
@@ -271,19 +247,17 @@ function buildMonster() {
   const mouthP = eggPoint(0, -0.07, 1);
   const cheekP = [eggPoint(-0.52, 0.02, 0.85), eggPoint(0.52, 0.02, 0.85)];
 
-  const fur = furry(eggGeo(), {
+  body.add(furry(eggGeo(), {
     len: 0.1, density: 42, top: COL.furTop, bottom: COL.furBottom, ymin: -EGG_Y, ymax: EGG_Y,
     rainbow: 1, spots: [[...eyeP[0].toArray(), 0.15], [...eyeP[1].toArray(), 0.15], [...mouthP.toArray(), 0.2]],
-    cheeks: [[...cheekP[0].toArray(), 0.2], [...cheekP[1].toArray(), 0.2]], outline: 1.022,
-  });
-  body.add(fur);
+    cheeks: [[...cheekP[0].toArray(), 0.2], [...cheekP[1].toArray(), 0.2]],
+  }));
 
   // Eyes: glossy beads with a highlight, plus closed "happy" arcs.
   const eyeMat = new THREE.MeshPhysicalMaterial({ color: COL.eye, roughness: 0.18, clearcoat: 1, clearcoatRoughness: 0.1 });
   const glintMat = new THREE.MeshBasicMaterial({ color: '#FFFFFF' });
   const eyes = new THREE.Group();
   const happy = new THREE.Group();
-  const eyeBalls = [];
   for (const p of eyeP) {
     const nrm = eggNormal(p);
     const e = new THREE.Mesh(new THREE.SphereGeometry(0.1, 32, 24), eyeMat);
@@ -293,7 +267,6 @@ function buildMonster() {
     glint.position.set(0.035, 0.045, 0.075);
     e.add(glint);
     eyes.add(e);
-    eyeBalls.push(e);
     const arc = new THREE.Mesh(new THREE.TorusGeometry(0.075, 0.019, 10, 28, Math.PI), eyeMat);
     arc.position.copy(p).addScaledVector(nrm, 0.01);
     arc.quaternion.setFromUnitVectors(Z_AXIS, nrm);
@@ -306,8 +279,7 @@ function buildMonster() {
   const mouthInner = new THREE.Group();
   mouth.position.copy(mouthP).addScaledVector(eggNormal(mouthP), -0.005);
   mouth.quaternion.setFromUnitVectors(Z_AXIS, eggNormal(mouthP));
-  const mouthMat = std(COL.mouth, { roughness: 0.9 });
-  const disc = new THREE.Mesh(new THREE.CircleGeometry(0.15, 40), mouthMat);
+  const disc = new THREE.Mesh(new THREE.CircleGeometry(0.15, 40), std(COL.mouth, { roughness: 0.9 }));
   disc.scale.y = 1.08;
   const lip = new THREE.Mesh(new THREE.TorusGeometry(0.15, 0.028, 12, 40), std(COL.lip, { roughness: 0.5 }));
   lip.scale.y = 1.08;
@@ -322,8 +294,9 @@ function buildMonster() {
   body.add(mouth);
 
   // Horns
-  const hornL = furry(hornGeo(), { len: 0.045, density: 60, top: COL.hornTip, bottom: COL.horn, ymin: 0, ymax: 0.5, droop: 0.1, layers: 10, outline: 1.06 });
-  const hornR = furry(hornGeo(), { len: 0.045, density: 60, top: COL.hornTip, bottom: COL.horn, ymin: 0, ymax: 0.5, droop: 0.1, layers: 10, outline: 1.06 });
+  const horn = () => furry(hornGeo(), { len: 0.045, density: 60, top: COL.hornTip, bottom: COL.horn, ymin: 0, ymax: 0.5, droop: 0.1, layers: 10 });
+  const hornL = horn();
+  const hornR = horn();
   hornL.position.copy(eggPoint(0.42, 0.86, 0.08)).y -= 0.06;
   hornL.rotation.z = -0.42;
   hornR.position.copy(eggPoint(-0.42, 0.86, 0.08)).y -= 0.06;
@@ -336,7 +309,7 @@ function buildMonster() {
   const mkArm = (side) => {
     const pivot = new THREE.Group();
     pivot.position.set(side * 0.97, 0.02, 0.02);
-    const a = furry(armGeo, { len: 0.06, density: 52, top: COL.hornTip, bottom: COL.horn, ymin: -0.37, ymax: 0.37, droop: 0.2, layers: 11, outline: 1.07 });
+    const a = furry(armGeo, { len: 0.06, density: 52, top: COL.hornTip, bottom: COL.horn, ymin: -0.37, ymax: 0.37, droop: 0.2, layers: 11 });
     a.position.y = -0.3;
     pivot.add(a);
     body.add(pivot);
@@ -350,7 +323,7 @@ function buildMonster() {
   const mkLeg = (side) => {
     const pivot = new THREE.Group();
     pivot.position.set(side * 0.4, 0.5, 0.02);
-    const l = furry(legGeo, { len: 0.05, density: 52, top: COL.hornTip, bottom: COL.horn, ymin: -0.27, ymax: 0.27, droop: 0.15, layers: 10, outline: 1.07 });
+    const l = furry(legGeo, { len: 0.05, density: 52, top: COL.hornTip, bottom: COL.horn, ymin: -0.27, ymax: 0.27, droop: 0.15, layers: 10 });
     l.position.y = -0.24;
     pivot.add(l);
     root.add(pivot);
@@ -359,145 +332,12 @@ function buildMonster() {
   const legL = mkLeg(1);
   const legR = mkLeg(-1);
 
-  // ---- Props attached to the monster
-  const brown = std('#5A3A30', { roughness: 0.4 });
-  const glasses = new THREE.Group();
-  for (const p of eyeP) {
-    const nrm = eggNormal(p);
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(0.155, 0.018, 10, 36), brown);
-    ring.position.copy(p).addScaledVector(nrm, 0.13);
-    ring.quaternion.setFromUnitVectors(Z_AXIS, nrm);
-    const lens = new THREE.Mesh(new THREE.CircleGeometry(0.15, 32), new THREE.MeshStandardMaterial({ color: '#E8F1FF', transparent: true, opacity: 0.22, roughness: 0.1 }));
-    lens.position.copy(ring.position);
-    lens.quaternion.copy(ring.quaternion);
-    glasses.add(ring, lens);
-    const temple = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.02, 0.7), brown);
-    temple.position.set(p.x * 1.75, p.y + 0.02, p.z - 0.32);
-    temple.rotation.y = Math.sign(p.x) * 0.35;
-    glasses.add(temple);
-  }
-  const bridge = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.3, 8), brown);
-  bridge.rotation.z = Math.PI / 2;
-  bridge.position.set(0, eyeP[0].y + 0.03, eyeP[0].z + 0.15);
-  glasses.add(bridge);
-  body.add(glasses);
-
-  const hat = new THREE.Group();
-  const cone = new THREE.Mesh(new THREE.ConeGeometry(0.34, 0.9, 48), std('#FFFFFF', { map: stripeTexture('#FF9DB5', '#FFFFFF'), roughness: 0.7 }));
-  cone.position.y = 0.45;
-  const pom = furry(new THREE.SphereGeometry(0.1, 32, 24), { len: 0.04, density: 80, top: '#B9F2E2', bottom: '#7FDCC4', ymin: -0.1, ymax: 0.1, layers: 8, droop: 0.1 });
-  pom.position.y = 0.92;
-  hat.add(cone, pom);
-  hat.position.copy(eggPoint(0.08, 1, 0.05)).y -= 0.08;
-  hat.rotation.z = -0.28;
-  body.add(hat);
-
-  const wingGeo = new THREE.SphereGeometry(0.5, 40, 24);
-  wingGeo.scale(1.35, 0.18, 0.75);
-  const mkWing = (side) => {
-    const pivot = new THREE.Group();
-    pivot.position.set(side * 0.5, 0.45, -0.62);
-    const w = furry(wingGeo, { len: 0.07, density: 46, top: '#FFFFFF', bottom: '#E7EEFA', ymin: -0.1, ymax: 0.1, layers: 10, droop: 0.05, outline: 1.05 });
-    w.position.x = side * 0.5;
-    w.rotation.z = side * 0.25;
-    pivot.add(w);
-    body.add(pivot);
-    return pivot;
-  };
-  const wingL = mkWing(1);
-  const wingR = mkWing(-1);
-
-  // Handheld mic, gripped by the handle in the near hand and angled up at the
-  // mouth (the angle comes from solving the mic pose's arm position).
-  const mic = new THREE.Group();
-  const grille = new THREE.Mesh(new THREE.SphereGeometry(0.13, 32, 24), std('#4A4A55', { roughness: 0.35, metalness: 0.75 }));
-  grille.position.y = 0.3;
-  const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.133, 16, 12), new THREE.MeshBasicMaterial({ color: '#2A2A33', wireframe: true, transparent: true, opacity: 0.35 }));
-  mesh.position.y = 0.3;
-  const band = new THREE.Mesh(new THREE.TorusGeometry(0.12, 0.022, 10, 32), std('#E8C35A', { roughness: 0.3, metalness: 0.8 }));
-  band.rotation.x = Math.PI / 2;
-  band.position.y = 0.24;
-  const handle = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.04, 0.5, 24), std('#1E1E26', { roughness: 0.25, metalness: 0.3 }));
-  handle.position.y = -0.02;
-  mic.add(grille, mesh, band, handle);
-  mic.position.set(0, -0.6, 0);
-  mic.rotation.set(1.26, -0.3, -0.41);
-  armR.add(mic);
-
-  // Sound waves rippling out in front of the mouth, seen side-on.
-  const waves = new THREE.Group();
-  waves.position.copy(mouthP).add(new THREE.Vector3(0, 0.02, 0.22));
-  const waveArcs = [0, 1, 2].map(() => {
-    const arc = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.018, 8, 32, 1.3), new THREE.MeshBasicMaterial({ color: '#8C9AE8', transparent: true, depthWrite: false }));
-    arc.rotation.set(0, -Math.PI / 2, -0.65);
-    waves.add(arc);
-    return arc;
-  });
-  body.add(waves);
-
-  return { mic, waves, waveArcs, root, body, fur, eyes, eyeBalls, happy, mouth: mouthInner, mouthMats: [mouthMat, eyeMat], armL, armR, legL, legR, hornL, hornR, glasses, hat, wingL, wingR, glints: eyeBalls.map((e) => e.children[0]) };
-}
-
-// ---- World props ------------------------------------------------------------
-function buildLaptop() {
-  const g = new THREE.Group();
-  const shell = std('#B8C6FF', { roughness: 0.35, metalness: 0.1 });
-  const base = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.06, 0.78), shell);
-  base.position.y = 0.03;
-  const keys = new THREE.Mesh(new THREE.PlaneGeometry(0.95, 0.42), std('#8D9CE6', { roughness: 0.8 }));
-  keys.rotation.x = -Math.PI / 2;
-  keys.position.set(0, 0.062, 0.06);
-  const hinge = new THREE.Group();
-  hinge.position.set(0, 0.06, -0.38);
-  const lid = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.78, 0.04), shell);
-  lid.position.y = 0.39;
-  const screen = new THREE.Mesh(new THREE.PlaneGeometry(1.02, 0.64), new THREE.MeshBasicMaterial({ color: '#E9F0FF' }));
-  screen.position.set(0, 0.39, 0.022);
-  hinge.add(lid, screen);
-  hinge.rotation.x = -0.32;
-  g.add(base, keys, hinge);
-  return g;
-}
-
-function buildCake() {
-  const g = new THREE.Group();
-  const plate = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.72, 0.05, 48), std('#FFFFFF', { roughness: 0.3 }));
-  plate.position.y = 0.025;
-  const sponge = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.5, 48), std('#FFE08A', { roughness: 0.8 }));
-  sponge.position.y = 0.3;
-  const frosting = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.58, 0.13, 48), std('#FF9DB5', { roughness: 0.5 }));
-  frosting.position.y = 0.58;
-  g.add(plate, sponge, frosting);
-  const flames = [];
-  ['#8FB4FF', '#FF8FA3', '#9FE7D3'].forEach((c, i) => {
-    const x = (i - 1) * 0.22;
-    const candle = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.32, 12), std(c, { roughness: 0.5 }));
-    candle.position.set(x, 0.8, 0.05);
-    const flame = new THREE.Mesh(new THREE.SphereGeometry(0.05, 16, 12), new THREE.MeshBasicMaterial({ color: '#FFB347' }));
-    flame.scale.set(1, 1.7, 1);
-    flame.position.set(x, 1.02, 0.05);
-    g.add(candle, flame);
-    flames.push(flame);
-  });
-  g.userData.flames = flames;
-  return g;
-}
-
-function buildSpeedLines() {
-  const g = new THREE.Group();
-  const lines = [0, 1, 2].map((i) => {
-    const m = new THREE.Mesh(new THREE.CapsuleGeometry(0.03, 0.75, 4, 8), new THREE.MeshBasicMaterial({ color: i === 1 ? '#B9C3F5' : '#8C9AE8', transparent: true }));
-    m.rotation.z = Math.PI / 2;
-    m.position.y = 1.2 + i * 0.32;
-    g.add(m);
-    return m;
-  });
-  g.userData.lines = lines;
-  return g;
+  return { root, body, eyes, happy, mouth: mouthInner, armL, armR, legL, legR };
 }
 
 // ---- Scene, cameras, renderer ----------------------------------------------
-let renderer, scene, camFront, camWide, shadow, laptop, cake, speed, pivot;
+let renderer, scene, shadow;
+const cams = {};
 
 function init() {
   const weak = (navigator.hardwareConcurrency || 4) <= 4 || Math.min(screen.width, screen.height) < 500;
@@ -519,74 +359,116 @@ function init() {
   scene.add(rim);
 
   R = buildMonster();
-  pivot = new THREE.Group();
-  pivot.add(R.root);
-  scene.add(pivot);
+  scene.add(R.root);
 
   shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.8, 1.1), new THREE.MeshBasicMaterial({ map: radialTexture(), color: '#98A7F3', transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
-  shadow.position.y = 0.003;
+  shadow.position.set(0, 0.003, 0.05);
   scene.add(shadow);
 
-  laptop = buildLaptop();
-  cake = buildCake();
-  speed = buildSpeedLines();
-  scene.add(laptop, cake, speed);
+  // Front view for the small monsters, and a taller frame for the jumping intro.
+  cams.front = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
+  cams.front.position.set(0, 1.75, 10);
+  cams.front.lookAt(0, 1.58, 0);
+  cams.intro = new THREE.PerspectiveCamera(28, 0.75, 0.1, 100);
+  cams.intro.position.set(0, 2.25, 9.2);
+  cams.intro.lookAt(0, 2.1, 0);
+  buildBackground();
+}
 
-  camFront = new THREE.PerspectiveCamera(24, 1, 0.1, 100);
-  camFront.position.set(0, 1.75, 10);
-  camFront.lookAt(0, 1.58, 0);
-  camWide = new THREE.PerspectiveCamera(27, 1.2, 0.1, 100);
-  camWide.position.set(0, 2.0, 11);
-  camWide.lookAt(0.1, 1.5, 0);
+// ---- Background: floating fluff puffs ------------------------------------------
+// Soft pastel puffs in the monster's fur, drifting at different depths. Their
+// x/y are fractions of the visible area at their depth, so they frame any screen.
+// [x, y, z, size, colour, speed]
+const PUFFS = [
+  [-0.98, 0.8, -1, 0.55, 0, 1], [0.92, 0.58, -3, 0.78, 1, 0.8], [-0.86, -0.12, 1.5, 0.42, 2, 1.2],
+  [1.02, -0.42, 0, 0.5, 3, 0.9], [-0.3, 1.02, -6, 0.95, 1, 0.6], [0.36, -1.02, -2, 0.66, 0, 1],
+  [-1.04, -0.86, -4, 0.82, 3, 0.7], [0.62, 0.98, 2, 0.34, 2, 1.3], [0.08, 0.22, -9, 1.15, 0, 0.5],
+  [0.96, 0.1, -7, 1.0, 2, 0.55], [-0.55, 0.42, -8, 0.9, 3, 0.6],
+];
+const PUFF_COLS = [['#FFDCE7', '#FFB3CB'], ['#D6F7EE', '#9FE7D3'], ['#FFF3C9', '#FFE48C'], ['#E8E0FF', '#C7B6FF']];
+let bgScene;
+const puffs = [];
+const lean = { x: 0, y: 0, tx: 0, ty: 0 };
+
+function buildBackground() {
+  bgScene = new THREE.Scene();
+  const geo = new THREE.SphereGeometry(1, 48, 32);
+  for (const [fx, fy, z, size, ci, speed] of PUFFS) {
+    const [top, bottom] = PUFF_COLS[ci];
+    const g = furry(geo, {
+      len: 0.16, density: 26, top, bottom, ymin: -1, ymax: 1, droop: 0.25, layers: 9,
+      fog: THREE.MathUtils.clamp(0.3 + (2 - z) * 0.05, 0.25, 0.8),
+    });
+    g.scale.setScalar(size);
+    g.userData = { fx, fy, z, speed, phase: fx * 3.1 + fy * 1.7, fog: g.children[0].material.uniforms.uFogAmt };
+    g.userData.fogBase = g.userData.fog.value;
+    bgScene.add(g);
+    puffs.push(g);
+  }
+  cams.bg = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  cams.bg.position.set(0, 0, 10);
+  // Lean with the mouse, or with the phone's tilt where the browser allows it.
+  window.addEventListener('pointermove', (e) => {
+    lean.tx = (e.clientX / innerWidth) * 2 - 1;
+    lean.ty = (e.clientY / innerHeight) * 2 - 1;
+  }, { passive: true });
+  window.addEventListener('deviceorientation', (e) => {
+    if (e.gamma == null) return;
+    lean.tx = THREE.MathUtils.clamp(e.gamma / 30, -1, 1);
+    lean.ty = THREE.MathUtils.clamp((e.beta - 45) / 30, -1, 1);
+  }, { passive: true });
+}
+
+function poseBackground(t, aspect) {
+  const halfH = (z) => (10 - z) * Math.tan(THREE.MathUtils.degToRad(25));
+  for (const g of puffs) {
+    const { fx, fy, z, speed, phase } = g.userData;
+    const h = halfH(z);
+    g.position.set(
+      fx * h * aspect + Math.cos(t * 0.17 * speed + phase) * 0.3,
+      fy * h + Math.sin(t * 0.23 * speed + phase) * 0.38,
+      z,
+    );
+    g.rotation.set(Math.sin(t * 0.1 * speed + phase) * 0.4, t * 0.12 * speed + phase, 0);
+  }
+  lean.x += (lean.tx - lean.x) * 0.04;
+  lean.y += (lean.ty - lean.y) * 0.04;
+  cams.bg.position.set(lean.x * 0.7, -lean.y * 0.5, 10);
+  cams.bg.lookAt(0, 0, 0);
+  U.wind.value.set(0.1 + Math.sin(t * 0.7) * 0.05, 0.03, 0.05);
+}
+
+// The page colour changes per phase (Learn, Speak); keep the fade colour in step.
+let toneCheck = 0;
+function syncFog() {
+  if (toneCheck-- > 0) return;
+  toneCheck = 20;
+  try { U.fog.value.set(getComputedStyle(document.body).backgroundColor); } catch { return; }
+  // On a dark page bright pastels pop too much, so they sink further back.
+  const hsl = U.fog.value.getHSL({});
+  const extra = hsl.l < 0.3 ? 0.3 : 0;
+  for (const g of puffs) g.userData.fog.value = Math.min(0.92, g.userData.fogBase + extra);
 }
 
 // ---- Posing -----------------------------------------------------------------
-const LANDING_TURN = 0.95; // facing right, three-quarter view
-
 function reset() {
-  pivot.position.set(0, 0, 0);
-  pivot.rotation.set(0, 0, 0);
   R.root.position.set(0, 0, 0);
   R.root.rotation.set(0, 0, 0);
   R.body.position.set(0, 1.5, 0);
   R.body.rotation.set(0, 0, 0);
   R.body.scale.set(1, 1, 1);
-  R.armL.position.set(0.97, 0.02, 0.02);
-  R.armR.position.set(-0.97, 0.02, 0.02);
   R.armL.rotation.set(0, 0, 0.14);
   R.armR.rotation.set(0, 0, -0.14);
   R.legL.rotation.set(0, 0, 0);
   R.legR.rotation.set(0, 0, 0);
-  R.legL.position.y = 0.5;
-  R.legR.position.y = 0.5;
   R.mouth.scale.set(1, 1, 1);
   R.eyes.visible = true;
   R.eyes.scale.set(1, 1, 1);
   R.eyes.position.set(0, 0, 0);
   R.happy.visible = false;
-  R.glasses.visible = false;
-  R.hat.visible = false;
-  R.wingL.visible = R.wingR.visible = false;
-  R.mic.visible = R.waves.visible = false;
-  laptop.visible = cake.visible = speed.visible = false;
-  shadow.position.set(0, 0.003, 0.05);
   shadow.scale.set(1, 1, 1);
   shadow.material.opacity = 0.85;
-  shadow.material.color.set('#98A7F3');
-  U.wind.value.set(0.12, 0, 0.06);
-  setSketch(false);
-}
-
-let sketchOn = false;
-function setSketch(on) {
-  if (on === sketchOn) return;
-  sketchOn = on;
-  U.sketch.value = on ? 1 : 0;
-  for (const g of furGroups) g.userData.outline.visible = on;
-  R.mouthMats.forEach((m) => { m.userData.c ??= m.color.clone(); m.color.copy(on ? new THREE.Color(COL.sketch) : m.userData.c); });
-  R.glints.forEach((g) => { g.visible = !on; });
-  R.mouth.children.forEach((c, i) => { if (i > 0) c.visible = !on; });
 }
 
 function shut(on) {
@@ -595,14 +477,61 @@ function shut(on) {
 }
 
 function blink(t) {
-  const b = t % 3.7;
-  R.eyes.scale.y = b < 0.13 ? 0.15 : 1;
+  R.eyes.scale.y = t % 3.7 < 0.13 ? 0.15 : 1;
 }
 
-function poseFront(mood, t) {
+/** Squash or stretch the body while keeping its bottom on the ground. */
+function squash(sy) {
+  const sx = 1 / Math.sqrt(sy);
+  R.body.scale.set(sx, sy, sx);
+  R.body.position.y = 1.5 - (1 - sy) * EGG_Y;
+}
+
+const ease = (k) => k * k * (3 - 2 * k);
+
+/** Three hops: crouch, spring up with arms raised, land with a squash. */
+function poseJump(t) {
+  const { period, count } = JUMP;
+  const n = Math.floor(t / period);
+  if (n >= count) { // after the jumps: a happy settle
+    blink(t);
+    R.body.position.y = 1.5 + Math.sin(t * 2.1) * 0.025;
+    return;
+  }
+  const p = (t % period) / period;
+  const H = n === count - 1 ? 1.3 : 0.85;
+  let y = 0; let sy = 1; let air = 0;
+  if (p < 0.2) { // crouch
+    sy = 1 - 0.14 * ease(p / 0.2);
+  } else if (p < 0.64) { // airborne
+    const k = (p - 0.2) / 0.44;
+    y = H * 4 * k * (1 - k);
+    air = Math.sin(k * Math.PI);
+    sy = 1 + 0.1 * Math.abs(1 - 2 * k) - 0.02;
+  } else if (p < 0.8) { // landing squash
+    sy = 1 - 0.15 * Math.sin(((p - 0.64) / 0.16) * Math.PI);
+  }
+  R.root.position.y = y;
+  squash(sy);
+  const crouch = p < 0.2 ? ease(p / 0.2) : 0;
+  R.armL.rotation.set(0.25 * crouch, 0, 0.14 + air * 2.1 - crouch * 0.1);
+  R.armR.rotation.set(0.25 * crouch, 0, -0.14 - air * 2.1 + crouch * 0.1);
+  R.legL.rotation.set(-air * 0.25, 0, -air * 0.18);
+  R.legR.rotation.set(-air * 0.25, 0, air * 0.18);
+  R.mouth.scale.setScalar(1 + air * 0.4);
+  if (n === count - 1 && air > 0.55) shut(true);
+  shadow.scale.setScalar(1 - (y / 1.3) * 0.45);
+  shadow.material.opacity = 0.85 - (y / 1.3) * 0.5;
+  U.wind.value.set(0.05, -air * 0.4 + (sy < 1 ? 0.2 : 0), 0.05);
+}
+
+function pose(mood, t) {
   reset();
   const s = Math.sin(t * 2.1);
-  if (mood === 'idle' || mood === 'logo') {
+  U.wind.value.set(0.08 + Math.sin(t) * 0.04, 0, 0.05);
+  if (mood === 'jump') {
+    poseJump(t);
+  } else if (mood === 'idle' || mood === 'logo') {
     R.body.position.y = 1.5 + s * 0.025;
     R.body.scale.set(1 - s * 0.006, 1 + s * 0.01, 1 - s * 0.006);
     R.armL.rotation.z = 0.14 + s * 0.04;
@@ -618,7 +547,8 @@ function poseFront(mood, t) {
     R.armR.rotation.set(-0.5, 0, -0.3);
     blink(t + 1.3);
   } else if (mood === 'speak') {
-    R.mouth.scale.set(1 + Math.abs(Math.sin(t * 7.5)) * 0.25, 0.8 + Math.abs(Math.sin(t * 7.5)) * 0.55, 1);
+    const talk = Math.abs(Math.sin(t * 7.5));
+    R.mouth.scale.set(1 + talk * 0.25, 0.8 + talk * 0.55, 1);
     R.body.position.y = 1.5 + Math.abs(Math.sin(t * 3.7)) * 0.03;
     R.armR.rotation.set(-0.45 + Math.sin(t * 3.7) * 0.3, 0, -0.35);
     R.armL.rotation.set(-0.2 - Math.sin(t * 3.7) * 0.15, 0, 0.3);
@@ -633,120 +563,6 @@ function poseFront(mood, t) {
     R.mouth.scale.setScalar(1.25);
     shadow.scale.setScalar(1 - hop * 0.18);
   }
-  U.wind.value.set(0.08 + Math.sin(t) * 0.04, 0, 0.05);
-}
-
-// Landing loop, timed to the reference recording (ms per step).
-const STEPS = [
-  ['study', 380, ''],
-  ['party', 400, ''],
-  ['mic', 520, ''],
-  ['fly', 420, ''],
-  ['trot', 1700, 'shut'],
-  ['trot', 420, 'shut sketch'],
-  ['trot', 700, ''],
-];
-
-function poseLanding(step, t) {
-  reset();
-  const [name, , mods] = step;
-  pivot.rotation.y = LANDING_TURN;
-  if (name === 'study') {
-    pivot.position.set(-0.75, 0, 0);
-    R.glasses.visible = true;
-    laptop.visible = true;
-    laptop.position.set(0.55, 0, 0.75);
-    laptop.rotation.y = LANDING_TURN + Math.PI;
-    const tap = Math.sin(t * 17.5);
-    R.armR.rotation.set(-1.15 + tap * 0.12, 0.2, -0.1);
-    R.armL.rotation.set(-0.9 - tap * 0.1, -0.2, 0.1);
-    R.body.position.y = 1.5 + tap * 0.008;
-    R.eyes.position.y = -0.012;
-    shadow.position.x = -0.4;
-    shadow.scale.set(1.25, 1, 1.1);
-  } else if (name === 'party') {
-    pivot.position.set(-0.9, 0, -0.1);
-    R.hat.visible = true;
-    cake.visible = true;
-    cake.position.set(1.05, 0, 0.55);
-    cake.userData.flames.forEach((f, i) => { const k = 1 + Math.sin(t * 26 + i * 2) * 0.12; f.scale.set(k, 1.7 * k, k); });
-    R.body.position.y = 1.32;
-    R.body.rotation.x = -0.14;
-    R.body.rotation.z = Math.sin(t * 7.85) * 0.05;
-    R.legL.rotation.x = R.legR.rotation.x = -1.35;
-    R.legL.position.y = R.legR.position.y = 0.36;
-    R.armL.rotation.z = 2.35 + Math.sin(t * 7.85) * 0.18;
-    R.armR.rotation.z = -2.35 - Math.sin(t * 7.85) * 0.18;
-    R.mouth.scale.setScalar(1.15);
-    shadow.position.x = 0.1;
-    shadow.scale.set(1.5, 1, 1.2);
-  } else if (name === 'mic') {
-    // Talking into a handheld mic: near hand holds it up, the other gestures.
-    pivot.position.set(-0.35, 0, 0);
-    R.mic.visible = R.waves.visible = true;
-    const talk = Math.abs(Math.sin(t * 9.5));
-    R.mouth.scale.set(1 + talk * 0.2, 0.75 + talk * 0.6, 1);
-    R.body.position.y = 1.5 + Math.abs(Math.sin(t * 4.75)) * 0.035;
-    R.body.rotation.x = -0.06;
-    // The shoulder slides forward for this pose so the stubby arm can reach the chin.
-    R.armR.position.set(-0.66, -0.05, 0.72);
-    R.armR.rotation.set(-1.2 + Math.sin(t * 4.75) * 0.04, 0.65, 0.7);
-    R.armL.rotation.set(-0.6 + Math.sin(t * 4.75) * 0.35, 0, 0.55 + Math.sin(t * 4.75) * 0.2);
-    R.waveArcs.forEach((arc, i) => {
-      const k = ((t * 2.2) + i / 3) % 1;
-      arc.position.z = k * 0.45;
-      arc.scale.setScalar(0.7 + k * 0.9);
-      arc.material.opacity = Math.sin(k * Math.PI) * 0.9;
-    });
-    blink(t);
-  } else if (name === 'fly') {
-    pivot.position.set(0.15, 0.55 + Math.sin(t * 7.85) * 0.07, 0);
-    R.body.rotation.x = 0.3;
-    R.legL.rotation.x = R.legR.rotation.x = 1.15;
-    R.armL.rotation.set(-1.35, 0, 0.25);
-    R.armR.rotation.set(-1.35, 0, -0.25);
-    R.wingL.visible = R.wingR.visible = true;
-    // Wings raised so their broad side faces the camera, beating fast.
-    const flap = Math.sin(t * 22.4);
-    R.wingL.rotation.set(0, -0.35, 0.95 + flap * 0.4);
-    R.wingR.rotation.set(0, 0.35, -0.95 - flap * 0.4);
-    R.mouth.scale.set(1.1, 1.2, 1);
-    speed.visible = true;
-    speed.position.set(-1.9, 0.55, 0.3);
-    speed.userData.lines.forEach((m, i) => {
-      const k = ((t * 3.1) + i * 0.37) % 1;
-      m.position.x = -k * 1.1;
-      m.material.opacity = Math.sin(k * Math.PI);
-    });
-    U.wind.value.set(-0.6, 0.1, 0);
-    shadow.position.x = 0.15;
-    shadow.scale.setScalar(0.72 - Math.sin(t * 7.85) * 0.05);
-    shadow.material.opacity = 0.4;
-  } else {
-    // Trot: legs in turn, each foot lifting as it swings forward.
-    const ph = (t / 0.44) * TAU;
-    const sw = Math.sin(ph);
-    const up = Math.abs(Math.cos(ph));
-    R.legL.rotation.x = sw * 0.55;
-    R.legR.rotation.x = -sw * 0.55;
-    R.legL.position.y = 0.5 + Math.max(0, -Math.cos(ph)) * 0.08;
-    R.legR.position.y = 0.5 + Math.max(0, Math.cos(ph)) * 0.08;
-    R.armL.rotation.x = -sw * 0.5;
-    R.armR.rotation.x = sw * 0.5;
-    R.body.position.y = 1.5 + up * 0.065;
-    R.body.scale.set(1 + (1 - up) * 0.012, 1 - (1 - up) * 0.02, 1 + (1 - up) * 0.012);
-    R.body.rotation.x = 0.04;
-    U.wind.value.set(-0.2, 0.05, -0.1);
-    shadow.scale.set(1 - up * 0.06, 1, 1);
-    if (mods.includes('shut')) shut(true);
-    if (mods.includes('sketch')) {
-      setSketch(true);
-      shadow.material.color.set('#D3E6F5');
-    }
-  }
-  // The ground shadow always sits under the monster.
-  shadow.position.x = pivot.position.x + (name === 'study' ? 0.25 : name === 'party' ? 0.55 : name === 'mic' ? 0.1 : 0);
-  shadow.position.z = pivot.position.z + 0.1;
 }
 
 // ---- Views and the render loop -------------------------------------------------
@@ -756,41 +572,30 @@ let reduce = false;
 const t0 = performance.now();
 
 function frameView(v, now) {
-  const dpr = Math.min(window.devicePixelRatio || 1, LAYERS < 20 ? 1.5 : 2);
+  const bg = v.kind === 'bg';
+  // The full-screen background renders at a lower resolution: it's soft anyway.
+  const dpr = Math.min(window.devicePixelRatio || 1, bg ? 1.25 : LAYERS < 20 ? 1.5 : 2);
   const cw = v.canvas.clientWidth;
   if (!cw) return;
   const w = Math.round(cw * dpr);
-  const h = Math.round(w / v.aspect);
+  const h = bg ? Math.round(v.canvas.clientHeight * dpr) : Math.round(w / v.aspect);
   if (v.canvas.width !== w || v.canvas.height !== h) { v.canvas.width = w; v.canvas.height = h; v.drawn = false; }
   if (v.static && v.drawn) return;
   const size = renderer.getDrawingBufferSize(new THREE.Vector2());
   if (size.x < w || size.y < h) renderer.setSize(Math.max(size.x, w), Math.max(size.y, h), false);
   const bufH = renderer.getDrawingBufferSize(new THREE.Vector2()).y;
 
-  const t = reduce ? 0.6 : (now - t0) / 1000;
+  // The jump plays from the moment its monster appears; other moods share one clock.
+  const t = reduce ? 0.6 : (now - (v.mood === 'jump' ? v.born : t0)) / 1000;
   U.time.value = t;
-  let cam = camFront;
-  if (v.kind === 'landing') {
-    cam = camWide;
-    if (!reduce) {
-      const s = v.loop;
-      if (now - s.at > STEPS[s.i][1]) {
-        const prevName = STEPS[s.i][0];
-        s.i = (s.i + 1) % STEPS.length;
-        s.at = now;
-        if (STEPS[s.i][0] !== prevName) { // a scene change: keep the last frame as a ghost
-          s.ghost.width = v.canvas.width; s.ghost.height = v.canvas.height;
-          s.ghost.getContext('2d').drawImage(v.canvas, 0, 0);
-          s.ghostAt = now;
-          s.ghostDir = prevName === 'study' || prevName === 'party' || prevName === 'mic' ? 1 : -1;
-        }
-      }
-      poseLanding(STEPS[s.i], t);
-    } else {
-      poseLanding(['trot', 0, ''], 0);
-    }
+  let cam;
+  if (bg) {
+    syncFog();
+    poseBackground(t, w / h);
+    cam = cams.bg;
   } else {
-    poseFront(v.mood, t);
+    pose(v.mood, t);
+    cam = v.mood === 'jump' ? cams.intro : cams.front;
   }
   cam.aspect = w / h;
   cam.updateProjectionMatrix();
@@ -800,18 +605,9 @@ function frameView(v, now) {
   renderer.setScissor(0, 0, w, h);
   renderer.setScissorTest(true);
   renderer.clear();
-  renderer.render(scene, cam);
-  const ctx = v.ctx;
-  ctx.clearRect(0, 0, w, h);
-  ctx.drawImage(renderer.domElement, 0, bufH - h, w, h, 0, 0, w, h);
-  if (v.loop && v.loop.ghostAt) {
-    const k = (now - v.loop.ghostAt) / 130;
-    if (k < 1) {
-      ctx.globalAlpha = 0.55 * (1 - k);
-      ctx.drawImage(v.loop.ghost, v.loop.ghostDir * k * 16 * dpr, 0);
-      ctx.globalAlpha = 1;
-    } else v.loop.ghostAt = 0;
-  }
+  renderer.render(bg ? bgScene : scene, cam);
+  v.ctx.clearRect(0, 0, w, h);
+  v.ctx.drawImage(renderer.domElement, 0, bufH - h, w, h, 0, 0, w, h);
   v.drawn = true;
 }
 
@@ -837,34 +633,38 @@ function start() {
 document.addEventListener('visibilitychange', () => { if (!document.hidden) start(); });
 window.addEventListener('resize', () => { for (const v of views) v.drawn = false; start(); });
 
+function ensureInit() {
+  if (renderer) return;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { reduce = false; }
+  init();
+}
+
+/** Start the floating-puffs background behind the whole app (once). */
+export function background() {
+  ensureInit();
+  if (document.querySelector('canvas.bg3d')) return;
+  const canvas = document.createElement('canvas');
+  canvas.className = 'bg3d';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.prepend(canvas);
+  views.add({ canvas, ctx: canvas.getContext('2d'), kind: 'bg', mood: 'bg', aspect: 1, static: false, drawn: false, born: performance.now() });
+  start();
+}
+
 /** Replace the flat SVG monsters inside `root` with live 3D ones. */
 export function upgrade(root) {
-  if (!renderer) {
-    try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { reduce = false; }
-    init();
-  }
-  // Line art is drawn on the page's own background colour (light or dark).
-  try { U.paper.value.set(getComputedStyle(document.body).backgroundColor); } catch { /* keep default */ }
-  root.querySelectorAll('svg.mascot, svg.side-scene').forEach((svg) => {
-    const landing = svg.classList.contains('side-scene');
-    const mood = landing ? 'landing' : ([...svg.classList].find((c) => c.startsWith('m-')) || 'm-idle').slice(2);
+  ensureInit();
+  root.querySelectorAll('svg.mascot').forEach((svg) => {
+    const mood = ([...svg.classList].find((c) => c.startsWith('m-')) || 'm-idle').slice(2);
     const vb = svg.viewBox.baseVal;
+    const aspect = mood === 'jump' ? 0.75 : vb.width / vb.height;
     const canvas = document.createElement('canvas');
     canvas.setAttribute('class', `${svg.getAttribute('class')} m3d`);
     canvas.setAttribute('aria-hidden', 'true');
-    canvas.width = vb.width * 4;
-    canvas.height = vb.height * 4;
+    canvas.width = 400;
+    canvas.height = Math.round(400 / aspect);
     svg.replaceWith(canvas);
-    views.add({
-      canvas,
-      ctx: canvas.getContext('2d'),
-      kind: landing ? 'landing' : 'front',
-      mood,
-      aspect: vb.width / vb.height,
-      static: mood === 'logo',
-      drawn: false,
-      loop: landing ? { i: 0, at: performance.now(), ghost: document.createElement('canvas'), ghostAt: 0, ghostDir: 1 } : null,
-    });
+    views.add({ canvas, ctx: canvas.getContext('2d'), mood, aspect, static: mood === 'logo', drawn: false, born: performance.now() });
   });
   start();
 }
