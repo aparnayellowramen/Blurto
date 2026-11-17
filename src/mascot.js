@@ -1,107 +1,227 @@
-// The Blurt o monster. Its round open mouth is the "o" in the logo.
-// Moods: idle, curious (learning), speak (mouth wide), cheer (session done), logo.
+// The Blurt o monster: a fluffy pastel egg with soft yellow horns, arms and
+// feet, dot eyes, rosy cheeks and a round open mouth (the "o" in the logo).
+// Colours are SVG attributes, so the same markup works as a standalone icon.
+// Front-view moods: idle, curious (learning), speak (mouth wide), cheer, logo.
 
-const ARM_L = '<ellipse class="m-arm m-arm-l" cx="19" cy="76" rx="8" ry="14"/>';
-const ARM_R = '<ellipse class="m-arm m-arm-r" cx="101" cy="76" rx="8" ry="14"/>';
+const OUT = '#9A5544';      // warm brown sketch outline
+const FUR_TOP = '#F8FBFF';
+const FUR_BOT = '#CDE2F6';
+const HORN = '#F8D648';
+const HORN_D = '#E3B52C';
+const EYE = '#4A2A24';
+const CHEEK = '#FF9AAE';
+const MOUTH = '#5A2A22';
+const TONGUE = '#FF8FA3';
+const RAINBOW = ['#FFB3CB', '#9FE7D3', '#FFE48C', '#C7B6FF']; // soft patches in the fur
 
-// Horns, body, face. Shared by the still mascot and the trotting one.
-const BODY = `
-    <path class="m-horn" d="M36 31 C32 22 30 15 31 8 C38 13 44 19 48 26 Z"/>
-    <path class="m-horn" d="M84 31 C88 22 90 15 89 8 C82 13 76 19 72 26 Z"/>
-    <path class="m-skin" d="M60 19 C89 19 104 40 104 68 C104 95 86 109 60 109 C34 109 16 95 16 68 C16 40 31 19 60 19 Z"/>
-    <ellipse class="m-belly" cx="60" cy="88" rx="27" ry="17"/>
-    <g class="m-eyes">
-      <circle class="m-eye" cx="44" cy="52" r="10"/>
-      <circle class="m-eye" cx="76" cy="52" r="10"/>
-      <g class="m-pupils"><circle cx="46" cy="54" r="5"/><circle cx="78" cy="54" r="5"/><circle class="m-glint" cx="48" cy="51.5" r="1.6"/><circle class="m-glint" cx="80" cy="51.5" r="1.6"/></g>
-      <path class="m-happy" d="M36 55 Q44 44 52 55 M68 55 Q76 44 84 55"/>
-    </g>
-    <circle class="m-cheek" cx="29" cy="69" r="6"/>
-    <circle class="m-cheek" cx="91" cy="69" r="6"/>
-    <g class="m-mouth">
-      <circle class="m-mouth-o" cx="60" cy="79" r="13"/>
-      <ellipse class="m-tongue" cx="60" cy="86" rx="7" ry="3.6"/>
-      <path class="m-tooth" d="M53.5 68.3 L56.5 73.5 L59.5 66.9 Z"/>
-    </g>`;
+let uid = 0;
+const n1 = (v) => v.toFixed(1);
+
+/** A fluffy, slightly egg-shaped outline: an ellipse with scalloped tufts. */
+function fluff(cx, cy, rx, ry, tufts, depth, seed) {
+  const at = (a, s = 1) => {
+    const widen = 1 + 0.09 * Math.sin(a); // fuller at the bottom
+    return [cx + rx * s * Math.cos(a) * widen, cy + ry * s * Math.sin(a)];
+  };
+  let d = '';
+  for (let i = 0; i < tufts; i++) {
+    const a0 = -Math.PI / 2 + (i / tufts) * 2 * Math.PI;
+    const a1 = a0 + (2 * Math.PI) / tufts;
+    const bulge = 1 + depth * (0.7 + 0.6 * Math.abs(Math.sin(i * 12.9898 + seed)));
+    const [x0, y0] = at(a0);
+    const [mx, my] = at((a0 + a1) / 2, bulge);
+    const [x1, y1] = at(a1);
+    if (i === 0) d += `M${n1(x0)} ${n1(y0)}`;
+    d += ` Q${n1(mx)} ${n1(my)} ${n1(x1)} ${n1(y1)}`;
+  }
+  return `${d} Z`;
+}
+
+const FRONT_BODY = fluff(60, 66, 33, 41, 34, 0.07, 3);
+const SIDE_BODY = fluff(114, 106, 45, 50, 38, 0.06, 7);
+
+function furDefs(id, body) {
+  // Soft watercolour washes: each rainbow colour fades out to nothing at its edge.
+  const washes = RAINBOW.map((c, i) => `<radialGradient id="${id}w${i}"><stop offset="0" stop-color="${c}" stop-opacity=".9"/><stop offset=".6" stop-color="${c}" stop-opacity=".5"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></radialGradient>`).join('');
+  return `<defs>
+    <linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${FUR_TOP}"/><stop offset="1" stop-color="${FUR_BOT}"/></linearGradient>
+    ${washes}
+    <clipPath id="${id}c"><path d="${body}"/></clipPath>
+  </defs>`;
+}
+
+function furBody(id, body, patches, ticks) {
+  return `<path class="ink" d="${body}" fill="url(#${id}g)" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+    <g clip-path="url(#${id}c)">${patches.map(([cx, cy, rx, ry, c, o]) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="url(#${id}w${RAINBOW.indexOf(c)})" opacity="${o}"/>`).join('')}</g>
+    <g class="ink-line" fill="none" stroke="${OUT}" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${ticks.map((t) => `<path d="${t}"/>`).join('')}</g>`;
+}
 
 export function mascot(mood = 'idle', size = '') {
+  const id = `bm${++uid}`;
+  const patches = [
+    [28, 84, 18, 30, RAINBOW[0], 0.8], [32, 50, 16, 20, RAINBOW[1], 0.8],
+    [90, 48, 16, 20, RAINBOW[2], 0.85], [92, 86, 18, 28, RAINBOW[3], 0.75],
+  ];
+  const ticks = ['M37 92 l2 -3 l2 3', 'M79 94 l2 -3 l2 3', 'M57 100 l2 -2.6 l2 2.6', 'M55 27 q4 -5 8 -1'];
   return `<svg class="mascot m-${mood} ${size}" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
-  <g class="m-body">${ARM_L}${ARM_R}${BODY}
+  ${furDefs(id, FRONT_BODY)}
+  <g class="m-body">
+    <ellipse class="m-arm m-arm-l" cx="25" cy="74" rx="8.5" ry="17" fill="${HORN}" stroke="${OUT}" stroke-width="1.8"/>
+    <ellipse class="m-arm m-arm-r" cx="95" cy="74" rx="8.5" ry="17" fill="${HORN}" stroke="${OUT}" stroke-width="1.8"/>
+    <ellipse cx="47" cy="106" rx="9" ry="6" fill="${HORN}" stroke="${OUT}" stroke-width="1.8"/>
+    <ellipse cx="73" cy="106" rx="9" ry="6" fill="${HORN}" stroke="${OUT}" stroke-width="1.8"/>
+    <path d="M39 36 C33 28 30 18 33 8 C41 13 47 21 50 30 Z" fill="${HORN}" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M81 36 C87 28 90 18 87 8 C79 13 73 21 70 30 Z" fill="${HORN}" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+    ${furBody(id, FRONT_BODY, patches, ticks)}
+    <g class="m-eye m-pupils">
+      <circle cx="48" cy="58" r="5.2" fill="${EYE}"/><circle cx="72" cy="58" r="5.2" fill="${EYE}"/>
+      <circle cx="49.8" cy="56.2" r="1.6" fill="#FFFFFF"/><circle cx="73.8" cy="56.2" r="1.6" fill="#FFFFFF"/>
+    </g>
+    <path class="m-happy" display="none" d="M42.5 59 Q48 52.5 53.5 59 M66.5 59 Q72 52.5 77.5 59" fill="none" stroke="${EYE}" stroke-width="2.8" stroke-linecap="round"/>
+    <ellipse class="m-cheek" cx="39" cy="67" rx="6" ry="4" fill="${CHEEK}" opacity=".75"/>
+    <ellipse class="m-cheek" cx="81" cy="67" rx="6" ry="4" fill="${CHEEK}" opacity=".75"/>
+    <g class="m-mouth">
+      <circle cx="60" cy="73" r="6.5" fill="${MOUTH}" stroke="${OUT}" stroke-width="1.4"/>
+      <ellipse cx="60" cy="76.4" rx="3.5" ry="1.9" fill="${TONGUE}"/>
+    </g>
   </g>
 </svg>`;
 }
 
 // ---- Landing-page scene ----------------------------------------------------
-// A side-view monster runs a 10 s loop of short vignettes that dissolve into
-// each other: study (laptop + glasses) → celebrate (party hat + cake) →
-// zoom (wings + speed lines) → trot (walk cycle, with a quick line-art flash).
+// Timed to the reference recording: a ~4 s loop of quick vignettes with ghosted
+// cuts. Study (laptop + glasses) → celebrate (party hat + cake) → zoom (wings +
+// speed lines) → a long trot (eyes shut) → a moment of line art → trot with eyes
+// open → back to study. The monster is drawn side-on and outlined.
 // One rig is reused; each scene poses it with CSS (see .side-scene in styles.css).
 
-function rig({ eyes = 'open', glasses = false, front = '', back = '' } = {}) {
-  const eye = eyes === 'happy'
-    ? '<path class="line" d="M140 93 Q148 84 156 93" fill="none" stroke="#1B1030" stroke-width="3.5" stroke-linecap="round"/>'
-    : `<circle class="ink eye" cx="148" cy="91" r="9"/>
-       <g class="s-pupil"><circle class="pupil" cx="151.5" cy="92" r="4.6"/><circle class="glint" cx="153.4" cy="89.6" r="1.5"/></g>`;
-  const specs = glasses
-    ? '<g class="line" fill="none" stroke="#1B1030" stroke-width="2.6"><circle cx="149" cy="91" r="12"/><path d="M137 89 L116 85 M161 91 L167 93"/></g>'
-    : '';
-  return `
-  <g class="s-leg s-leg-b"><rect class="ink far" x="93" y="136" width="14" height="34" rx="7"/><ellipse class="ink foot-far" cx="104" cy="170" rx="10" ry="6.5"/></g>
-  <g class="s-leg s-leg-f"><rect class="ink skin" x="127" y="136" width="14" height="34" rx="7"/><ellipse class="ink foot" cx="138" cy="170" rx="10" ry="6.5"/></g>
-  <g class="s-bob">
-    ${back}
-    <path class="ink far" d="M100 62 C95 48 94 40 97 30 C106 37 113 47 116 59 Z"/>
-    <path class="ink skin" d="M128 62 C130 48 138 40 148 35 C149 46 146 56 141 64 Z"/>
-    <g class="s-arm s-arm-b"><ellipse class="ink far" cx="104" cy="128" rx="7" ry="13"/></g>
-    <path class="ink skin" d="M68 112 C68 74 94 56 122 56 C154 56 172 80 172 110 C172 140 150 158 120 158 C88 158 68 142 68 112 Z"/>
-    <ellipse class="ink belly" cx="130" cy="138" rx="26" ry="15"/>
-    ${eye}
-    <circle class="cheek" cx="146" cy="110" r="6"/>
-    <g class="s-mouth">
-      <circle class="line mouth" cx="162" cy="119" r="8.5"/>
-      <ellipse class="tongue" cx="162" cy="124" rx="4.6" ry="2.4"/>
-      <path class="tooth" d="M158 111.6 L160 115.6 L162 110.6 Z"/>
-    </g>
-    ${specs}
-    <g class="s-arm s-arm-f"><ellipse class="ink skin" cx="122" cy="129" rx="7" ry="13"/></g>
-    ${front}
+function leg(id, x, near) {
+  return `<g class="q-leg q-${id}" style="transform-origin:${x}px 146px">
+    <rect class="ink" x="${x - 7}" y="138" width="14" height="30" rx="7" fill="${near ? HORN : HORN_D}" stroke="${OUT}" stroke-width="1.8"/>
   </g>`;
 }
 
-const LAPTOP = `
-  <path class="ink" d="M108 176 L166 176 L180 162 L124 162 Z" fill="#C9D2FF"/>
-  <path d="M116 172 L164 172 M122 167 L170 167" stroke="#8C9AE8" stroke-width="2" stroke-dasharray="4 3"/>
-  <path class="ink" d="M164 176 L180 162 L190 110 L174 122 Z" fill="#9FB0FF"/>
-  <circle cx="178" cy="142" r="3" fill="#FFFFFF" opacity=".7"/>`;
-
-const HAT = `<g transform="rotate(16 124 60)">
-    <path class="ink" d="M108 62 L124 18 L140 62 Z" fill="#7BD8C4"/>
-    <path d="M113.5 47 L134.5 47 L136.7 53 L111.3 53 Z M118.6 33 L129.4 33 L131.2 38 L116.8 38 Z" fill="#FFFFFF" opacity=".85"/>
-    <circle class="ink" cx="124" cy="16" r="5" fill="#FFC94D"/>
+function rig({ glasses = false, top = '', back = '' } = {}) {
+  const id = `bs${++uid}`;
+  const patches = [
+    [80, 118, 22, 34, RAINBOW[0], 0.8], [88, 74, 20, 22, RAINBOW[1], 0.8],
+    [128, 64, 18, 16, RAINBOW[2], 0.85], [112, 150, 30, 16, RAINBOW[3], 0.75],
+  ];
+  const ticks = ['M86 100 l2.5 -3.5 l2.5 3.5', 'M100 134 l2 -3 l2 3', 'M128 130 l2 -3 l2 3', 'M108 58 q3.5 -6 8 -1.5'];
+  const specs = glasses
+    ? `<g class="specs"><circle class="ink" cx="141" cy="90" r="9" fill="#FFFFFF" fill-opacity=".25" stroke="${OUT}" stroke-width="2"/>
+       <path class="ink-line" d="M132.2 88 L114 84 M149.8 91 L154 93" fill="none" stroke="${OUT}" stroke-width="2" stroke-linecap="round"/></g>`
+    : '';
+  return `
+  ${furDefs(id, SIDE_BODY)}
+  ${leg('b', 104, false)}${leg('f', 128, true)}
+  <g class="s-bob">
+    ${back}
+    <g class="s-arm s-arm-b"><ellipse class="ink" cx="98" cy="112" rx="8" ry="16" fill="${HORN_D}" stroke="${OUT}" stroke-width="1.8"/></g>
+    <path class="ink" d="M100 64 C95 54 93 44 96 35 C103 40 108 49 110 58 Z" fill="${HORN_D}" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+    <path class="ink" d="M122 60 C124 49 129 40 138 35 C139 45 136 54 132 63 Z" fill="${HORN}" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+    ${furBody(id, SIDE_BODY, patches, ticks)}
+    <g class="e-open"><circle class="ink" cx="141" cy="90" r="5.2" fill="${EYE}"/><circle cx="142.8" cy="88.2" r="1.5" fill="#FFFFFF"/></g>
+    <path class="e-happy ink-line" d="M135.5 91 Q141 84.8 146.5 91" fill="none" stroke="${EYE}" stroke-width="2.6" stroke-linecap="round"/>
+    <ellipse cx="145" cy="104" rx="4.6" ry="3.4" fill="${CHEEK}" opacity=".75"/>
+    <circle class="ink" cx="151" cy="112" r="5.8" fill="${MOUTH}" stroke="${OUT}" stroke-width="1.4"/>
+    <ellipse cx="151" cy="115" rx="3" ry="1.6" fill="${TONGUE}"/>
+    ${specs}
+    <g class="s-arm s-arm-f"><ellipse class="ink" cx="130" cy="118" rx="7.5" ry="15" fill="${HORN}" stroke="${OUT}" stroke-width="1.8"/></g>
+    ${top}
   </g>`;
+}
 
-const flame = (x) => `<ellipse class="s-flame" cx="${x}" cy="125" rx="2.6" ry="4.4" fill="#FF9F43"/>`;
-const CAKE = `
-  <ellipse class="ink" cx="186" cy="176" rx="32" ry="5" fill="#FFFFFF"/>
-  <rect class="ink" x="163" y="146" width="46" height="28" rx="5" fill="#FFE08A"/>
-  <path d="M163 158 L209 158" stroke="#F5B82E" stroke-width="2"/>
-  <path class="ink" d="M163 150 C163 142 209 142 209 150 L209 152 C205 158 201 150 197 155 C193 160 189 151 185 156 C181 161 177 151 173 156 C169 160 166 152 163 154 Z" fill="#FF9DB5"/>
-  <rect x="175" y="130" width="4" height="15" rx="1.5" fill="#5B8CFF"/>
-  <rect x="184" y="130" width="4" height="15" rx="1.5" fill="#FF5E7E"/>
-  <rect x="193" y="130" width="4" height="15" rx="1.5" fill="#3FCFC2"/>
-  ${flame(177)}${flame(186)}${flame(195)}`;
+const LAPTOP = `<g class="laptop">
+  <path class="ink" d="M136 168 L190 168 L200 159 L148 159 Z" fill="#C9D2FF" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M146 165 L189 165 M152 162 L194 162" stroke="#8C9AE8" stroke-width="1.6" stroke-dasharray="3 2.5"/>
+  <path class="ink" d="M188 168 L200 159 L208 112 L194 122 Z" fill="#A9B8FF" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+</g>`;
+
+const HAT = `<g transform="rotate(14 120 58)">
+  <path class="ink" d="M106 60 L120 24 L134 60 Z" fill="#FF9DB5" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M110.6 48 L129.4 48 L131.3 53 L108.7 53 Z M115.1 36 L124.9 36 L126.5 40 L113.5 40 Z" fill="#FFFFFF"/>
+  <circle class="ink" cx="120" cy="22" r="4.5" fill="#9FE7D3" stroke="${OUT}" stroke-width="1.6"/>
+</g>`;
+
+const CAKE = `<g class="cake">
+  <ellipse class="ink" cx="200" cy="168" rx="30" ry="5" fill="#FFFFFF" stroke="${OUT}" stroke-width="1.8"/>
+  <rect class="ink" x="178" y="137" width="44" height="29" rx="5" fill="#FFE08A" stroke="${OUT}" stroke-width="1.8"/>
+  <path d="M178 151 L222 151" stroke="#F5B82E" stroke-width="2"/>
+  <path class="ink" d="M178 143 C178 135 222 135 222 143 L222 145 C218 151 214 143 210 148 C206 153 202 144 198 149 C194 154 190 144 186 149 C182 153 180 146 178 148 Z" fill="#FF9DB5" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+  <rect class="ink" x="189" y="123" width="4" height="14" rx="1.5" fill="#8FB4FF" stroke="${OUT}" stroke-width="1.2"/>
+  <rect class="ink" x="198" y="123" width="4" height="14" rx="1.5" fill="#FF8FA3" stroke="${OUT}" stroke-width="1.2"/>
+  <rect class="ink" x="207" y="123" width="4" height="14" rx="1.5" fill="#9FE7D3" stroke="${OUT}" stroke-width="1.2"/>
+  <ellipse class="s-flame" cx="191" cy="118" rx="2.4" ry="4" fill="#FF9F43"/>
+  <ellipse class="s-flame" cx="200" cy="118" rx="2.4" ry="4" fill="#FF9F43"/>
+  <ellipse class="s-flame" cx="209" cy="118" rx="2.4" ry="4" fill="#FF9F43"/>
+</g>`;
 
 const WING = `<g class="s-wing">
-    <path class="line wing" d="M100 74 C88 52 64 46 46 54 C56 60 58 66 60 72 C50 74 46 80 44 86 C62 92 86 90 100 74 Z" fill="#FFFFFF"/>
-    <path d="M60 72 C72 74 84 74 96 72 M58 82 C70 84 84 82 94 78" fill="none" stroke="#C9D2FF" stroke-width="2"/>
-  </g>`;
+  <path class="ink" d="M92 84 C80 64 58 58 40 66 C50 70 52 76 54 81 C44 84 40 90 38 96 C58 102 82 98 92 84 Z" fill="#FFFFFF" stroke="${OUT}" stroke-width="1.8" stroke-linejoin="round"/>
+  <path d="M54 81 C66 83 78 83 88 81 M52 91 C64 93 78 91 86 88" fill="none" stroke="#D6DEFA" stroke-width="1.8"/>
+</g>`;
 
-const SPEED = `<g class="s-speed" fill="none" stroke="#8C9AE8" stroke-width="3" stroke-linecap="round">
-    <path d="M14 92 L46 92"/><path d="M24 104 L58 104"/><path d="M10 116 L40 116"/>
-  </g>`;
+const SPEED = `<g class="s-speed" fill="none" stroke-linecap="round">
+  <path d="M12 94 L44 94" stroke="#8C9AE8" stroke-width="2.4"/>
+  <path d="M22 104 L52 104" stroke="#B9C3F5" stroke-width="2.4"/>
+  <path d="M8 114 L40 114" stroke="#8C9AE8" stroke-width="2.4"/>
+</g>`;
 
-// Scene order and how long each stays on screen (ms).
-const SCENES = [['study', 2600], ['party', 2600], ['fly', 2600], ['trot', 5200]];
+const MIC = `<g class="mic">
+  <path class="ink-line" d="M147 131 L154 120" stroke="#2A2A33" stroke-width="5" stroke-linecap="round"/>
+  <path d="M151.3 124.3 L155.6 127" stroke="#E8C35A" stroke-width="2.4" stroke-linecap="round"/>
+  <circle class="ink" cx="156.5" cy="116.5" r="5.8" fill="#55555F" stroke="${OUT}" stroke-width="1.4"/>
+  <path d="M152.5 115 h8 M152.8 118 h7.4" stroke="#2A2A33" stroke-width=".9" opacity=".6"/>
+</g>`;
+
+const WAVES = `<g class="s-waves" fill="none" stroke="#8C9AE8" stroke-width="2.2" stroke-linecap="round">
+  <path d="M166 106 q5 7 0 14"/><path d="M172 102 q7 11 0 22"/><path d="M178 98 q9 15 0 30"/>
+</g>`;
+
+const shadow = (cx, rx) => `<ellipse class="s-shadow" cx="${cx}" cy="170" rx="${rx}" ry="6.5"/>`;
+
+export function trotter() {
+  return `<svg class="side-scene" viewBox="0 0 240 200" aria-hidden="true" focusable="false">
+  <g class="sc sc-study">
+    ${shadow(124, 66)}
+    <g transform="translate(-12 0)"><g class="s-type-body">${rig({ glasses: true })}</g></g>
+    ${LAPTOP}
+  </g>
+  <g class="sc sc-party">
+    ${shadow(134, 76)}
+    <g transform="translate(-26 0)"><g class="s-sit">${rig({ top: HAT })}</g></g>
+    ${CAKE}
+  </g>
+  <g class="sc sc-mic">
+    ${shadow(120, 54)}
+    <g transform="translate(-6 0)"><g class="s-talk">${rig({ top: MIC })}</g>${WAVES}</g>
+  </g>
+  <g class="sc sc-fly">
+    ${shadow(120, 50)}
+    ${SPEED}
+    <g transform="translate(8 -18) rotate(-6 116 106)"><g class="s-float">${rig({ back: WING })}</g></g>
+  </g>
+  <g class="sc sc-trot">
+    ${shadow(118, 52)}
+    <g class="s-color">${rig()}</g>
+    <g class="s-lines">${rig()}</g>
+  </g>
+</svg>`;
+}
+
+// The loop, step by step: [scene, ms on screen, extra classes on that scene].
+// Scene changes are quick ghosted cuts; the outgoing pose drifts as it fades.
+const STEPS = [
+  ['study', 380, ''],
+  ['party', 400, ''],
+  ['mic', 520, ''],
+  ['fly', 420, ''],
+  ['trot', 1700, 'shut'],
+  ['trot', 420, 'shut sketch'],
+  ['trot', 700, ''],
+];
+const EXIT = { study: 'exit-right', party: 'exit-right', mic: 'exit-right', fly: 'exit-left', trot: 'exit-left' };
 
 /** Runs the landing-scene loop until the SVG leaves the page. */
 export function playScene(svg) {
@@ -109,49 +229,25 @@ export function playScene(svg) {
   const scene = (name) => svg.querySelector(`.sc-${name}`);
   let reduce = false;
   try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch { /* ignore */ }
-  if (reduce) { scene('party').classList.add('on'); return; }
+  if (reduce) { scene('trot').classList.add('on'); return; }
   const later = (fn, ms) => setTimeout(() => { if (svg.isConnected) fn(); }, ms);
   let i = 0;
   const next = () => {
-    const [name, ms] = SCENES[i];
+    const [name, ms, mods] = STEPS[i];
     const el = scene(name);
     const prev = svg.querySelector('.sc.on');
     if (prev && prev !== el) {
-      prev.classList.replace('on', 'off'); // keeps moving while it fades out
-      later(() => prev.classList.remove('off'), 700);
+      const exit = EXIT[prev.dataset.name];
+      prev.classList.remove('on', 'shut', 'sketch');
+      prev.classList.add('off', exit);
+      later(() => prev.classList.remove('off', exit), 220);
     }
+    el.dataset.name = name;
+    el.classList.remove('shut', 'sketch');
+    if (mods) el.classList.add(...mods.split(' '));
     el.classList.add('on');
-    if (name === 'trot') {
-      later(() => el.classList.add('sketch'), ms * 0.48);
-      later(() => el.classList.remove('sketch'), ms * 0.48 + 900);
-    }
-    i = (i + 1) % SCENES.length;
+    i = (i + 1) % STEPS.length;
     later(next, ms);
   };
   next();
-}
-
-export function trotter() {
-  return `<svg class="side-scene" viewBox="0 0 240 200" aria-hidden="true" focusable="false">
-  <g class="sc sc-study">
-    <ellipse class="s-shadow" cx="118" cy="178" rx="74" ry="6"/>
-    <g transform="translate(-18 12)">${rig({ glasses: true })}</g>
-    ${LAPTOP}
-  </g>
-  <g class="sc sc-party">
-    <ellipse class="s-shadow" cx="128" cy="178" rx="84" ry="6"/>
-    <g transform="translate(-30 12)"><g class="s-hop">${rig({ eyes: 'happy', front: HAT })}</g></g>
-    ${CAKE}
-  </g>
-  <g class="sc sc-fly">
-    <ellipse class="s-shadow s-shadow-fly" cx="122" cy="180" rx="40" ry="5"/>
-    ${SPEED}
-    <g class="s-float"><g transform="translate(6 -20) rotate(-8 120 110)">${rig({ back: WING })}</g></g>
-  </g>
-  <g class="sc sc-trot">
-    <ellipse class="s-shadow s-shadow-trot" cx="122" cy="178" rx="52" ry="6"/>
-    <g class="s-color">${rig({ eyes: 'happy' })}</g>
-    <g class="s-lines">${rig({ eyes: 'happy' })}</g>
-  </g>
-</svg>`;
 }

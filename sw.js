@@ -1,6 +1,6 @@
 // Offline support. Network first (so updates show up straight away),
 // falling back to the cache when offline or when the network is slow.
-const CACHE = 'blurto-v1';
+const CACHE = 'blurto-v2';
 const ASSETS = [
   './',
   'index.html',
@@ -15,6 +15,8 @@ const ASSETS = [
   'src/storage.js',
   'src/device.js',
   'src/mascot.js',
+  'src/monster3d.js',
+  'vendor/three.module.min.js',
 ];
 
 self.addEventListener('install', (e) => {

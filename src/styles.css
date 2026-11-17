@@ -15,6 +15,9 @@
 
   --monster: #7C5CFF;  --monster-belly: #A996FF;  --monster-lip: #5B3FE0;  --monster-shade: #4A31C4;
   --ink: #2B1640;
+  --monster-deep: #3A2699;
+  --outline: #24133A;  --sketch: #8E879C;
+  --q-shadow: #98A7F3;  --q-shadow-sketch: #D3E6F5;
 
   --accent: var(--brand); --on-accent: var(--on-brand); --accent-soft: var(--brand-soft); --accent-ink: var(--brand-ink);
   color-scheme: light dark;
@@ -36,6 +39,9 @@
 
     --monster: #8F74FF;  --monster-belly: #B5A6FF;  --monster-lip: #6A4FF0;  --monster-shade: #5639DA;
     --ink: #E9E3FF;
+    --monster-deep: #4128B0;
+    --outline: #120A22;  --sketch: #A79FBC;
+    --q-shadow: #4F5AAE;  --q-shadow-sketch: #2B3552;
   }
 }
 
@@ -216,127 +222,126 @@ legend { padding: 0; margin-bottom: 12px; font-size: 1.125rem; font-weight: 800;
   background: var(--accent); color: var(--on-accent); font-size: 1rem;
 }
 
-/* ---- Mascot -------------------------------------------------------------- */
+/* ---- Mascot (front view) -------------------------------------------------
+   Colours live in src/mascot.js as SVG attributes; CSS only poses and moves it. */
 .mascot { display: block; overflow: visible; margin-inline: auto; }
-.m-skin, .m-arm, .m-horn { fill: var(--monster); }
-.m-belly { fill: var(--monster-belly); }
-.m-eye { fill: #FFFFFF; }
-.m-pupils { fill: #1B1030; }
-.m-glint { fill: #FFFFFF; }
-.m-mouth-o { fill: #2B1640; stroke: var(--monster-lip); stroke-width: 3; }
-.m-tongue { fill: #FF7A9A; }
-.m-tooth { fill: #FFFFFF; }
-.m-cheek { fill: #FF8FB1; opacity: .55; }
-.m-happy { fill: none; stroke: #1B1030; stroke-width: 4; stroke-linecap: round; display: none; }
 .m-body, .m-mouth, .m-pupils, .m-arm { transform-box: fill-box; transform-origin: center; transition: transform .3s ease; }
 .m-body { transform-origin: 50% 100%; }
-.m-arm-l { transform-origin: 90% 15%; }
-.m-arm-r { transform-origin: 10% 15%; }
+.m-arm-l { transform-origin: 70% 12%; }
+.m-arm-r { transform-origin: 30% 12%; }
 
 .m-idle .m-body { animation: bob 3s ease-in-out infinite; }
 .m-curious .m-body { transform: rotate(-6deg); }
-.m-curious .m-pupils { transform: translate(3px, -3px); }
-.m-curious .m-mouth { transform: scale(.55); }
+.m-curious .m-pupils { transform: translate(2.5px, -2px); }
+.m-curious .m-mouth { transform: scale(.6); }
 .m-speak .m-mouth { animation: talk .45s ease-in-out infinite alternate; }
-.m-cheer .m-eye, .m-cheer .m-pupils { display: none; }
+.m-cheer .m-eye { display: none; }
 .m-cheer .m-happy { display: inline; }
-.m-cheer .m-arm-l { transform: rotate(140deg); }
-.m-cheer .m-arm-r { transform: rotate(-140deg); }
-.m-cheer .m-mouth { transform: scale(1.2); }
+.m-cheer .m-arm-l { transform: rotate(130deg); }
+.m-cheer .m-arm-r { transform: rotate(-130deg); }
+.m-cheer .m-mouth { transform: scale(1.25); }
 .m-cheer .m-body { animation: hop .7s ease-in-out infinite alternate; }
-.m-logo .m-mouth { transform: scale(1.15); }
+.m-logo .m-mouth { transform: scale(1.5); }
 
-/* ---- Landing scene: side-view vignettes that dissolve into each other ----
-   playScene() in src/mascot.js runs the loop: study → celebrate → zoom → trot,
-   with a line-art moment mid-trot. Each change is a 0.6 s eased crossfade.
-   Only the scene on screen (and the one fading out) animates; the rest are
-   paused, so the phone draws one scene at a time and keeps a steady frame rate. */
+/* ---- Landing scene: side-on, outlined monster ----------------------------
+   playScene() in src/mascot.js runs a ~4 s loop timed to the reference
+   recording: study → celebrate → zoom → trot (eyes shut) → line art → trot
+   (eyes open). Cuts are quick ghosted dissolves; the outgoing pose drifts
+   sideways as it fades. Hidden scenes are paused. */
 .side-scene {
   --sine: cubic-bezier(.37, 0, .63, 1);
-  display: block; width: min(76vw, 36vh, 300px); height: auto; margin: -6px auto -4px; overflow: visible;
+  display: block; width: min(80vw, 36vh, 310px); height: auto; margin: -6px auto -4px; overflow: visible;
 }
-.side-scene .ink { stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; stroke-opacity: 0; }
-.side-scene .sc { opacity: 0; transition: opacity .6s cubic-bezier(.45, 0, .55, 1); will-change: opacity; }
-.side-scene .sc.on { opacity: 1; }
+.s-shadow { fill: var(--q-shadow); transition: fill .2s linear; }
+.side-scene .e-happy { display: none; }
+.side-scene .shut .e-happy { display: inline; }
+.side-scene .shut .e-open { display: none; }
+
+/* Cuts */
+.side-scene .sc { opacity: 0; transition: opacity .1s linear, transform .12s ease-out; }
+.side-scene .sc.on { opacity: 1; transition-duration: .06s, 0s; }
+.side-scene .sc.off { opacity: 0; transition: opacity .12s ease-out, transform .12s ease-out; }
+.side-scene .sc.exit-right { transform: translateX(16px); }
+.side-scene .sc.exit-left { transform: translateX(-16px); }
 .side-scene .sc:not(.on):not(.off) * { animation-play-state: paused; }
-.side-scene .skin { fill: var(--monster); }
-.side-scene .far { fill: var(--monster-lip); }
-.side-scene .foot { fill: var(--monster-lip); }
-.side-scene .foot-far { fill: var(--monster-shade); }
-.side-scene .belly { fill: var(--monster-belly); }
-.side-scene .eye { fill: #FFFFFF; }
-.side-scene .pupil { fill: #1B1030; }
-.side-scene .glint { fill: #FFFFFF; }
-.side-scene .cheek { fill: #FF8FB1; opacity: .6; }
-.side-scene .mouth { fill: #2B1640; stroke: var(--monster-shade); stroke-width: 2.4; }
-.side-scene .tongue { fill: #FF7A9A; }
-.side-scene .tooth { fill: #FFFFFF; }
-.s-shadow { fill: var(--monster); opacity: .2; }
 
-/* Rig pivots (in the rig's own coordinates). */
-.s-leg, .s-arm, .s-wing, .s-bob, .s-hop, .s-float, .s-pupil { transform-box: view-box; }
-.s-leg-b { transform-origin: 100px 144px; }
-.s-leg-f { transform-origin: 134px 144px; }
-.s-arm-b { transform-origin: 104px 118px; }
-.s-arm-f { transform-origin: 122px 119px; }
-.s-wing { transform-origin: 100px 76px; }
-.s-bob, .s-hop { transform-origin: 120px 158px; }
+/* Pivots (rig coordinates). Each leg's hip is set inline. */
+.q-leg, .s-arm, .s-bob, .s-sit, .s-float, .s-type-body, .s-wing { transform-box: view-box; }
+.s-arm-f { transform-origin: 130px 105px; }
+.s-arm-b { transform-origin: 98px 98px; }
+.s-bob { transform-origin: 116px 156px; }
+.s-type-body { transform-origin: 116px 168px; }
+.s-sit { transform-origin: 80px 168px; }
+.s-wing { transform-origin: 92px 84px; }
+.s-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: s-flicker .24s var(--sine) infinite alternate; }
+.s-flame:nth-of-type(2) { animation-delay: -.08s; }
+.s-flame:nth-of-type(3) { animation-delay: -.16s; }
+@keyframes s-flicker { from { transform: scale(.85, .8); } to { transform: scale(1.05, 1.1); } }
 
-/* Study: sitting, typing, eyes moving across the screen */
-.sc-study .s-leg, .sc-party .s-leg { transform: rotate(-80deg); }
-.sc-study .s-arm-f { animation: s-type .26s var(--sine) infinite alternate; }
-.sc-study .s-arm-b { transform: rotate(-40deg); }
-.sc-study .s-pupil { animation: s-read 2.6s var(--sine) infinite; }
-@keyframes s-type { from { transform: rotate(-57deg); } to { transform: rotate(-47deg); } }
-@keyframes s-read { 0%, 25% { transform: translate(0, 1px); } 55%, 85% { transform: translate(1.6px, 2px); } 100% { transform: translate(0, 1px); } }
+/* Study: at the laptop, arm tapping the keys */
+.sc-study .s-arm-f { animation: s-type .18s var(--sine) infinite alternate; }
+.sc-study .s-arm-b { transform: rotate(-30deg); }
+.sc-study .s-type-body { animation: s-nod .36s var(--sine) infinite alternate; }
+@keyframes s-type { from { transform: rotate(-64deg); } to { transform: rotate(-50deg); } }
+@keyframes s-nod { from { transform: translateY(0); } to { transform: translateY(-1.5px); } }
 
-/* Celebrate: a happy sway next to the cake */
-.sc-party .s-hop { animation: s-hop .5s var(--sine) infinite alternate; }
+/* Celebrate: sitting next to the cake, arms up, a little happy sway */
+.sc-party .s-sit { animation: s-sway .4s var(--sine) infinite alternate; }
+.sc-party .q-leg { transform: rotate(-72deg); }
 .sc-party .s-arm-f { transform: rotate(-150deg); }
-.sc-party .s-arm-b { transform: rotate(-130deg); }
-.s-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: s-flicker .4s var(--sine) infinite alternate; }
-.s-flame:nth-of-type(2) { animation-delay: -.13s; }
-.s-flame:nth-of-type(3) { animation-delay: -.27s; }
-@keyframes s-hop { from { transform: translateY(0) rotate(0deg) scale(1.015, .985); } to { transform: translateY(-4px) rotate(-1.6deg) scale(.99, 1.01); } }
-@keyframes s-flicker { from { transform: scale(.88, .84); opacity: .85; } to { transform: scale(1.04, 1.08); opacity: 1; } }
+.sc-party .s-arm-b { transform: rotate(-140deg); }
+@keyframes s-sway { from { transform: translateY(8px) rotate(-6deg); } to { transform: translateY(6px) rotate(-3deg); } }
 
-/* Zoom: legs tucked, wings flapping, speed lines streaming back */
-.sc-fly .s-leg { transform: rotate(60deg); }
-.sc-fly .s-arm-f { transform: rotate(50deg); }
-.sc-fly .s-arm-b { transform: rotate(40deg); }
-.sc-fly .s-float { animation: s-float .9s var(--sine) infinite alternate; }
-.sc-fly .s-wing { animation: s-flap .22s var(--sine) infinite alternate; }
-.s-speed path { stroke-dasharray: 22 60; animation: s-speed .55s linear infinite; }
-.s-speed path:nth-child(2) { animation-delay: -.2s; }
-.s-speed path:nth-child(3) { animation-delay: -.38s; }
-.s-shadow-fly { transform-box: fill-box; transform-origin: center; animation: s-fly-shadow .9s var(--sine) infinite alternate; }
-@keyframes s-float { from { transform: translateY(0); } to { transform: translateY(-6px); } }
-@keyframes s-flap { from { transform: rotate(8deg) scaleY(1); } to { transform: rotate(-14deg) scaleY(.78); } }
-@keyframes s-speed { from { stroke-dashoffset: -60; } to { stroke-dashoffset: 22; } }
-@keyframes s-fly-shadow { from { transform: scaleX(1); opacity: .16; } to { transform: scaleX(.86); opacity: .1; } }
+/* Speak: holding a mic up to the mouth, sound waves rippling out */
+.q-leg, .s-talk { transform-box: view-box; }
+.s-talk { transform-origin: 116px 168px; animation: s-nod .2s var(--sine) infinite alternate; }
+.sc-mic .s-arm-f { transform: rotate(-45deg); }
+.sc-mic .s-arm-b { animation: s-gesture .4s var(--sine) infinite alternate; }
+.s-waves path { animation: s-wave .45s ease-out infinite; }
+.s-waves path:nth-child(2) { animation-delay: -.15s; }
+.s-waves path:nth-child(3) { animation-delay: -.3s; }
+@keyframes s-gesture { from { transform: rotate(-20deg); } to { transform: rotate(-55deg); } }
+@keyframes s-wave { 0% { opacity: 0; } 30% { opacity: 1; } 100% { opacity: 0; } }
 
-/* Trot: legs in turn, body bobbing twice per stride with a little squash, arms swinging */
-.sc-trot .s-leg-f { animation: s-stride .34s var(--sine) infinite alternate; }
-.sc-trot .s-leg-b { animation: s-stride .34s var(--sine) infinite alternate-reverse; }
-.sc-trot .s-arm-f { animation: s-swing .34s var(--sine) infinite alternate-reverse; }
-.sc-trot .s-arm-b { animation: s-swing .34s var(--sine) infinite alternate; }
-.sc-trot .s-bob { animation: s-bob .17s var(--sine) infinite alternate; }
-.s-shadow-trot { transform-box: fill-box; transform-origin: center; animation: s-trot-shadow .17s var(--sine) infinite alternate; transition: opacity .35s var(--sine); }
-@keyframes s-stride { from { transform: rotate(24deg); } to { transform: rotate(-24deg); } }
-@keyframes s-swing { from { transform: rotate(26deg); } to { transform: rotate(-26deg); } }
-@keyframes s-bob { from { transform: translateY(1px) scale(1.02, .98); } to { transform: translateY(-4px) scale(.99, 1.01); } }
-@keyframes s-trot-shadow { from { transform: scaleX(1); } to { transform: scaleX(.92); } }
+/* Zoom: stretched out, wings beating, speed lines streaming back */
+.sc-fly .q-leg { transform: rotate(58deg); }
+.sc-fly .s-arm-f { transform: rotate(-78deg); }
+.sc-fly .s-arm-b { transform: rotate(-62deg); }
+.sc-fly .s-float { animation: s-float .4s var(--sine) infinite alternate; }
+.sc-fly .s-wing { animation: s-flap .14s var(--sine) infinite alternate; }
+.s-speed path { stroke-dasharray: 20 50; animation: s-speed .32s linear infinite; }
+.s-speed path:nth-child(2) { animation-delay: -.12s; }
+.s-speed path:nth-child(3) { animation-delay: -.22s; }
+@keyframes s-float { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+@keyframes s-flap { from { transform: rotate(6deg) scaleY(1); } to { transform: rotate(-12deg) scaleY(.8); } }
+@keyframes s-speed { from { stroke-dashoffset: -50; } to { stroke-dashoffset: 20; } }
 
-/* Mid-trot it turns into line art for a moment, then colour washes back in.
-   The line art is a second copy of the rig with paper fills, so hidden parts stay hidden. */
-.side-scene .wing { stroke: var(--ink); stroke-width: 2.2; stroke-linejoin: round; }
-.side-scene .s-lines { opacity: 0; transition: opacity .35s var(--sine); }
-.side-scene .s-lines .ink { stroke-opacity: 1; }
+/* Trot: legs in turn, each foot lifting as it swings forward; arms swing opposite */
+.sc-trot .q-leg { animation: q-step .44s linear infinite; }
+.sc-trot .q-f { animation-delay: -.22s; }
+.sc-trot .s-arm-f { animation: s-swing .22s var(--sine) infinite alternate; }
+.sc-trot .s-arm-b { animation: s-swing .22s var(--sine) infinite alternate-reverse; }
+.sc-trot .s-bob { animation: s-bob .11s var(--sine) infinite alternate; }
+.sc-trot .s-shadow { transform-box: fill-box; transform-origin: center; animation: s-shadow .11s var(--sine) infinite alternate; }
+@keyframes q-step {
+  0%   { transform: rotate(22deg); animation-timing-function: ease-out; }
+  25%  { transform: translateY(-6px) rotate(2deg); animation-timing-function: ease-in; }
+  50%  { transform: rotate(-22deg); animation-timing-function: linear; }
+  100% { transform: rotate(22deg); }
+}
+@keyframes s-swing { from { transform: rotate(24deg); } to { transform: rotate(-24deg); } }
+@keyframes s-bob { from { transform: translateY(0) scale(1.012, .988); } to { transform: translateY(-3.5px) scale(.995, 1.005); } }
+@keyframes s-shadow { from { transform: scaleX(1); } to { transform: scaleX(.94); } }
+
+/* Line art: a second copy of the rig in thin grey lines on paper fills. */
+.side-scene .s-color { transition: opacity .22s linear; }
+.side-scene .s-lines { opacity: 0; transition: opacity .15s linear; }
 .side-scene .s-lines * { fill: var(--bg); }
-.side-scene .s-lines .line[fill="none"], .side-scene .s-lines .line[fill="none"] * { fill: none; }
-.side-scene .s-lines .mouth { stroke: var(--ink); }
-.side-scene .sc-trot.sketch .s-lines { opacity: 1; }
-.side-scene .sc-trot.sketch .s-shadow-trot { opacity: .08; }
+.side-scene .s-lines .ink, .side-scene .s-lines .ink-line { stroke: var(--sketch); stroke-width: 1.5; }
+.side-scene .s-lines .ink-line { fill: none; }
+.side-scene .sketch .s-lines { opacity: 1; transition-duration: .05s; }
+.side-scene .sketch .s-color { opacity: 0; transition-duration: .05s; }
+.side-scene .sketch .s-shadow { fill: var(--q-shadow-sketch); }
 
 @keyframes bob { 50% { transform: translateY(-4px); } }
 @keyframes talk { from { transform: scale(.9); } to { transform: scale(1.4); } }
@@ -366,7 +371,5 @@ legend { padding: 0; margin-bottom: 12px; font-size: 1.125rem; font-weight: 800;
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  /* Still scene: the monster celebrating next to its cake. */
-  .side-scene .sc { opacity: 0; }
-  .side-scene .sc-party { opacity: 1; }
+  /* Still scene: playScene() shows the trot pose without starting the loop. */
 }

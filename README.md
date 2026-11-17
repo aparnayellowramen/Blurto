@@ -23,6 +23,12 @@ npm run build        # CSV → data/topics.json, with validation
 The build fails on a repeated or missing ID, a missing category or topic, or a duplicate topic name, and warns on topics over 3 words.
 Never change or reuse an ID: each device's "already seen" history is stored by ID, and new IDs are shuffled into every device's remaining queue.
 
+## The monster
+
+The monster is real-time 3D ([src/monster3d.js](src/monster3d.js)): WebGL via three.js, with shell-rendered fur.
+The flat SVG version in [src/mascot.js](src/mascot.js) shows first while 3D loads, and stays on devices without WebGL.
+three.js is vendored into `vendor/` so the app works offline. To upgrade it, change the version in `package.json`, then run `npm install && npm run vendor`.
+
 ## Test
 
 ```sh

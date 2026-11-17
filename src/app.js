@@ -5,6 +5,16 @@ import { store } from './storage.js';
 import { sounds, vibrate, unlockAudio, keepAwake } from './device.js';
 import { mascot, trotter, playScene } from './mascot.js';
 
+// The 3D monster loads in the background. Until it's ready, or if the device
+// can't run WebGL, the flat SVG monster shows instead.
+const monster3d = import('./monster3d.js')
+  .then((m) => (m.supported() ? m : null))
+  .catch(() => null);
+const upgradeMonsters = (...roots) => monster3d.then((m) => {
+  if (!m) return;
+  try { roots.forEach((r) => m.upgrade(r)); } catch { /* keep the SVG */ }
+});
+
 // ---- Config ---------------------------------------------------------------
 // ?speed=60 runs every timer 60x faster, for testing a whole session quickly.
 const SPEED = Math.max(1, Number(new URLSearchParams(location.search).get('speed')) || 1);
@@ -254,6 +264,7 @@ function render() {
     ${inSession ? '<button class="link-btn" data-action="quit">Quit</button>' : ''}`;
   $app.innerHTML = VIEWS[phase]();
   playScene($app.querySelector('.side-scene'));
+  upgradeMonsters($top, $app);
   justRevealed = false;
   if (TIMED.has(phase)) {
     updateTimer();
