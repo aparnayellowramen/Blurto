@@ -5,3 +5,5 @@ Thumbs.db
 Recording *.mp4
 brag-output/
 brag-output-*/
+public/
+.vercel/

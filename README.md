@@ -127,6 +127,9 @@ Add `?speed=60` to the URL to run every timer 60× faster when testing a full se
 
 **Deploy:** upload to any static host (Netlify, Cloudflare Pages, GitHub Pages). The app needs `index.html`, `manifest.webmanifest`, `sw.js`, `src/`, `data/`, `icons/` and `vendor/`. Offline support and installing as an app need HTTPS.
 
+- **GitHub Pages** serves the repo as-is (`.nojekyll` keeps it from being rebuilt).
+- **Vercel** uses `vercel.json`: `node scripts/vercel-build.mjs` copies just those app files into `public/`, which is what gets served. Import the repo on Vercel with the framework preset left as "Other"; no settings to change.
+
 **Topics:** the topic sheet is the source of truth; export it as CSV into the project root and run `npm run build`. Never change or reuse a topic ID: each device's "already seen" history is stored by ID.
 
 **Where things live**
